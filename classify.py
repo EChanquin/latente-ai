@@ -13,6 +13,7 @@ import hashlib
 import json
 import sys
 import time
+from collections import Counter
 from datetime import datetime, timezone
 
 import anthropic
@@ -87,7 +88,11 @@ def normalize(obj):
 
 
 def route(c):
-    """Route to human review if ANY explicit uncertainty signal is present."""
+    """Route to human review if ANY explicit uncertainty signal is present.
+
+    Reports with no signal are marked "Auto-classified", never "Confirmed": only a human reviewer
+    confirms or rejects a label, even when every threshold is met.
+    """
     reasons = []
     if c["fits_taxonomy"] is not True:
         reasons.append("taxonomy does not fit")
@@ -97,7 +102,7 @@ def route(c):
         reasons.append("alternative label named")
     if reasons:
         return {"confidence": "REVIEW", "status": "Needs Review", "reason": "; ".join(reasons)}
-    return {"confidence": "HIGH", "status": "Confirmed", "reason": "none"}
+    return {"confidence": "HIGH", "status": "Auto-classified", "reason": "none"}
 
 
 def classify_report(client, system, report):
@@ -125,7 +130,16 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--only", nargs="*", help="report ids to (re)classify")
     parser.add_argument("--fresh", action="store_true", help="ignore existing results.json")
+    parser.add_argument("--reroute", action="store_true", help="recompute routing from saved classifications (no API calls)")
     args = parser.parse_args()
+
+    if args.reroute:
+        results = json.load(open(RESULTS))
+        for record in results["records"]:
+            record["routing"] = route(record["classification"])
+        RESULTS.write_text(json.dumps(results, indent=2, ensure_ascii=False))
+        print("rerouted:", dict(Counter(r["routing"]["status"] for r in results["records"])))
+        return
 
     load_env()
     system = load_system_prompt()

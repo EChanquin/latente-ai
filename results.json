@@ -64,7 +64,7 @@
       },
       "routing": {
         "confidence": "HIGH",
-        "status": "Confirmed",
+        "status": "Auto-classified",
         "reason": "none"
       },
       "raw_responses": [
@@ -517,7 +517,7 @@
       },
       "routing": {
         "confidence": "HIGH",
-        "status": "Confirmed",
+        "status": "Auto-classified",
         "reason": "none"
       },
       "raw_responses": [
@@ -622,7 +622,7 @@
       },
       "routing": {
         "confidence": "HIGH",
-        "status": "Confirmed",
+        "status": "Auto-classified",
         "reason": "none"
       },
       "raw_responses": [
@@ -656,7 +656,7 @@
       },
       "routing": {
         "confidence": "HIGH",
-        "status": "Confirmed",
+        "status": "Auto-classified",
         "reason": "none"
       },
       "raw_responses": [
@@ -1079,7 +1079,7 @@
       },
       "routing": {
         "confidence": "HIGH",
-        "status": "Confirmed",
+        "status": "Auto-classified",
         "reason": "none"
       },
       "raw_responses": [

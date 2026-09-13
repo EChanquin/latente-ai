@@ -54,7 +54,12 @@ def find_pages(headers, report_id):
     return [page["id"] for page in notion("POST", f"/databases/{DATABASE_ID}/query", headers, body)["results"]]
 
 
-def row_properties(record):
+def load_assignments():
+    path = ROOT / "clusters.json"
+    return json.load(open(path)).get("assignments", {}) if path.exists() else {}
+
+
+def row_properties(record, clusters=()):
     c, routing = record["classification"], record["routing"]
     return {
         "Report ID": {"title": [{"text": {"content": record["id"]}}]},
@@ -68,16 +73,17 @@ def row_properties(record):
         "Reasoning": rich(c.get("reasoning") or ""),
         "Processing Note": rich(c.get("processing_note") or ""),
         "Status": {"select": {"name": routing["status"]}},
-        "Cluster": rich(""),
+        "Cluster": rich("; ".join(clusters)),
     }
 
 
 def write_rows(headers, only=None):
     records = json.load(open(ROOT / "results.json"))["records"]
+    assignments = load_assignments()  # rewriting a row must not blank out its cluster
     for record in records:
         if only and record["id"] not in only:
             continue
-        props = row_properties(record)
+        props = row_properties(record, assignments.get(record["id"], []))
         existing = find_pages(headers, record["id"])
         if existing:
             for page_id in existing:
@@ -90,7 +96,7 @@ def write_rows(headers, only=None):
 
 
 def write_clusters(headers):
-    assignments = json.load(open(ROOT / "clusters.json"))["assignments"]
+    assignments = load_assignments()
     records = json.load(open(ROOT / "results.json"))["records"]
     for record in records:
         value = "; ".join(assignments.get(record["id"], []))

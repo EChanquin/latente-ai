@@ -2,7 +2,25 @@
 
 **All data in this repository is synthetic.** No real patients, staff, or incidents. `corpus.json` was written for this project; it contains no PHI.
 
-Most incident-review tooling reads one report at a time and files it under a contributing-factor category. This project does that step, but treats it as the input to a second question: *which failure modes show up across many reports that each describe them differently and never name them?*
+## Problem and intended outcome
+
+**User:** a hospital quality and safety reviewer working through incoming incident reports.
+
+**Problem:** Reports are reviewed one at a time. Each gets a contributing-factor category and is filed. Practitioners describe this taxonomy mapping as largely failed. Labels are inconsistent, and system-level hazards stay invisible because each report blames a different proximate cause.
+
+**What the agent does, as one workflow:** ingest an incident report → propose a contributing factor, amplifiers, and explicit uncertainty signals → send anything uncertain to a human review queue in Notion → cluster the full set into latent failure-mode hypotheses and log them back to the queue.
+
+**Intended outcome:**
+- The reviewer's attention goes to the reports that need it.
+- A confident but wrong label never silently enters the pattern analysis.
+- Cross-report hazards surface as hypotheses a person can check.
+
+**Success criteria, measured on a synthetic test corpus:**
+- Every wrong label reaches a human.
+- Planted cross-report patterns are recovered under a match rule fixed in advance.
+- Every number is reproducible from this repository.
+
+**Not yet measured:** reviewer time saved in a live setting.
 
 ## Where the idea came from
 
@@ -23,7 +41,7 @@ corpus.json ──► classify.py ──► routing ──► Notion review queu
 
 1. **Classification** (`classify.py`). Each report's text alone is sent to Claude with the system prompt from `agent-instructions-v4.txt`. The model returns one primary label (PERSON, TASK, TECH, ORG, ENV), zero or more amplifiers (INTERRUPTION, FATIGUE, MEMORY_LOAD), a one-sentence reasoning, and three uncertainty signals: `fits_taxonomy`, `alternative_label`, and `processing_note`.
 2. **Routing.** A report goes to human review if *any* uncertainty signal fires; otherwise it is auto-classified. The triggering condition is recorded as the routing reason.
-3. **Review queue** (`write_notion.py`). One Notion database row per report, with label, confidence (HIGH or REVIEW), routing reason, reasoning, and status (Confirmed or Needs Review).
+3. **Review queue** (`write_notion.py`). One Notion database row per report, with label, confidence (HIGH or REVIEW), routing reason, reasoning, and status. The model only ever sets `Needs Review` or `Auto-classified`. `Confirmed` and `Rejected` are reserved for a human reviewer, so human judgment stays above the model even when every threshold is met.
 4. **Clustering** (`cluster.py`). A separate model call receives all classifications (text, label, amplifiers, reasoning) and proposes latent failure modes. Each is phrased as a hypothesis with a confidence level and member report ids. The model is not told how many clusters exist. Proposed cluster names are written back to the Cluster column in Notion.
 5. **Evaluation** (`eval.py`). Results are scored against the ground truth in `corpus.json` and written to `eval-results.md`.
 

@@ -32,12 +32,34 @@ This project keeps the taxonomy as a first pass, makes its uncertainty explicit 
 
 ## What was built
 
+```mermaid
+flowchart LR
+    A[Incident report<br/>text only] --> B[Stage 1: Classifier agent<br/>claude-opus-5]
+    B -->|unparseable twice| P[processing_note set]
+    B --> G{Gate: any uncertainty signal?<br/>fits_taxonomy false<br/>alternative_label set<br/>processing_note set}
+    P --> G
+    G -->|yes| R[Notion: Needs Review]
+    G -->|no| Q[Notion: Auto-classified]
+    R --> H((Human reviewer<br/>Confirmed / Rejected))
+    Q --> H
+    B --> C[Stage 2: Clustering agent<br/>all reports, one call]
+    C --> N[Notion: Cluster column]
+    C --> S[Slack: pattern alerts<br/>+ review-queue summary]
+    S --> H
+    N --> H
 ```
-corpus.json ──► classify.py ──► routing ──► Notion review queue ──► cluster.py ──► Cluster column ──► eval.py
- (intake)      one report per    explicit     one row per report     all reports      written back       scored vs
-               API call, SEIPS-  uncertainty  (HIGH / REVIEW)        in one call,     to Notion          ground truth
-               style label       signals                             hypotheses
-```
+
+A human sits above every path. The model can only ever set `Needs Review` or `Auto-classified`.
+
+### Stages, inputs, and outputs
+
+| Stage | Purpose | Input | Output | Gate / escalation | Stage-specific eval |
+|---|---|---|---|---|---|
+| 1. Classifier (`classify.py`) | Propose one contributing factor per report | Report text only | label, alternative_label, amplifiers, fits_taxonomy, reasoning, processing_note | Two-step parse, then one retry; any uncertainty signal routes to review | Label accuracy; amplifier precision and recall; parse-failure rate |
+| 2. Routing (`classify.py`) | Decide what a human must look at | Stage 1 output | Needs Review / Auto-classified, with reason | Rule-based; never sets Confirmed | Routing precision and recall vs `ambiguous`; share of wrong labels that reached review |
+| 3. Review queue (`write_notion.py`) | Put decisions in front of a reviewer | Stage 1–2 output | One Notion row per report | `--verify` checks that every report landed | 32/32 rows present |
+| 4. Clustering (`cluster.py`) | Surface cross-report latent failure modes | Text + stage 1 output | Cluster hypotheses with confidence and members | Every cluster is a hypothesis for a person, not a finding | Purity/coverage under a fixed match rule; false clusters; tested in isolation (below) |
+| 5. Escalation (`notify_slack.py`) | Alert reviewers to patterns | Stage 3–4 output | Slack message linking Notion rows | Dry run by default; `--send` posts | Message content checked in dry run |
 
 1. **Classification** (`classify.py`). Each report's text alone is sent to Claude with the system prompt from `agent-instructions-v4.txt`. The model returns one primary label (PERSON, TASK, TECH, ORG, ENV), zero or more amplifiers (INTERRUPTION, FATIGUE, MEMORY_LOAD), a one-sentence reasoning, and three uncertainty signals: `fits_taxonomy`, `alternative_label`, and `processing_note`.
 2. **Routing.** A report goes to human review if *any* uncertainty signal fires; otherwise it is auto-classified. The triggering condition is recorded as the routing reason.
@@ -141,6 +163,20 @@ The model proposed 11 clusters; 9 match no planted cluster. Some of these read a
 | INTERRUPTION | 9 | 11 | 82% | 100% |
 | FATIGUE | 9 | 1 | 100% | 11% |
 | MEMORY_LOAD | 8 | 8 | 75% | 75% |
+
+### Manual error analysis: traced failures by stage
+
+All 9 misclassifications and both unexpected processing notes were read by hand against the report text, the model's reasoning, and the corpus's settling facts.
+
+| Failure category | Reports | Where it breaks | What the trace shows | Proposed fix at that stage |
+|---|---|---|---|---|
+| Taxonomy definition mismatch | R016, R020, R024, R026 (PERSON → TASK) | Taxonomy definition, before the model runs | The classifier prompt defines TASK as covering "skipped or degraded steps". The corpus reserves TASK for complexity, sequencing, and post-completion steps. An individual's slip that involves a skipped step is therefore read as TASK, correctly by the prompt's own wording. | Align the TASK and PERSON definitions between prompt and answer key |
+| Instruction leakage | R032 | Prompt construction | The Langflow-specific write step was stripped, but the TASK section still says "Then write the result to the Notion review queue." The model reported "No Notion write tool was available" in `processing_note`, which routed the report to review. | Remove the residual write instruction from the prompt |
+| Field misuse | R005 | Output schema | `processing_note` holds the model's reasoning about an alternative label instead of a policy-gate message, which inflates review routing. | Constrain `processing_note` to the policy gates, e.g. an enum of gate reasons |
+| Genuine ambiguity (working as designed) | R003, R020, R022, R025 | None | The model chose the other defensible label, named the competing label or reasoning, and routed to review. | None. This is the intended behavior. |
+| Handoff read as structure | R010 | Classifier judgment | A skipped handoff step under time pressure was read as ORG, production pressure, rather than TASK. | Examples contrasting TASK and ORG in the prompt |
+
+None of these fixes has been applied. Applying them and re-scoring on this same 32-report corpus would overstate the improvement, so the next iteration needs a held-out set.
 
 ### What the numbers say
 

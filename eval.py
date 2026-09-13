@@ -127,12 +127,9 @@ def parse_section(run, records):
     return out
 
 
-def cluster_section(truth, clusters):
-    out = ["## 4. Clustering", "",
-           "Match rule, fixed before results existed: P matches C if purity (share of P in C) >= 50% "
-           "AND coverage (share of C in P) >= 50%.", ""]
+def score_clusters(truth, proposed):
+    """Apply the fixed match rule. Returns (planted, found, false_clusters, detail rows)."""
     planted = {c: {i for i, t in truth.items() if t["planted_cluster"] == c} for c in PLANTED}
-    proposed = clusters["clusters"]
     found, false_clusters, detail = {}, [], []
     for p in proposed:
         members = set(p["member_ids"])
@@ -150,6 +147,15 @@ def cluster_section(truth, clusters):
         composition = Counter(truth[i]["planted_cluster"] or "noise" for i in members if i in truth)
         detail.append([p["name"], p.get("confidence", ""), len(members), ", ".join(sorted(members)),
                        ", ".join(f"{k}: {v}" for k, v in composition.most_common()), "yes" if matched else "no"])
+    return planted, found, false_clusters, detail
+
+
+def cluster_section(truth, clusters):
+    out = ["## 4. Clustering", "",
+           "Match rule, fixed before results existed: P matches C if purity (share of P in C) >= 50% "
+           "AND coverage (share of C in P) >= 50%.", ""]
+    proposed = clusters["clusters"]
+    planted, found, false_clusters, detail = score_clusters(truth, proposed)
 
     out += [f"**clusters_found: {len(found)}/2**  ·  proposed clusters: {len(proposed)}  ·  **false_clusters: {len(false_clusters)}**", ""]
     rows = []
@@ -170,6 +176,43 @@ def cluster_section(truth, clusters):
         for p in false_clusters:
             out += [f"- **{p['name']}** ({p.get('confidence', '')}): {p.get('hypothesis', '')}  ", f"  Members: {', '.join(p['member_ids'])}"]
         out.append("")
+    return out
+
+
+ABLATION_LABELS = {
+    "classifier": "Classifier output (production path)",
+    "classifier_repeat": "Classifier output, repeated run (stability)",
+    "truth": "Ground-truth label + amplifiers (perfect upstream classifier)",
+    "text-only": "Report text only (no classifier)",
+}
+
+
+def isolation_section(truth):
+    """Score the clustering stage under different inputs with the same fixed match rule."""
+    conditions = [("classifier", ROOT / "clusters.json")]
+    conditions += [(p.stem.removeprefix("clusters_"), p) for p in sorted((ROOT / "ablations").glob("clusters_*.json"))]
+    if len(conditions) == 1:
+        return []
+    out = ["## 6. Clustering stage tested in isolation", "",
+           "Same clustering prompt and match rule, different inputs. This separates clustering quality from "
+           "upstream classifier errors (does a classifier mistake propagate?) and measures run-to-run stability. "
+           "The ground-truth condition shows the model only `true_label` and `true_amplifiers`, never "
+           "`planted_cluster` or `notes_for_eval`.", ""]
+    rows = []
+    for key, path in conditions:
+        data = json.load(open(path))
+        label = ABLATION_LABELS.get(key, key)
+        if data.get("parse_failure"):
+            rows.append([label, "parse failure", "", "", "", ""])
+            continue
+        _, found, false_clusters, _ = score_clusters(truth, data["clusters"])
+        cells = [label, len(data["clusters"]), f"{len(found)}/2"]
+        for c in PLANTED:
+            cells.append(f"{found[c][1]:.0%} / {found[c][2]:.0%}" if c in found else "not matched")
+        cells.append(len(false_clusters))
+        rows.append(cells)
+    out += [table(["Input to clustering", "Proposed", "Found", "handoff purity / coverage",
+                   "verification purity / coverage", "False clusters"], rows), ""]
     return out
 
 
@@ -204,6 +247,7 @@ def main():
     else:
         out += ["## 4. Clustering", "", "_Not run yet._", ""]
     out += amplifier_section(truth, records)
+    out += isolation_section(truth)
     (ROOT / "eval-results.md").write_text("\n".join(out))
     print("\n".join(out))
 

@@ -4,6 +4,9 @@
 
 **All data in this repository is synthetic.** No real patients, staff, or incidents. `corpus.json` was written for this project; it contains no PHI.
 
+DEMO LINK: https://drive.google.com/drive/folders/1vULwHw3xjkLTR9mmFcjFD0jGdPqZfqiv?usp=sharing
+
+
 ## At a glance
 
 | | |

@@ -72,8 +72,10 @@ A human sits above every path. The model can only ever set `Needs Review` or `Au
 | App | Role |
 |---|---|
 | **Anthropic Claude API** (`claude-opus-5`) | Per-report classification and cross-report clustering |
-| **Notion** | Human review queue: one row per report, plus the cluster hypothesis for each |
-| **Intake source** | Incident reports arrive as `corpus.json`, a synthetic stand-in for an incident-reporting system export. A Langflow flow was built first as a proof of concept of the intake-to-Notion path; its rows (`R-001`) remain in the database as evidence. |
+| **Notion** | Human review queue: one row per report, with routing status, reasoning, and cluster hypothesis |
+| **Slack** | Escalation: posts the review-queue summary and high-confidence failure-mode alerts, each linking to the Notion rows |
+
+Incident reports enter as `corpus.json`, a synthetic stand-in for an incident-reporting system export. A Langflow flow was built first as a proof of concept of the intake-to-Notion path; its rows (`R-001`) remain in the Notion database as evidence.
 
 ## How to run
 
@@ -81,7 +83,7 @@ A human sits above every path. The model can only ever set `Needs Review` or `Au
 python3 -m venv .venv && .venv/bin/pip install anthropic requests
 ```
 
-Create a `.env` file (git-ignored) with `ANTHROPIC_API_KEY=...` and `NOTION_TOKEN=...`, or export both in your shell. Share the Notion database with your integration first.
+Create a `.env` file (git-ignored) with `ANTHROPIC_API_KEY=...`, `NOTION_TOKEN=...`, and `SLACK_WEBHOOK_URL=...`, or export them in your shell. Share the Notion database with your integration first.
 
 ```bash
 .venv/bin/python classify.py                  # steps 1-2 -> results.json (resumes if interrupted)
@@ -89,7 +91,14 @@ Create a `.env` file (git-ignored) with `ANTHROPIC_API_KEY=...` and `NOTION_TOKE
 .venv/bin/python write_notion.py --verify     # confirm every report has a row
 .venv/bin/python cluster.py                   # step 4 -> clusters.json
 .venv/bin/python write_notion.py --clusters   # write cluster names into Notion
+.venv/bin/python notify_slack.py              # preview the Slack escalation (dry run)
+.venv/bin/python notify_slack.py --send       # post it to Slack
 .venv/bin/python eval.py                      # step 5 -> eval-results.md
+
+# Clustering stage tested in isolation (outputs go to ablations/)
+.venv/bin/python cluster.py --input truth
+.venv/bin/python cluster.py --input text-only
+.venv/bin/python cluster.py --out ablations/clusters_classifier_repeat.json
 ```
 
 A full run of 32 reports plus clustering cost roughly $1–2 in API usage.
@@ -216,7 +225,9 @@ None of these fixes has been applied. Applying them and re-scoring on this same 
 | `classify.py` | Steps 1–2: classification, parse-failure handling, routing → `results.json` |
 | `write_notion.py` | Step 3: Notion rows, cluster write-back, verification |
 | `cluster.py` | Step 4: latent failure mode proposals → `clusters.json` |
+| `notify_slack.py` | Escalation: review-queue summary and cluster alerts to Slack |
 | `eval.py` | Step 5: scoring → `eval-results.md` |
 | `results.json`, `clusters.json`, `eval-results.md` | Outputs of the run reported above |
+| `ablations/` | Clustering outputs from the isolation tests |
 
-No API keys or tokens are committed. Credentials are read from environment variables or a git-ignored `.env`.
+No API keys, tokens, or webhook URLs are committed. Credentials are read from environment variables or a git-ignored `.env`.

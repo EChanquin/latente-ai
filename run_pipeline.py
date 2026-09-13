@@ -193,6 +193,7 @@ def main():
 
     if not args.input:
         parser.error("--input is required unless --retry-held is used")
+    print(f"Latente AI orchestrator · run {RUN['run_id']} · classifier: Claude {MODEL} · prompt {PROMPT} ({RUN['prompt_sha256']})", flush=True)
     ok, detail = gate_classifier_isolated()
     log("-", "preflight", "stage gate 1 PASS" if ok else "stage gate 1 FAIL", detail)
     if not ok:
@@ -214,8 +215,10 @@ def main():
             time.sleep(DELAY_S)
         record = classify_report(client, system, report)
         c = record["classification"]
-        log(report["id"], "classifier", f"proposed {c['label'] or 'no label'}",
-            f"alternative {c['alternative_label']}, amplifiers {c['amplifiers']}, fits_taxonomy {c['fits_taxonomy']}, attempts {record['attempts']}",
+        served = ", ".join(sorted({a.get("served_by") or "?" for a in record["raw_responses"]})) or "not sent"
+        request = record["raw_responses"][-1].get("request_id") if record["raw_responses"] else None
+        log(report["id"], "classifier", f"Claude proposed {c['label'] or 'no label'}",
+            f"served by {served} · request {request} · alternative {c['alternative_label']} · fits_taxonomy {c['fits_taxonomy']}",
             request_ids=[a.get("request_id") for a in record["raw_responses"]],
             served_by=[a.get("served_by") for a in record["raw_responses"]],
             parse_stage=record["parse_stage"])

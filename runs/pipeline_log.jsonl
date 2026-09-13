@@ -1,0 +1,29 @@
+{"ts": "2026-09-13T21:49:58+00:00", "report_id": "-", "stage": "preflight", "outcome": "stage gate 1 PASS", "detail": "6/6 policy-gate cases passed"}
+{"ts": "2026-09-13T21:50:09+00:00", "report_id": "D001", "stage": "classifier", "outcome": "proposed TECH", "detail": "alternative ORG, amplifiers [], fits_taxonomy True, attempts 1"}
+{"ts": "2026-09-13T21:50:09+00:00", "report_id": "D001", "stage": "gate", "outcome": "Needs Review", "detail": "alternative label named"}
+{"ts": "2026-09-13T21:50:09+00:00", "report_id": "D001", "stage": "notion", "outcome": "row written", "detail": "status Needs Review"}
+{"ts": "2026-09-13T21:50:09+00:00", "report_id": "D001", "stage": "slack", "outcome": "review request posted", "detail": ""}
+{"ts": "2026-09-13T21:50:20+00:00", "report_id": "D002", "stage": "classifier", "outcome": "proposed TASK", "detail": "alternative ORG, amplifiers [], fits_taxonomy True, attempts 1"}
+{"ts": "2026-09-13T21:50:20+00:00", "report_id": "D002", "stage": "gate", "outcome": "Needs Review", "detail": "alternative label named"}
+{"ts": "2026-09-13T21:50:21+00:00", "report_id": "D002", "stage": "notion", "outcome": "row written", "detail": "status Needs Review"}
+{"ts": "2026-09-13T21:50:21+00:00", "report_id": "D002", "stage": "slack", "outcome": "review request posted", "detail": ""}
+{"ts": "2026-09-13T21:50:21+00:00", "report_id": "-", "stage": "slack", "outcome": "run summary posted", "detail": "Needs Review: 2"}
+{"ts": "2026-09-13T21:50:22+00:00", "report_id": "-", "stage": "preflight", "outcome": "stage gate 1 PASS", "detail": "6/6 policy-gate cases passed"}
+{"ts": "2026-09-13T21:50:22+00:00", "report_id": "D001", "stage": "reset", "outcome": "previous demo row moved to Notion trash", "detail": ""}
+{"ts": "2026-09-13T21:50:23+00:00", "report_id": "D002", "stage": "reset", "outcome": "previous demo row moved to Notion trash", "detail": ""}
+{"ts": "2026-09-13T21:50:30+00:00", "report_id": "D001", "stage": "classifier", "outcome": "proposed TECH", "detail": "alternative None, amplifiers [], fits_taxonomy True, attempts 1"}
+{"ts": "2026-09-13T21:50:30+00:00", "report_id": "D001", "stage": "gate", "outcome": "Auto-classified", "detail": "none"}
+{"ts": "2026-09-13T21:50:30+00:00", "report_id": "D001", "stage": "notion", "outcome": "FAILED: report held for retry", "detail": "Notion POST /databases/44ee3dfd094d83cfa59a81f1aea58f35/query -> 401: {\"object\":\"error\",\"status\":401,\"code\":\"unauthorized\",\"message\":\"API token is invalid.\",\"re"}
+{"ts": "2026-09-13T21:50:30+00:00", "report_id": "D001", "stage": "slack", "outcome": "integration-failure alert posted", "detail": ""}
+{"ts": "2026-09-13T21:50:43+00:00", "report_id": "D002", "stage": "classifier", "outcome": "proposed TASK", "detail": "alternative ORG, amplifiers [], fits_taxonomy True, attempts 1"}
+{"ts": "2026-09-13T21:50:43+00:00", "report_id": "D002", "stage": "gate", "outcome": "Needs Review", "detail": "alternative label named"}
+{"ts": "2026-09-13T21:50:44+00:00", "report_id": "D002", "stage": "notion", "outcome": "FAILED: report held for retry", "detail": "Notion POST /databases/44ee3dfd094d83cfa59a81f1aea58f35/query -> 401: {\"object\":\"error\",\"status\":401,\"code\":\"unauthorized\",\"message\":\"API token is invalid.\",\"re"}
+{"ts": "2026-09-13T21:50:44+00:00", "report_id": "D002", "stage": "slack", "outcome": "integration-failure alert posted", "detail": ""}
+{"ts": "2026-09-13T21:50:44+00:00", "report_id": "-", "stage": "slack", "outcome": "run summary posted", "detail": "held: 2"}
+{"ts": "2026-09-13T21:50:45+00:00", "report_id": "D001", "stage": "retry", "outcome": "delivering held report", "detail": ""}
+{"ts": "2026-09-13T21:50:46+00:00", "report_id": "D001", "stage": "notion", "outcome": "row written", "detail": "status Auto-classified"}
+{"ts": "2026-09-13T21:50:46+00:00", "report_id": "D001", "stage": "slack", "outcome": "no review request", "detail": "auto-classified; waits for a person to confirm in Notion"}
+{"ts": "2026-09-13T21:50:46+00:00", "report_id": "D002", "stage": "retry", "outcome": "delivering held report", "detail": ""}
+{"ts": "2026-09-13T21:50:46+00:00", "report_id": "D002", "stage": "notion", "outcome": "row written", "detail": "status Needs Review"}
+{"ts": "2026-09-13T21:50:46+00:00", "report_id": "D002", "stage": "slack", "outcome": "review request posted", "detail": ""}
+{"ts": "2026-09-13T21:50:46+00:00", "report_id": "-", "stage": "slack", "outcome": "run summary posted", "detail": "Auto-classified: 1  ·  Needs Review: 1"}

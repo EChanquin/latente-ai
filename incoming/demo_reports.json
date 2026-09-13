@@ -1,0 +1,10 @@
+[
+  {
+    "id": "D001",
+    "text": "Infusion pump drug library update was pushed to 6 West overnight. 0815, programmed vancomycin 1.25 g from the library entry we always use and the pump defaulted the concentration to 5 mg/mL instead of the 5 g/250 mL bag pharmacy sends, so the rate it calculated was way off. The hard limit tripped and blocked the start. Pharmacy looked at the new library file and that entry had the wrong default concentration; they reverted it around 1000. Nothing infused. Two other RNs on the unit hit the same block this morning before it was fixed."
+  },
+  {
+    "id": "D002",
+    "text": "Pt on 5 East with hydromorphone PCA post hip replacement. Around 0300 the son asked the night RN to 'give him a little more' because he was moaning in his sleep. Son was pressing the PCA button for him; RN says she told him not to. 0540 RR 7, pinpoint pupils, naloxone given, pt recovered and was moved to continuous pulse ox. PCA settings matched the order when checked. Not clear whether anyone explained PCA-by-proxy to the family at setup, and the education checkbox for PCA is blank in the chart."
+  }
+]

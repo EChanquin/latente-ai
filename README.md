@@ -81,6 +81,30 @@ A human sits above every path. The model can only ever set `Needs Review` or `Au
 
 Incident reports enter as `corpus.json`, a synthetic stand-in for an incident-reporting system export. A Langflow flow was built first as a proof of concept of the intake-to-Notion path; its rows (`R-001`) remain in the Notion database as evidence.
 
+## The orchestrator: one command, all three apps
+
+`run_pipeline.py` is the main orchestrator. It is deterministic Python, not a model: code decides the order of steps, and the two Claude agents only do the judgment work inside their stage. For each incoming report it runs these steps in order:
+
+1. **Preflight.** Stage gate 1, the classifier's isolated adversarial tests, must have passed, or nothing runs.
+2. **Classifier agent (Claude).** Proposes a label, amplifiers, and uncertainty signals.
+3. **Routing gate.** Any uncertainty signal gives `Needs Review`; otherwise the report is `Auto-classified`. The model never sets `Confirmed`.
+4. **Notion.** Writes the review-queue row. Rate limits and server errors are retried.
+5. **Slack.** Posts a review request for every report routed to review, with the proposed label marked "not final", the reason, the model's reasoning, and a link to the Notion row. A run summary follows.
+
+**When an integration fails,** the report is never dropped. If the Notion write fails, the classified report is saved to `runs/held_reports.json`, Slack gets an integration-failure alert, and `--retry-held` delivers it later. If Slack fails, the Notion row still exists and the failure is logged.
+
+**Every step is appended to `runs/pipeline_log.jsonl`** as a decision trail: preflight result, proposed label, gate decision and reason, each write, and each failure.
+
+```bash
+.venv/bin/python run_pipeline.py --input incoming/demo_reports.json                 # normal run
+.venv/bin/python run_pipeline.py --input incoming/demo_reports.json --simulate-notion-outage   # show failure handling
+.venv/bin/python run_pipeline.py --retry-held                                        # recover held reports
+```
+
+**Tested paths:** a normal run, a simulated Notion outage where both reports were held and failure alerts were built, and recovery through `--retry-held` where both rows were written and the held queue emptied. `--no-slack` prints Slack messages instead of posting them, and `--reset-demo` moves earlier demo rows to Notion's trash.
+
+The batch scripts below (`classify.py`, `write_notion.py`, `cluster.py`, `notify_slack.py`) produced the 32-report evaluation run. The orchestrator is the path for new reports as they arrive.
+
 ## How to run
 
 ```bash

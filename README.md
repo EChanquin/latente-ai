@@ -421,6 +421,11 @@ With no API keys you can:
   - apply a deterministic rule, for example: permanent harm or death always goes to review and triggers an urgent Slack alert, regardless of uncertainty signals
   - evaluate that extraction in isolation before any gate trusts it
 - **Retrieval for information that changes.** Unit policies, shortage notices, and prior incidents belong in an indexed source, as described below.
+- **Tiered review instead of one review queue.** 27 of 32 reports went to review, but 25 of those were flagged only because the model named a competing label. Two also carried a processing note, and none had a poor taxonomy fit. A queue where nearly everything is flagged invites rubber-stamping. The next version splits review into two tiers:
+  - **Quick confirm:** only a competing label was named. The reviewer accepts or switches in one click.
+  - **Full review:** a policy gate fired, the taxonomy does not fit, or (once built) the report describes serious harm.
+
+  A person still touches every uncertain report, so no error is auto-accepted. The design has to account for one finding: 8 of the 9 wrong labels were flagged only by a competing label and would land in quick confirm. The quick-confirm screen must therefore show both labels side by side with the model's reasoning, and the tiering should be evaluated on a held-out set before it replaces the single queue.
 - **Calibrating the `alternative_label` signal,** to reduce over-routing and improve routing consistency.
 - **A held-out report set** for future prompt changes.
 

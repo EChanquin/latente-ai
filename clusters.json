@@ -1,0 +1,265 @@
+{
+  "run": {
+    "model": "claude-opus-5",
+    "started_at": "2026-09-13T20:52:14+00:00",
+    "attempts": 1,
+    "parse_stage": "direct"
+  },
+  "clusters": [
+    {
+      "name": "interrupted_task_resumed_without_external_place_marker",
+      "hypothesis": "We hypothesize a shared failure mode in which multi-step preparation tasks leave no physical or system artifact showing which steps are already done, so an interruption causes the worker to resume at the wrong point and the omission or duplication is invisible afterward.",
+      "confidence": "HIGH",
+      "member_ids": [
+        "R001",
+        "R004",
+        "R012",
+        "R023",
+        "R026",
+        "R029"
+      ],
+      "evidence": "R026 states the two-portion reconstitution has no marker of partial completion and water was added twice after the drive-thru bell; R029 lost the tourniquet-removal step after being pulled to a roommate; R023 omitted the final FiO2 return when paged mid-cart-breakdown; R004 resumed an ADC restock after a phone call and loaded the wrong pocket; R001 lost count of a three-drug verbal draw-up amid repeated hallway interruptions; R012 spiked a bag, left for a bed alarm, and returned to a different product than intended."
+    },
+    {
+      "name": "cross_patient_task_interleaving_identity_in_memory",
+      "hypothesis": "We hypothesize that when the same task is run in parallel for several patients, patient-specific parameters or specimens are held in the worker's head or on informal notes rather than bound to the artifact at the point of action, allowing details from one patient to be applied to another.",
+      "confidence": "MEDIUM",
+      "member_ids": [
+        "R012",
+        "R017",
+        "R021",
+        "R025",
+        "R027"
+      ],
+      "evidence": "R027 drew two arterial samples back to back and deferred labeling to the analyzer, producing a swap; R021 applied one patient's hold threshold carried 'in my head' to another among six patients with three different parameters; R017 tracked three simultaneous titrations on pocket scrap paper and skipped a step; R025 responded to an alarm at the adjacent identical chair while facing the wrong machine; R012 carried two similar bags for two rooms and nearly hung the wrong one."
+    },
+    {
+      "name": "double_check_present_in_policy_degraded_in_practice",
+      "hypothesis": "We hypothesize that required independent verification steps are being performed in a degraded form — by read-back, by documentation alone, or not at all — so the second look no longer functions as an independent barrier, and reporters describe this as ordinary rather than exceptional.",
+      "confidence": "HIGH",
+      "member_ids": [
+        "R006",
+        "R018",
+        "R020",
+        "R024",
+        "R032"
+      ],
+      "evidence": "R018 describes a cosign done by read-back from across the pod as 'how it normally goes on nights'; R006 notes the two-RN bedside pump check 'didn't happen for any of my 4' and is 'pretty usual when we're short'; R020 shows 'allergies reviewed' checked off while the source was a carry-forward field and the patient was already sedated; R032 had the second RN's tag read deferred and never completed before starting; R024 proceeded with no pause with the RN after the skin mark was gone."
+    },
+    {
+      "name": "automated_signal_read_as_broader_assurance_than_it_covers",
+      "hypothesis": "We hypothesize a shared mechanism in which a system's positive signal, or its silence, is interpreted by staff as confirmation of overall safety when the system in fact checks or displays only a narrow slice, leaving the uncovered gap invisible.",
+      "confidence": "MEDIUM",
+      "member_ids": [
+        "R011",
+        "R013",
+        "R015",
+        "R025",
+        "R032"
+      ],
+      "evidence": "R032 states the scanner matches patient to unit and 'doesn't know about special requirements,' yet the green check ended the matching in the nurse's mind; R013 notes a prior dose documented in the ED encounter does not appear on the inpatient MAR, which instead flagged the dose overdue; R015 describes an MAR showing nothing due after an order rebuild, giving the RN 'no reason to think anything was missing'; R011 phones passed calls and texts normally while silently dropping tele alerts; R025 a stale alarm still displayed on the adjacent machine falsely confirmed the wrong source."
+    },
+    {
+      "name": "unannounced_change_to_product_or_system_configuration",
+      "hypothesis": "We hypothesize that changes to packaging, vendor, or software are reaching the point of care without notification, so staff continue to rely on discriminating cues (shape, container, alert behavior, scheduling logic) that are no longer valid.",
+      "confidence": "MEDIUM",
+      "member_ids": [
+        "R004",
+        "R011",
+        "R012",
+        "R015"
+      ],
+      "evidence": "R012 reports acetaminophen switching from a stiff bottle to a soft bag resembling magnesium, with 'I don't know when the new bags started coming up'; R004 notes two heparin strengths now come from the same manufacturer in identical vials with matching caps; R011 states a software push removed tele alerting and 'nobody on the unit knew'; R015 describes a recurring EHR start-time default behavior the pharmacist has now seen twice but that is not visible to the nurse."
+    },
+    {
+      "name": "verbal_only_handoff_with_no_required_field",
+      "hypothesis": "We hypothesize that certain safety-critical details have no mandatory written home in the handoff record, so they travel only verbally and their omission leaves no trace that anyone can detect afterward.",
+      "confidence": "HIGH",
+      "member_ids": [
+        "R002",
+        "R010",
+        "R016",
+        "R022"
+      ],
+      "evidence": "R002 states the unit has 'no RT sheet and no set place' and the reporter cannot identify which item failed to transfer; R010 describes the customary joint med-list review cut short by the next case, leaving an intraop dose uncommunicated; R016 shows an overnight slurred-speech finding that entered neither the note nor the 0700 report; R022 reports a room move where the reporter 'can't say for sure whether I said NPO for her.'"
+    },
+    {
+      "name": "capacity_pressure_relocates_care_to_unsuitable_space",
+      "hypothesis": "We hypothesize that bed and room pressure is pushing clinical tasks into physical spaces not designed for them, and that the resulting environmental conditions — noise, sightlines, no clear floor, solar gain — become the proximate hazard.",
+      "confidence": "MEDIUM",
+      "member_ids": [
+        "R001",
+        "R008",
+        "R014",
+        "R019",
+        "R025"
+      ],
+      "evidence": "R001 medication draw-up at an open hallway shelf with 'no door, no wall'; R008 discharge teaching delivered from a hallway bed across from an active trauma bay where the nurse was 'basically shouting'; R014 a small OR holding C-arm, nav tower and extra back table with no floor route for the IV extension; R019 a neonate moved to a window space to open a bed, where sun hits from 1300 and blinds do not close; R025 chairs three feet apart with the reporter unsure the other screen was even visible."
+    },
+    {
+      "name": "workload_normalizes_skipped_or_unsupported_steps",
+      "hypothesis": "We hypothesize that staffing shortfalls and assignment load are converting deliberate safety steps into optional ones, with reporters describing the degraded practice as routine rather than as a deviation.",
+      "confidence": "MEDIUM",
+      "member_ids": [
+        "R006",
+        "R017",
+        "R018",
+        "R021",
+        "R031"
+      ],
+      "evidence": "R006 ties two call-outs to a bedside check skipped for all four patients, 'pretty usual when we're short'; R018 says read-back cosigning is standard on nights and in other pods; R021 cites six patients with three hold parameters on a third consecutive night; R017 describes three concurrent first-dose titrations tracked informally because it is faster; R031 describes a mandatory float with an unfamiliar high-risk task because 'there wasn't anyone else to give it to.'"
+    },
+    {
+      "name": "requests_for_help_or_escalation_not_actionable",
+      "hypothesis": "We hypothesize that frontline staff who correctly identified risk and asked for support were constrained by unit norms or unavailable backup and proceeded anyway, so the recognition of danger did not translate into a change in care.",
+      "confidence": "MEDIUM",
+      "member_ids": [
+        "R030",
+        "R031"
+      ],
+      "evidence": "R030 reports escalating twice, being told not to keep paging, and not calling a rapid because 'on this floor you don't go around the hospitalist at night'; R031 reports asking at 1500 not to take the sheath patient and receiving coaching from a nurse working it between her own call lights."
+    },
+    {
+      "name": "outdated_record_becomes_default_source_of_truth",
+      "hypothesis": "We hypothesize that when current, patient-confirmed information is unavailable or effortful at the moment of decision, stale documentation carried forward from prior encounters becomes the de facto reference and is not re-confirmed.",
+      "confidence": "MEDIUM",
+      "member_ids": [
+        "R013",
+        "R020",
+        "R024"
+      ],
+      "evidence": "R020 acted on an NKDA field carried forward from a 2023 encounter after the patient was already sedated; R024 set up on the side indicated by an H&P from two admissions back after the skin mark was washed off and no re-scan was done; R013 relied on an inpatient MAR that did not carry the ED administration forward and displayed the dose as overdue."
+    },
+    {
+      "name": "non_default_device_state_without_persistent_indicator",
+      "hypothesis": "We hypothesize that devices are allowing temporary or context-dependent settings to persist or silently lapse without a visible, durable indicator, so staff cannot tell from the device that it is in a non-default state.",
+      "confidence": "LOW",
+      "member_ids": [
+        "R003",
+        "R009",
+        "R023"
+      ],
+      "evidence": "R023 a procedural FiO2 of 100% persisted about nine hours with no prompt to revert; R009 sync state or its indication did not carry across a display view change and was absent at the moment of shock; R003 a silence function could be re-pressed indefinitely with no escalation or indication that the alarm state was being suppressed."
+    }
+  ],
+  "assignments": {
+    "R001": [
+      "interrupted_task_resumed_without_external_place_marker",
+      "capacity_pressure_relocates_care_to_unsuitable_space"
+    ],
+    "R004": [
+      "interrupted_task_resumed_without_external_place_marker",
+      "unannounced_change_to_product_or_system_configuration"
+    ],
+    "R012": [
+      "interrupted_task_resumed_without_external_place_marker",
+      "cross_patient_task_interleaving_identity_in_memory",
+      "unannounced_change_to_product_or_system_configuration"
+    ],
+    "R023": [
+      "interrupted_task_resumed_without_external_place_marker",
+      "non_default_device_state_without_persistent_indicator"
+    ],
+    "R026": [
+      "interrupted_task_resumed_without_external_place_marker"
+    ],
+    "R029": [
+      "interrupted_task_resumed_without_external_place_marker"
+    ],
+    "R017": [
+      "cross_patient_task_interleaving_identity_in_memory",
+      "workload_normalizes_skipped_or_unsupported_steps"
+    ],
+    "R021": [
+      "cross_patient_task_interleaving_identity_in_memory",
+      "workload_normalizes_skipped_or_unsupported_steps"
+    ],
+    "R025": [
+      "cross_patient_task_interleaving_identity_in_memory",
+      "automated_signal_read_as_broader_assurance_than_it_covers",
+      "capacity_pressure_relocates_care_to_unsuitable_space"
+    ],
+    "R027": [
+      "cross_patient_task_interleaving_identity_in_memory"
+    ],
+    "R006": [
+      "double_check_present_in_policy_degraded_in_practice",
+      "workload_normalizes_skipped_or_unsupported_steps"
+    ],
+    "R018": [
+      "double_check_present_in_policy_degraded_in_practice",
+      "workload_normalizes_skipped_or_unsupported_steps"
+    ],
+    "R020": [
+      "double_check_present_in_policy_degraded_in_practice",
+      "outdated_record_becomes_default_source_of_truth"
+    ],
+    "R024": [
+      "double_check_present_in_policy_degraded_in_practice",
+      "outdated_record_becomes_default_source_of_truth"
+    ],
+    "R032": [
+      "double_check_present_in_policy_degraded_in_practice",
+      "automated_signal_read_as_broader_assurance_than_it_covers"
+    ],
+    "R011": [
+      "automated_signal_read_as_broader_assurance_than_it_covers",
+      "unannounced_change_to_product_or_system_configuration"
+    ],
+    "R013": [
+      "automated_signal_read_as_broader_assurance_than_it_covers",
+      "outdated_record_becomes_default_source_of_truth"
+    ],
+    "R015": [
+      "automated_signal_read_as_broader_assurance_than_it_covers",
+      "unannounced_change_to_product_or_system_configuration"
+    ],
+    "R002": [
+      "verbal_only_handoff_with_no_required_field"
+    ],
+    "R010": [
+      "verbal_only_handoff_with_no_required_field"
+    ],
+    "R016": [
+      "verbal_only_handoff_with_no_required_field"
+    ],
+    "R022": [
+      "verbal_only_handoff_with_no_required_field"
+    ],
+    "R008": [
+      "capacity_pressure_relocates_care_to_unsuitable_space"
+    ],
+    "R014": [
+      "capacity_pressure_relocates_care_to_unsuitable_space"
+    ],
+    "R019": [
+      "capacity_pressure_relocates_care_to_unsuitable_space"
+    ],
+    "R031": [
+      "workload_normalizes_skipped_or_unsupported_steps",
+      "requests_for_help_or_escalation_not_actionable"
+    ],
+    "R030": [
+      "requests_for_help_or_escalation_not_actionable"
+    ],
+    "R003": [
+      "non_default_device_state_without_persistent_indicator"
+    ],
+    "R009": [
+      "non_default_device_state_without_persistent_indicator"
+    ]
+  },
+  "warnings": [],
+  "raw_responses": [
+    {
+      "text": "{\"clusters\":[{\"name\":\"interrupted_task_resumed_without_external_place_marker\",\"hypothesis\":\"We hypothesize a shared failure mode in which multi-step preparation tasks leave no physical or system artifact showing which steps are already done, so an interruption causes the worker to resume at the wrong point and the omission or duplication is invisible afterward.\",\"confidence\":\"HIGH\",\"member_ids\":[\"R001\",\"R004\",\"R012\",\"R023\",\"R026\",\"R029\"],\"evidence\":\"R026 states the two-portion reconstitution has no marker of partial completion and water was added twice after the drive-thru bell; R029 lost the tourniquet-removal step after being pulled to a roommate; R023 omitted the final FiO2 return when paged mid-cart-breakdown; R004 resumed an ADC restock after a phone call and loaded the wrong pocket; R001 lost count of a three-drug verbal draw-up amid repeated hallway interruptions; R012 spiked a bag, left for a bed alarm, and returned to a different product than intended.\"},{\"name\":\"cross_patient_task_interleaving_identity_in_memory\",\"hypothesis\":\"We hypothesize that when the same task is run in parallel for several patients, patient-specific parameters or specimens are held in the worker's head or on informal notes rather than bound to the artifact at the point of action, allowing details from one patient to be applied to another.\",\"confidence\":\"MEDIUM\",\"member_ids\":[\"R012\",\"R017\",\"R021\",\"R025\",\"R027\"],\"evidence\":\"R027 drew two arterial samples back to back and deferred labeling to the analyzer, producing a swap; R021 applied one patient's hold threshold carried 'in my head' to another among six patients with three different parameters; R017 tracked three simultaneous titrations on pocket scrap paper and skipped a step; R025 responded to an alarm at the adjacent identical chair while facing the wrong machine; R012 carried two similar bags for two rooms and nearly hung the wrong one.\"},{\"name\":\"double_check_present_in_policy_degraded_in_practice\",\"hypothesis\":\"We hypothesize that required independent verification steps are being performed in a degraded form — by read-back, by documentation alone, or not at all — so the second look no longer functions as an independent barrier, and reporters describe this as ordinary rather than exceptional.\",\"confidence\":\"HIGH\",\"member_ids\":[\"R006\",\"R018\",\"R020\",\"R024\",\"R032\"],\"evidence\":\"R018 describes a cosign done by read-back from across the pod as 'how it normally goes on nights'; R006 notes the two-RN bedside pump check 'didn't happen for any of my 4' and is 'pretty usual when we're short'; R020 shows 'allergies reviewed' checked off while the source was a carry-forward field and the patient was already sedated; R032 had the second RN's tag read deferred and never completed before starting; R024 proceeded with no pause with the RN after the skin mark was gone.\"},{\"name\":\"automated_signal_read_as_broader_assurance_than_it_covers\",\"hypothesis\":\"We hypothesize a shared mechanism in which a system's positive signal, or its silence, is interpreted by staff as confirmation of overall safety when the system in fact checks or displays only a narrow slice, leaving the uncovered gap invisible.\",\"confidence\":\"MEDIUM\",\"member_ids\":[\"R011\",\"R013\",\"R015\",\"R025\",\"R032\"],\"evidence\":\"R032 states the scanner matches patient to unit and 'doesn't know about special requirements,' yet the green check ended the matching in the nurse's mind; R013 notes a prior dose documented in the ED encounter does not appear on the inpatient MAR, which instead flagged the dose overdue; R015 describes an MAR showing nothing due after an order rebuild, giving the RN 'no reason to think anything was missing'; R011 phones passed calls and texts normally while silently dropping tele alerts; R025 a stale alarm still displayed on the adjacent machine falsely confirmed the wrong source.\"},{\"name\":\"unannounced_change_to_product_or_system_configuration\",\"hypothesis\":\"We hypothesize that changes to packaging, vendor, or software are reaching the point of care without notification, so staff continue to rely on discriminating cues (shape, container, alert behavior, scheduling logic) that are no longer valid.\",\"confidence\":\"MEDIUM\",\"member_ids\":[\"R004\",\"R011\",\"R012\",\"R015\"],\"evidence\":\"R012 reports acetaminophen switching from a stiff bottle to a soft bag resembling magnesium, with 'I don't know when the new bags started coming up'; R004 notes two heparin strengths now come from the same manufacturer in identical vials with matching caps; R011 states a software push removed tele alerting and 'nobody on the unit knew'; R015 describes a recurring EHR start-time default behavior the pharmacist has now seen twice but that is not visible to the nurse.\"},{\"name\":\"verbal_only_handoff_with_no_required_field\",\"hypothesis\":\"We hypothesize that certain safety-critical details have no mandatory written home in the handoff record, so they travel only verbally and their omission leaves no trace that anyone can detect afterward.\",\"confidence\":\"HIGH\",\"member_ids\":[\"R002\",\"R010\",\"R016\",\"R022\"],\"evidence\":\"R002 states the unit has 'no RT sheet and no set place' and the reporter cannot identify which item failed to transfer; R010 describes the customary joint med-list review cut short by the next case, leaving an intraop dose uncommunicated; R016 shows an overnight slurred-speech finding that entered neither the note nor the 0700 report; R022 reports a room move where the reporter 'can't say for sure whether I said NPO for her.'\"},{\"name\":\"capacity_pressure_relocates_care_to_unsuitable_space\",\"hypothesis\":\"We hypothesize that bed and room pressure is pushing clinical tasks into physical spaces not designed for them, and that the resulting environmental conditions — noise, sightlines, no clear floor, solar gain — become the proximate hazard.\",\"confidence\":\"MEDIUM\",\"member_ids\":[\"R001\",\"R008\",\"R014\",\"R019\",\"R025\"],\"evidence\":\"R001 medication draw-up at an open hallway shelf with 'no door, no wall'; R008 discharge teaching delivered from a hallway bed across from an active trauma bay where the nurse was 'basically shouting'; R014 a small OR holding C-arm, nav tower and extra back table with no floor route for the IV extension; R019 a neonate moved to a window space to open a bed, where sun hits from 1300 and blinds do not close; R025 chairs three feet apart with the reporter unsure the other screen was even visible.\"},{\"name\":\"workload_normalizes_skipped_or_unsupported_steps\",\"hypothesis\":\"We hypothesize that staffing shortfalls and assignment load are converting deliberate safety steps into optional ones, with reporters describing the degraded practice as routine rather than as a deviation.\",\"confidence\":\"MEDIUM\",\"member_ids\":[\"R006\",\"R017\",\"R018\",\"R021\",\"R031\"],\"evidence\":\"R006 ties two call-outs to a bedside check skipped for all four patients, 'pretty usual when we're short'; R018 says read-back cosigning is standard on nights and in other pods; R021 cites six patients with three hold parameters on a third consecutive night; R017 describes three concurrent first-dose titrations tracked informally because it is faster; R031 describes a mandatory float with an unfamiliar high-risk task because 'there wasn't anyone else to give it to.'\"},{\"name\":\"requests_for_help_or_escalation_not_actionable\",\"hypothesis\":\"We hypothesize that frontline staff who correctly identified risk and asked for support were constrained by unit norms or unavailable backup and proceeded anyway, so the recognition of danger did not translate into a change in care.\",\"confidence\":\"MEDIUM\",\"member_ids\":[\"R030\",\"R031\"],\"evidence\":\"R030 reports escalating twice, being told not to keep paging, and not calling a rapid because 'on this floor you don't go around the hospitalist at night'; R031 reports asking at 1500 not to take the sheath patient and receiving coaching from a nurse working it between her own call lights.\"},{\"name\":\"outdated_record_becomes_default_source_of_truth\",\"hypothesis\":\"We hypothesize that when current, patient-confirmed information is unavailable or effortful at the moment of decision, stale documentation carried forward from prior encounters becomes the de facto reference and is not re-confirmed.\",\"confidence\":\"MEDIUM\",\"member_ids\":[\"R013\",\"R020\",\"R024\"],\"evidence\":\"R020 acted on an NKDA field carried forward from a 2023 encounter after the patient was already sedated; R024 set up on the side indicated by an H&P from two admissions back after the skin mark was washed off and no re-scan was done; R013 relied on an inpatient MAR that did not carry the ED administration forward and displayed the dose as overdue.\"},{\"name\":\"non_default_device_state_without_persistent_indicator\",\"hypothesis\":\"We hypothesize that devices are allowing temporary or context-dependent settings to persist or silently lapse without a visible, durable indicator, so staff cannot tell from the device that it is in a non-default state.\",\"confidence\":\"LOW\",\"member_ids\":[\"R003\",\"R009\",\"R023\"],\"evidence\":\"R023 a procedural FiO2 of 100% persisted about nine hours with no prompt to revert; R009 sync state or its indication did not carry across a display view change and was absent at the moment of shock; R003 a silence function could be re-pressed indefinitely with no escalation or indication that the alarm state was being suppressed.\"}]}",
+      "stop_reason": "end_turn",
+      "served_by": "claude-opus-5",
+      "request_id": "req_011Cf26h1cn6vnna87PoJUmQ",
+      "usage": {
+        "input_tokens": 11611,
+        "output_tokens": 6988
+      }
+    }
+  ]
+}

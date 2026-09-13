@@ -275,7 +275,7 @@ The remaining traced failures, the taxonomy definition mismatch and handoff read
 
 - **Parsing is fully reliable.** No failures, no retries, no schema errors.
 - **The routing gate caught every wrong label,** which is the property the design is built around. A confident wrong label that bypasses review is the costly failure, and it did not occur.
-- **Routing is over-cautious.** The model named an `alternative_label` on 27 of 32 reports despite the prompt's high bar, so the review queue is larger than it needs to be. Calibrating that signal is the clearest next improvement. We did not tune the prompt after seeing these results.
+- **The gate prefers a human look over a silent error, by design.** 27 of 32 reports went to review, including all 9 wrong labels. The main driver is the `alternative_label` signal, which the model set on 27 reports despite the prompt's high bar. Calibrating that signal, so the queue shrinks without letting errors through, is the next step. The prompt was not tuned after seeing these results.
 - **The main label confusion is PERSON read as TASK** (4 of 7). Individual slips described inside a multi-step procedure pull toward TASK.
 - **FATIGUE recall is low by design tension, not a parsing issue.** The prompt forbids tagging FATIGUE from night-shift timing alone. The corpus tagged it more liberally. The two definitions disagree.
 - **Clustering recovered both planted failure modes with no false members,** despite their members being filed under different labels and amplifiers.

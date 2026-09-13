@@ -71,8 +71,10 @@ def main():
         {"fig": f"{sum(1 for r in ambiguous if r in routed)}/{len(ambiguous)}", "cap": "genuinely ambiguous reports routed to review."},
         {"fig": f"{sum(1 for r in records if not r['parsed'])}/{n}", "cap": "model responses failed to parse. No retries were needed."},
     ]
-    caveat = (f"{len(routed)} of {n} reports went to review. The model names an alternative label on almost every report, "
-              "so the queue is larger than it needs to be. Calibrating that signal is the next step.")
+    caught = sum(1 for r in wrong if r in routed)
+    caveat = (f"By design, the gate prefers a human look over a silent error: {len(routed)} of {n} reports went to review, "
+              f"including all {caught} wrong labels. Next, we calibrate the alternative-label signal so the queue shrinks "
+              "without letting errors through.")
 
     order = {"HIGH": 0, "MEDIUM": 1, "LOW": 2}
     cluster_items = []

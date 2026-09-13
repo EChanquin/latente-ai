@@ -117,6 +117,7 @@ section { margin-top: 64px; scroll-margin-top: 16px; }
 .st-review { color: var(--review); background: var(--review-bg); }
 .st-auto { color: var(--auto); background: var(--auto-bg); }
 .st-bad { color: var(--bad); background: var(--bad-bg); }
+.st-next { color: var(--violet); background: var(--violet-soft); }
 .lab { display: inline-block; font: 500 11.5px/1 var(--mono); letter-spacing: .03em; padding: 5px 7px; border: 1.5px solid currentColor; border-radius: 6px; }
 .lab-PERSON { color: var(--PERSON); } .lab-TASK { color: var(--TASK); } .lab-TECH { color: var(--TECH); }
 .lab-ORG { color: var(--ORG); } .lab-ENV { color: var(--ENV); } .lab-none { color: var(--muted); }
@@ -349,7 +350,7 @@ const smoothScroll = () => matchMedia("(prefers-reduced-motion: reduce)").matche
 // Proof panel
 $("metaLine").textContent = `${D.meta.reports} reports · ${D.meta.model} · ${D.meta.cost}`;
 $("proof").innerHTML = D.proof.map((p) => `<div><span class="fig">${esc(p.fig)}</span><span class="cap">${esc(p.cap)}</span></div>`).join("");
-$("caveat").innerHTML = `<span class="pill st-review">Known weakness</span><span>${esc(D.caveat)}</span>`;
+$("caveat").innerHTML = `<span class="pill st-next">Next to calibrate</span><span>${esc(D.caveat)}</span>`;
 
 // Quote: the highest-confidence pattern that recovered a planted failure mode
 const featured = D.clusters.find((c) => c.matched && c.confidence === "HIGH" && c.matched === "verification_step_erosion") || D.clusters[0];

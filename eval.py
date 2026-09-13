@@ -232,6 +232,58 @@ def amplifier_section(truth, records):
     return out
 
 
+def headline_metrics(truth, records):
+    wrong = [r for r in records if r["classification"].get("label") != truth[r["id"]]["true_label"]]
+    routed = {r["id"] for r in records if r["routing"]["confidence"] == "REVIEW"}
+    ambiguous = {r["id"] for r in records if truth[r["id"]]["ambiguous"]}
+    gate_free = [r for r in records if r["classification"].get("label") is not None]
+    notes = sum(1 for r in gate_free if r["classification"].get("processing_note"))
+    exact_amps = sum(1 for r in records if set(r["classification"].get("amplifiers") or []) == set(truth[r["id"]]["true_amplifiers"]))
+    usage = [a.get("usage", {}) for r in records for a in r["raw_responses"]]
+    cost = sum(u.get("input_tokens", 0) for u in usage) * 5e-6 + sum(u.get("output_tokens", 0) for u in usage) * 25e-6
+    n = len(records)
+    return [
+        ("Classification accuracy", frac(n - len(wrong), n)),
+        ("Misclassified reports routed to review", frac(sum(1 for r in wrong if r["id"] in routed), len(wrong))),
+        ("Routed to review", frac(len(routed), n)),
+        ("Routing precision (vs ambiguous)", frac(len(routed & ambiguous), len(routed))),
+        ("Routing recall (vs ambiguous)", frac(len(routed & ambiguous), len(ambiguous))),
+        ("`processing_note` set on a labeled report (no policy gate should fire)", notes),
+        ("`alternative_label` named", sum(1 for r in records if r["classification"].get("alternative_label"))),
+        ("`fits_taxonomy` false", sum(1 for r in records if r["classification"].get("fits_taxonomy") is False)),
+        ("Parse failures after retry", frac(sum(1 for r in records if not r["parsed"]), n)),
+        ("Exact amplifier-set match", frac(exact_amps, n)),
+        ("API cost (classification)", f"${cost:.2f}"),
+    ]
+
+
+def before_after_section(truth, v4, v5):
+    out = ["## 7. Before/after: prompt v4 vs v5 (traced-failure fixes only)", "",
+           "v5 changes exactly two things found in manual error analysis:",
+           "1. It removes the residual 'write the result to the Notion review queue' instruction, which leaked into R032's `processing_note`.",
+           "2. It restricts `processing_note` to policy gates, since R005 used it as a reasoning scratchpad.",
+           "",
+           "Taxonomy definitions and the `alternative_label` bar are unchanged. Both runs use the same 32 reports, so this is not a held-out comparison.", ""]
+    m4, m5 = headline_metrics(truth, v4), headline_metrics(truth, v5)
+    out += [table(["Metric", "v4 (baseline)", "v5 (fixed)"], [[a[0], a[1], b[1]] for a, b in zip(m4, m5)]), ""]
+    by4 = {r["id"]: r for r in v4}
+    changes = []
+    for r in v5:
+        a, b = by4[r["id"]], r
+        fields = []
+        for key in ("label", "alternative_label", "fits_taxonomy", "processing_note"):
+            if a["classification"].get(key) != b["classification"].get(key):
+                fields.append(f"{key}: {a['classification'].get(key)!s} → {b['classification'].get(key)!s}")
+        if a["routing"]["confidence"] != b["routing"]["confidence"]:
+            fields.append(f"routing: {a['routing']['confidence']} → {b['routing']['confidence']}")
+        if fields:
+            changes.append([r["id"], truth[r["id"]]["true_label"], "; ".join(fields)[:300]])
+    out += [f"Reports whose output changed: {len(changes)}/{len(v5)}", ""]
+    if changes:
+        out += [table(["Report", "True label", "Changes (v4 → v5)"], changes), ""]
+    return out
+
+
 def main():
     truth = {r["id"]: r for r in json.load(open(ROOT / "corpus.json"))}
     results = json.load(open(ROOT / "results.json"))
@@ -248,6 +300,11 @@ def main():
         out += ["## 4. Clustering", "", "_Not run yet._", ""]
     out += amplifier_section(truth, records)
     out += isolation_section(truth)
+    v5_path = ROOT / "runs" / "results_v5.json"
+    if v5_path.exists():
+        v5 = json.load(open(v5_path))["records"]
+        if len(v5) == len(records):
+            out += before_after_section(truth, records, v5)
     (ROOT / "eval-results.md").write_text("\n".join(out))
     print("\n".join(out))
 

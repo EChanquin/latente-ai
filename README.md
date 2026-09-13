@@ -203,7 +203,28 @@ All 9 misclassifications and both unexpected processing notes were read by hand 
 | Genuine ambiguity (working as designed) | R003, R020, R022, R025 | None | The model chose the other defensible label, named the competing label or reasoning, and routed to review. | None. This is the intended behavior. |
 | Handoff read as structure | R010 | Classifier judgment | A skipped handoff step under time pressure was read as ORG, production pressure, rather than TASK. | Examples contrasting TASK and ORG in the prompt |
 
-None of these fixes has been applied. Applying them and re-scoring on this same 32-report corpus would overstate the improvement, so the next iteration needs a held-out set.
+### Before and after: prompt v4 → v5
+
+Only the two defects that are plainly bugs rather than judgment calls were fixed. Taxonomy definitions and the `alternative_label` bar are untouched, so the prompt was not tuned toward the answer key. The fixes:
+- the residual Notion instruction was removed
+- `processing_note` was restricted to policy gates
+
+| Metric | v4 (production) | v5 (fixed) |
+|---|---|---|
+| `processing_note` set when no policy gate applies | 2 | **0** |
+| Exact amplifier-set match | 20/32 | 22/32 |
+| Classification accuracy | 23/32 (72%) | 23/32 (72%) |
+| Misclassified reports routed to review | 9/9 | 9/9 |
+| Routed to review | 27/32 | 27/32 |
+| Routing recall / precision vs ambiguous | 6/6 / 6/27 | 6/6 / 6/27 |
+| Parse failures | 0/32 | 0/32 |
+
+- **The targeted failure is gone.** R032 no longer reports a missing Notion tool, and R005 no longer uses the note as a scratchpad.
+- **Routing volume did not fall.** Those reports also name an alternative label, and that signal remains the main source of over-routing.
+- **Some change is run-to-run variation.** 9 of 32 reports changed output between runs, mostly in which alternative label was named, so small differences in the table should not be read as effects of the fix.
+- **Not held out.** Both runs use the same 32 reports.
+
+The remaining traced failures, the taxonomy definition mismatch and handoff read as structure, were deliberately not fixed. Doing so on the same corpus would tune to the answer key, so they need a held-out set.
 
 ### What the numbers say
 
@@ -215,12 +236,53 @@ None of these fixes has been applied. Applying them and re-scoring on this same 
 - **Clustering recovered both planted failure modes with no false members,** despite their members being filed under different labels and amplifiers.
 <!-- EVAL:END -->
 
+## Design note: what goes in the prompt, and what should not
+
+**In the prompt: stable direction and guardrails.** These change rarely, and when they do they change as a versioned file:
+- the taxonomy and amplifier definitions
+- the rules for each uncertainty signal
+- the policy gates
+- the output schema
+- three worked examples
+
+Prompt versions are kept side by side (`agent-instructions-v4.txt`, `-v5.txt`), and every run records the SHA-256 of the exact system prompt it used.
+
+**Not in the prompt: information that changes.** In a real deployment the classifier and clustering stages would need context that moves week to week:
+- unit-specific double-check and handoff policies
+- formulary substitutions and shortage notices
+- device recalls and software changes
+- prior incidents for the same unit, device, or drug
+- cluster hypotheses a reviewer has already confirmed or rejected
+
+Pasting that into the prompt would bloat it, go stale, and blur the line between instructions and evidence. It belongs in an indexed source retrieved per report, by unit, device, or drug, so the model can cite what it used. Reviewer decisions from the Notion queue would feed back into that index as labeled examples.
+
+**Not built yet.** The synthetic corpus is self-contained, so retrieval is the next step rather than part of this prototype.
+
+## Demo script (about 3 minutes)
+
+1. **The problem (20 s).** A quality and safety reviewer reads incident reports one at a time and files each under a category. Hazards that span reports stay invisible. All data here is synthetic.
+2. **One report through the workflow (40 s).**
+   - R018, heparin double-check cosigned from across the pod: the classifier returns ORG with no uncertainty signal and lands in Notion as **Auto-classified**.
+   - R020, pre-op allergy check: the classifier names a competing label and lands as **Needs Review**, with the routing reason shown.
+3. **The Notion review queue (30 s).** Filter Needs Review vs Auto-classified. The model can never set Confirmed; the reviewer confirms or rejects one row live.
+4. **The Slack escalation (30 s).** The alert `double_check_present_in_policy_degraded_in_practice` groups 5 reports filed under different labels that never name the pattern. Click a report link to jump to its Notion row.
+5. **The proof (60 s).**
+   - Every wrong label reached a human (9/9).
+   - Both planted failure modes were found with 100% purity, under a match rule fixed before any results existed.
+   - Clustering scores the same on text alone, so classifier errors do not propagate.
+   - Traced failures led to a v4 → v5 prompt fix with before/after numbers.
+   - Some false clusters recur across runs and may be real patterns.
+
+**Close:** the next steps are a held-out report set, retrieval of unit policies, and calibrating the `alternative_label` signal.
+
 ## Repository contents
 
 | File | Purpose |
 |---|---|
 | `corpus.json` | 32 synthetic reports with ground-truth labels, amplifiers, planted clusters, ambiguity flags |
-| `agent-instructions-v4.txt` | Classifier instructions. The `## WRITING THE RESULT` section is Langflow-specific and is stripped at runtime. |
+| `agent-instructions-v4.txt` | Classifier instructions used for the production run. The `## WRITING THE RESULT` section is Langflow-specific and is stripped at runtime. |
+| `agent-instructions-v5.txt` | v4 plus the two traced-failure fixes: the residual Notion instruction removed, and `processing_note` restricted to policy gates |
+| `runs/results_v5.json` | Classification run with the v5 prompt, compared against v4 in `eval-results.md` |
 | `common.py` | Shared helpers: `.env` loading, JSON parsing, prompt extraction |
 | `classify.py` | Steps 1–2: classification, parse-failure handling, routing → `results.json` |
 | `write_notion.py` | Step 3: Notion rows, cluster write-back, verification |

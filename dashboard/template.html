@@ -1,0 +1,390 @@
+<title>Latent Failure Review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;500;600;700&display=swap">
+<style>
+:root {
+  --ground: #EDF1EF; --surface: #FFFFFF; --sunk: #E3E9E6; --ink: #14201C; --muted: #56655F; --rule: #D0D9D5;
+  --accent: #23597C; --accent-soft: #DAE7EF;
+  --review: #8A560A; --review-bg: #F4E4C8; --auto: #2B684A; --auto-bg: #D7E9DD; --bad: #A5342A; --bad-bg: #F3DAD6; --good: #2B684A;
+  --handoff: #684A92; --handoff-bg: #E7DFF1; --verif: #1B6C75; --verif-bg: #D3EAEC; --noise: #66716D; --noise-bg: #E2E7E5;
+  --PERSON: #7A4893; --TASK: #2E60A1; --TECH: #11706C; --ORG: #92551A; --ENV: #587126;
+  --sans: "Public Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #0F1614; --surface: #17201D; --sunk: #1E2825; --ink: #E2EAE6; --muted: #98A7A1; --rule: #2B3733;
+    --accent: #86B6D8; --accent-soft: #1D3140;
+    --review: #E3AA4F; --review-bg: #3A2B12; --auto: #7FC39D; --auto-bg: #1A3325; --bad: #EE8D82; --bad-bg: #3D1E1A; --good: #7FC39D;
+    --handoff: #B9A0DD; --handoff-bg: #2C2340; --verif: #7CCAD2; --verif-bg: #15343A; --noise: #A3AEAA; --noise-bg: #26302D;
+    --PERSON: #C49BDA; --TASK: #8DB4E6; --TECH: #6FCBC5; --ORG: #E0A566; --ENV: #B3CB78;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #0F1614; --surface: #17201D; --sunk: #1E2825; --ink: #E2EAE6; --muted: #98A7A1; --rule: #2B3733;
+  --accent: #86B6D8; --accent-soft: #1D3140;
+  --review: #E3AA4F; --review-bg: #3A2B12; --auto: #7FC39D; --auto-bg: #1A3325; --bad: #EE8D82; --bad-bg: #3D1E1A; --good: #7FC39D;
+  --handoff: #B9A0DD; --handoff-bg: #2C2340; --verif: #7CCAD2; --verif-bg: #15343A; --noise: #A3AEAA; --noise-bg: #26302D;
+  --PERSON: #C49BDA; --TASK: #8DB4E6; --TECH: #6FCBC5; --ORG: #E0A566; --ENV: #B3CB78;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--ground); color: var(--ink); font: 400 15px/1.55 var(--sans); }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px 72px; }
+h1, h2, h3 { text-wrap: balance; margin: 0; }
+p { margin: 0; }
+.mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.eyebrow { font: 500 11px/1.2 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Header: set like an incident form's header band */
+.masthead { border-bottom: 1px solid var(--rule); background: var(--surface); }
+.masthead .wrap { padding-top: 28px; padding-bottom: 24px; display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: end; }
+.masthead h1 { font-size: 34px; line-height: 1.1; font-weight: 700; letter-spacing: -.02em; margin-top: 8px; }
+.masthead .lede { color: var(--muted); max-width: 64ch; margin-top: 10px; }
+.formmeta { display: grid; grid-template-columns: auto auto; gap: 4px 16px; font-size: 13px; }
+.formmeta dt { color: var(--muted); }
+.formmeta dd { margin: 0; font-family: var(--mono); }
+.synthetic { display: inline-block; margin-top: 12px; font: 500 11px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; padding: 5px 8px; border: 1px dashed var(--muted); color: var(--muted); }
+
+section { margin-top: 44px; }
+.sechead { display: flex; gap: 16px; align-items: baseline; justify-content: space-between; flex-wrap: wrap; margin-bottom: 16px; }
+.sechead h2 { font-size: 22px; font-weight: 700; letter-spacing: -.01em; }
+.sechead p { color: var(--muted); max-width: 70ch; }
+
+/* Proof strip */
+.proof { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--rule); background: var(--surface); }
+.proof > div { padding: 18px 20px; display: grid; gap: 6px; align-content: start; }
+.proof > div + div { border-left: 1px solid var(--rule); }
+.proof .fig { font: 500 30px/1 var(--mono); letter-spacing: -.02em; }
+.proof .cap { font-size: 13px; color: var(--muted); }
+.caveat { margin-top: 10px; display: flex; gap: 10px; align-items: baseline; font-size: 14px; }
+.caveat .pill { flex: none; }
+
+/* Pills and chips */
+.pill { display: inline-flex; align-items: center; gap: 6px; font: 500 12px/1 var(--sans); padding: 5px 9px; border-radius: 999px; white-space: nowrap; }
+.pill::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.st-review { color: var(--review); background: var(--review-bg); }
+.st-auto { color: var(--auto); background: var(--auto-bg); }
+.st-bad { color: var(--bad); background: var(--bad-bg); }
+.lab { display: inline-block; font: 500 11px/1 var(--mono); letter-spacing: .04em; padding: 4px 6px; border: 1px solid currentColor; border-radius: 3px; }
+.lab-PERSON { color: var(--PERSON); } .lab-TASK { color: var(--TASK); } .lab-TECH { color: var(--TECH); }
+.lab-ORG { color: var(--ORG); } .lab-ENV { color: var(--ENV); } .lab-none { color: var(--muted); }
+.amp { font: 400 11px/1 var(--mono); color: var(--muted); padding: 4px 6px; background: var(--sunk); border-radius: 3px; }
+
+/* Workflow */
+.lanes { display: grid; gap: 14px; }
+.lane { display: grid; grid-template-columns: 120px 1fr; gap: 16px; align-items: stretch; }
+.lane > .eyebrow { padding-top: 14px; }
+.steps { display: grid; grid-template-columns: repeat(5, minmax(150px, 1fr)); gap: 22px; overflow-x: auto; padding-bottom: 4px; }
+.step { position: relative; background: var(--surface); border: 1px solid var(--rule); padding: 12px 12px 14px; display: grid; gap: 6px; align-content: start; min-height: 128px; }
+.step + .step::before { content: "→"; position: absolute; left: -18px; top: 44px; color: var(--muted); font-family: var(--mono); }
+.step .kind { font: 500 10px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+.step h3 { font-size: 14px; font-weight: 600; }
+.step p { font-size: 12.5px; color: var(--muted); line-height: 1.45; }
+.k-agent .kind { color: var(--accent); }
+.k-gate { border-style: dashed; } .k-gate .kind { color: var(--review); }
+.k-app .kind { color: var(--muted); }
+.k-human { background: var(--accent-soft); border-color: transparent; } .k-human .kind { color: var(--accent); }
+
+/* Inspector */
+.inspector { display: grid; grid-template-columns: 320px 1fr; border: 1px solid var(--rule); background: var(--surface); min-height: 600px; }
+.listpane { border-right: 1px solid var(--rule); display: grid; grid-template-rows: auto 1fr; min-height: 0; }
+.filters { display: flex; flex-wrap: wrap; gap: 6px; padding: 12px; border-bottom: 1px solid var(--rule); }
+.filters button { border: 1px solid var(--rule); background: transparent; padding: 5px 9px; border-radius: 999px; font-size: 12px; cursor: pointer; }
+.filters button[aria-pressed="true"] { background: var(--ink); color: var(--surface); border-color: var(--ink); }
+.filters .count { font-family: var(--mono); opacity: .7; margin-left: 4px; }
+.rows { list-style: none; margin: 0; padding: 0; overflow-y: auto; max-height: 640px; }
+.rows button { width: 100%; display: grid; grid-template-columns: 44px 58px 1fr 16px; gap: 8px; align-items: center; padding: 9px 12px; border: 0; border-bottom: 1px solid var(--rule); background: transparent; text-align: left; cursor: pointer; }
+.rows button:hover { background: var(--sunk); }
+.rows button[aria-current="true"] { background: var(--accent-soft); }
+.rows .rid { font: 500 13px/1 var(--mono); }
+.rows .mark { font: 500 13px/1 var(--mono); text-align: right; }
+.ok { color: var(--good); } .no { color: var(--bad); }
+.detail { padding: 22px 26px 26px; display: grid; gap: 18px; align-content: start; min-width: 0; }
+.dhead { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; }
+.dhead .rid { font: 500 22px/1 var(--mono); }
+.dhead .role { color: var(--muted); font-size: 13px; }
+.dhead .reason { font-size: 13px; color: var(--muted); }
+blockquote { margin: 0; padding: 14px 16px; background: var(--sunk); border-radius: 4px; font-size: 14.5px; line-height: 1.6; max-width: 78ch; }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.panel { display: grid; gap: 10px; align-content: start; }
+.panel h3 { font: 500 11px/1.2 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.kv { display: grid; grid-template-columns: 118px 1fr; gap: 8px 12px; margin: 0; font-size: 13.5px; }
+.kv dt { color: var(--muted); }
+.kv dd { margin: 0; display: flex; flex-wrap: wrap; gap: 5px; align-items: center; min-width: 0; overflow-wrap: anywhere; }
+.null { color: var(--muted); font-family: var(--mono); font-size: 12px; }
+.gt { background: transparent; }
+.settle { font-size: 13px; color: var(--muted); border-left: 2px solid var(--rule); padding-left: 10px; }
+.clchips { display: flex; flex-wrap: wrap; gap: 6px; }
+.clchip { font: 400 12px/1.2 var(--mono); padding: 5px 8px; border-radius: 3px; background: var(--sunk); overflow-wrap: anywhere; }
+.v5note { font-size: 13px; padding: 10px 12px; border: 1px dashed var(--rule); border-radius: 4px; }
+
+/* Patterns */
+.legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: 13px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.sw { width: 12px; height: 12px; border-radius: 2px; display: inline-block; }
+.patterns { border: 1px solid var(--rule); background: var(--surface); }
+.pattern { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 24px; padding: 16px 20px; }
+.pattern + .pattern { border-top: 1px solid var(--rule); }
+.pattern.matched { background: linear-gradient(90deg, var(--accent-soft), transparent 55%); }
+.pname { font: 500 13.5px/1.35 var(--mono); overflow-wrap: anywhere; }
+.pmeta { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin: 6px 0 8px; }
+.conf { font: 500 10.5px/1 var(--mono); letter-spacing: .06em; padding: 4px 6px; border-radius: 3px; background: var(--sunk); color: var(--muted); }
+.conf-HIGH { background: var(--ink); color: var(--surface); }
+.match { font-size: 12px; color: var(--accent); font-weight: 600; }
+.phyp { font-size: 13.5px; color: var(--muted); max-width: 70ch; }
+.members { display: flex; flex-wrap: wrap; gap: 6px; align-content: start; }
+.member { font: 500 12px/1 var(--mono); padding: 6px 7px; border-radius: 3px; border: 0; cursor: pointer; }
+.m-handoff_information_loss { color: var(--handoff); background: var(--handoff-bg); }
+.m-verification_step_erosion { color: var(--verif); background: var(--verif-bg); }
+.m-noise { color: var(--noise); background: var(--noise-bg); }
+.sw.m-handoff_information_loss { background: var(--handoff); } .sw.m-verification_step_erosion { background: var(--verif); } .sw.m-noise { background: var(--noise); }
+
+/* Reliability tables */
+.tables { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.tblwrap { background: var(--surface); border: 1px solid var(--rule); overflow-x: auto; }
+.tblwrap h3 { font-size: 14px; font-weight: 600; padding: 14px 16px 4px; }
+.tblwrap .sub { font-size: 12.5px; color: var(--muted); padding: 0 16px 10px; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th, td { text-align: left; padding: 8px 16px; border-top: 1px solid var(--rule); vertical-align: top; }
+th { font: 500 10.5px/1.3 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+td.num { font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+tr.better td.after { color: var(--good); font-weight: 500; }
+tr.worse td.after { color: var(--bad); font-weight: 500; }
+.full { grid-column: 1 / -1; }
+footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--rule); color: var(--muted); font-size: 13px; display: flex; gap: 16px; flex-wrap: wrap; justify-content: space-between; }
+footer a { color: var(--accent); }
+
+@media (max-width: 880px) {
+  .masthead .wrap { grid-template-columns: 1fr; }
+  .proof { grid-template-columns: 1fr 1fr; }
+  .proof > div:nth-child(3) { border-left: 0; }
+  .proof > div:nth-child(n+3) { border-top: 1px solid var(--rule); }
+  .lane { grid-template-columns: 1fr; }
+  .inspector { grid-template-columns: 1fr; }
+  .listpane { border-right: 0; border-bottom: 1px solid var(--rule); }
+  .rows { max-height: 280px; }
+  .cols, .tables, .pattern { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+
+<header class="masthead">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">Patient safety · incident review workflow</div>
+      <h1>Latent Failure Review</h1>
+      <p class="lede">A reviewer's view of one agent workflow: Claude classifies each incident report, uncertain cases go to a human in Notion, and patterns that no single report names are raised in Slack.</p>
+      <span class="synthetic">All reports are synthetic · no PHI</span>
+    </div>
+    <dl class="formmeta" id="meta"></dl>
+  </div>
+</header>
+
+<main class="wrap">
+  <section aria-labelledby="h-proof">
+    <div class="sechead">
+      <h2 id="h-proof">What the reviewer can trust</h2>
+      <p>Scored against the corpus's ground truth under rules fixed before the run.</p>
+    </div>
+    <div class="proof" id="proof"></div>
+    <p class="caveat" id="caveat"></p>
+  </section>
+
+  <section aria-labelledby="h-flow">
+    <div class="sechead">
+      <h2 id="h-flow">How a report moves</h2>
+      <p>Two agents, one gate, three apps. A person sits at the end of both paths.</p>
+    </div>
+    <div class="lanes">
+      <div class="lane">
+        <div class="eyebrow">Each report</div>
+        <div class="steps">
+          <div class="step k-app"><span class="kind">Intake</span><h3>Incident report</h3><p>Free text only. Ground truth never leaves the eval.</p></div>
+          <div class="step k-agent"><span class="kind">Agent · Claude</span><h3>Classifier</h3><p>One SEIPS label, amplifiers, and three uncertainty signals.</p></div>
+          <div class="step k-gate"><span class="kind">Gate</span><h3>Any doubt?</h3><p>Taxonomy misfit, alternative label, or processing note sends it to review.</p></div>
+          <div class="step k-app"><span class="kind">App · Notion</span><h3>Review queue</h3><p>Needs Review or Auto-classified, with the routing reason.</p></div>
+          <div class="step k-human"><span class="kind">Human</span><h3>Reviewer decides</h3><p>Only a person sets Confirmed or Rejected.</p></div>
+        </div>
+      </div>
+      <div class="lane">
+        <div class="eyebrow">Across reports</div>
+        <div class="steps">
+          <div class="step k-app"><span class="kind">Input</span><h3>All classifications</h3><p>Report text plus label, amplifiers, and reasoning.</p></div>
+          <div class="step k-agent"><span class="kind">Agent · Claude</span><h3>Pattern finder</h3><p>Proposes latent failure modes as hypotheses with confidence. Not told how many exist.</p></div>
+          <div class="step k-app"><span class="kind">App · Notion</span><h3>Cluster column</h3><p>Each row shows the hypotheses it belongs to.</p></div>
+          <div class="step k-app"><span class="kind">App · Slack</span><h3>Pattern alert</h3><p>High-confidence hypotheses, linked to the Notion rows.</p></div>
+          <div class="step k-human"><span class="kind">Human</span><h3>Reviewer tests it</h3><p>A hypothesis to investigate, never a finding.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-inspect">
+    <div class="sechead">
+      <h2 id="h-inspect">Inspect a report</h2>
+      <p>What the classifier said, where the gate sent it, and how that compares with ground truth.</p>
+    </div>
+    <div class="inspector">
+      <div class="listpane">
+        <div class="filters" id="filters" role="group" aria-label="Filter reports"></div>
+        <ul class="rows" id="rows"></ul>
+      </div>
+      <div class="detail" id="detail" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-patterns">
+    <div class="sechead">
+      <h2 id="h-patterns">Patterns across reports</h2>
+      <div class="legend" id="legend"></div>
+    </div>
+    <div class="patterns" id="patterns"></div>
+  </section>
+
+  <section aria-labelledby="h-rel">
+    <div class="sechead">
+      <h2 id="h-rel">Is it reliable?</h2>
+      <p>Each stage tested on its own, and a prompt fix measured before and after.</p>
+    </div>
+    <div class="tables" id="tables"></div>
+  </section>
+
+  <footer>
+    <span>Match rule, fixed before results: a proposed cluster matches a planted one when ≥50% of its members belong to it and it holds ≥50% of the planted members.</span>
+    <a href="https://github.com/EChanquin/patient-safety-latent-failure">Code, data, and full eval on GitHub</a>
+  </footer>
+</main>
+
+<script id="data" type="application/json">__DATA__</script>
+<script>
+const D = JSON.parse(document.getElementById("data").textContent);
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const lab = (l) => l ? `<span class="lab lab-${esc(l)}">${esc(l)}</span>` : `<span class="lab lab-none">none</span>`;
+const nul = `<span class="null">null</span>`;
+const status = (s) => `<span class="pill ${s === "Needs Review" ? "st-review" : "st-auto"}">${esc(s)}</span>`;
+const amps = (a) => a && a.length ? a.map((x) => `<span class="amp">${esc(x)}</span>`).join("") : `<span class="null">none</span>`;
+const clusterName = { handoff_information_loss: "Planted: handoff information loss", verification_step_erosion: "Planted: verification step erosion", noise: "Noise report" };
+
+// Masthead meta
+$("meta").innerHTML = [["Reports", D.meta.reports], ["Model", D.meta.model], ["Apps", "Claude API · Notion · Slack"], ["API cost", D.meta.cost]]
+  .map(([k, v]) => `<dt>${k}</dt><dd>${esc(v)}</dd>`).join("");
+
+// Proof strip
+$("proof").innerHTML = D.proof.map((p) => `<div><span class="fig">${esc(p.fig)}</span><span class="cap">${esc(p.cap)}</span></div>`).join("");
+$("caveat").innerHTML = `<span class="pill st-review">Known weakness</span><span>${esc(D.caveat)}</span>`;
+
+// Inspector
+const FILTERS = [
+  ["All", () => true],
+  ["Needs Review", (r) => r.status === "Needs Review"],
+  ["Auto-classified", (r) => r.status === "Auto-classified"],
+  ["Wrong label", (r) => r.pred.label !== r.truth.label],
+  ["Ambiguous", (r) => r.truth.ambiguous],
+  ["Planted pattern", (r) => r.truth.cluster],
+];
+let activeFilter = 0;
+let current = D.defaultReport;
+
+function renderFilters() {
+  $("filters").innerHTML = FILTERS.map(([name, fn], i) =>
+    `<button type="button" data-i="${i}" aria-pressed="${i === activeFilter}">${name}<span class="count">${D.reports.filter(fn).length}</span></button>`).join("");
+}
+function renderRows() {
+  const fn = FILTERS[activeFilter][1];
+  $("rows").innerHTML = D.reports.filter(fn).map((r) => {
+    const right = r.pred.label === r.truth.label;
+    return `<li><button type="button" data-id="${r.id}" aria-current="${r.id === current}">
+      <span class="rid">${r.id}</span>${lab(r.pred.label)}
+      <span>${status(r.status)}</span>
+      <span class="mark ${right ? "ok" : "no"}" title="${right ? "Label matches ground truth" : "Label differs from ground truth"}">${right ? "✓" : "✗"}</span>
+    </button></li>`;
+  }).join("");
+}
+function renderDetail() {
+  const r = D.reports.find((x) => x.id === current);
+  const right = r.pred.label === r.truth.label;
+  const caught = !right && r.status === "Needs Review";
+  const verdict = right ? `<span class="pill st-auto">Label correct</span>` :
+    caught ? `<span class="pill st-review">Wrong label, caught by review</span>` : `<span class="pill st-bad">Wrong label, not caught</span>`;
+  const cl = r.clusters.length ? r.clusters.map((c) => `<span class="clchip">${esc(c)}</span>`).join("") : `<span class="null">not in any proposed pattern</span>`;
+  const v5 = r.v5 && (r.v5.label !== r.pred.label || r.v5.status !== r.status || (r.v5.note || null) !== (r.pred.note || null))
+    ? `<div class="v5note"><strong>After the v5 prompt fix:</strong> ${lab(r.v5.label)} ${status(r.v5.status)} ${r.v5.note ? `note: ${esc(r.v5.note)}` : "no processing note"}</div>` : "";
+  $("detail").innerHTML = `
+    <div class="dhead"><span class="rid">${r.id}</span><span class="role">Reported by ${esc(r.role)}</span>${status(r.status)}
+      <span class="reason">Routing reason: ${esc(r.reason)}</span></div>
+    <blockquote>${esc(r.text)}</blockquote>
+    <div class="cols">
+      <div class="panel"><h3>Classifier output</h3>
+        <dl class="kv">
+          <dt>Label</dt><dd>${lab(r.pred.label)}</dd>
+          <dt>Alternative</dt><dd>${r.pred.alt ? lab(r.pred.alt) : nul}</dd>
+          <dt>Fits taxonomy</dt><dd class="mono">${r.pred.fits}</dd>
+          <dt>Amplifiers</dt><dd>${amps(r.pred.amps)}</dd>
+          <dt>Processing note</dt><dd>${r.pred.note ? esc(r.pred.note) : nul}</dd>
+          <dt>Reasoning</dt><dd>${esc(r.pred.reasoning)}</dd>
+        </dl>
+      </div>
+      <div class="panel"><h3>Ground truth · eval only</h3>
+        <dl class="kv">
+          <dt>True label</dt><dd>${lab(r.truth.label)} ${verdict}</dd>
+          <dt>Amplifiers</dt><dd>${amps(r.truth.amps)}</dd>
+          <dt>Planted pattern</dt><dd>${esc(clusterName[r.truth.cluster || "noise"])}</dd>
+          <dt>Ambiguous</dt><dd class="mono">${r.truth.ambiguous}</dd>
+        </dl>
+        ${r.truth.ambiguous ? `<p class="settle">${esc(r.truth.notes)}</p>` : ""}
+      </div>
+    </div>
+    <div class="panel"><h3>Proposed patterns this report belongs to</h3><div class="clchips">${cl}</div></div>
+    ${v5}`;
+}
+function selectReport(id, scroll) {
+  current = id;
+  if (!FILTERS[activeFilter][1](D.reports.find((x) => x.id === id))) { activeFilter = 0; renderFilters(); }
+  renderRows(); renderDetail();
+  if (scroll) document.getElementById("h-inspect").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+}
+$("filters").addEventListener("click", (e) => {
+  const b = e.target.closest("button"); if (!b) return;
+  activeFilter = Number(b.dataset.i); renderFilters(); renderRows();
+});
+$("rows").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) selectReport(b.dataset.id, false); });
+
+// Patterns
+$("legend").innerHTML = ["handoff_information_loss", "verification_step_erosion", "noise"]
+  .map((k) => `<span><i class="sw m-${k}"></i>${clusterName[k]}</span>`).join("");
+$("patterns").innerHTML = D.clusters.map((c) => `
+  <div class="pattern ${c.matched ? "matched" : ""}">
+    <div>
+      <div class="pname">${esc(c.name)}</div>
+      <div class="pmeta"><span class="conf conf-${esc(c.confidence)}">${esc(c.confidence)}</span>
+        <span class="eyebrow">${c.members.length} reports</span>
+        ${c.matched ? `<span class="match">Matches ${esc(clusterName[c.matched].replace("Planted: ", ""))} · purity ${c.purity} · coverage ${c.coverage}</span>` : ""}</div>
+      <p class="phyp">${esc(c.hypothesis)}</p>
+    </div>
+    <div class="members">${c.members.map((m) => `<button type="button" class="member m-${m.truth}" data-id="${m.id}" title="${esc(clusterName[m.truth])}">${m.id}</button>`).join("")}</div>
+  </div>`).join("");
+$("patterns").addEventListener("click", (e) => { const b = e.target.closest(".member"); if (b) selectReport(b.dataset.id, true); });
+
+// Reliability tables
+const tbl = (title, sub, head, rows, cls = "") => `<div class="tblwrap ${cls}"><h3>${title}</h3><p class="sub">${sub}</p>
+  <table><thead><tr>${head.map((h) => `<th>${h}</th>`).join("")}</tr></thead><tbody>${rows}</tbody></table></div>`;
+let html = tbl("Clustering tested in isolation", "Same prompt and match rule, different inputs. Scores hold even with no classifier at all, so label errors do not leak into patterns.",
+  ["Input", "Found", "Handoff pur. / cov.", "Verification pur. / cov.", "False"],
+  D.isolation.map((r) => `<tr><td>${esc(r[0])}</td>${r.slice(1).map((c) => `<td class="num">${esc(c)}</td>`).join("")}</tr>`).join(""));
+html += tbl("Classifier by label", "Ground-truth counts, recall, and precision for the production run.",
+  ["Label", "True", "Recall", "Predicted", "Precision"],
+  D.byLabel.map((r) => `<tr><td>${lab(r[0])}</td>${r.slice(1).map((c) => `<td class="num">${esc(c)}</td>`).join("")}</tr>`).join(""));
+if (D.beforeAfter) {
+  html += tbl("Before and after: prompt v4 → v5", "v5 fixes two failures found by reading traces: a leftover “write to Notion” instruction, and processing notes used as a scratchpad. Same 32 reports, so not held out.",
+    ["Metric", "v4", "v5"],
+    D.beforeAfter.map((r) => `<tr class="${r[3] || ""}"><td>${esc(r[0])}</td><td class="num">${esc(r[1])}</td><td class="num after">${esc(r[2])}</td></tr>`).join(""), "full");
+}
+$("tables").innerHTML = html;
+
+renderFilters(); renderRows(); renderDetail();
+</script>

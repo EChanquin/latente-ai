@@ -131,7 +131,12 @@ def main():
     parser.add_argument("--only", nargs="*", help="report ids to (re)classify")
     parser.add_argument("--fresh", action="store_true", help="ignore existing results.json")
     parser.add_argument("--reroute", action="store_true", help="recompute routing from saved classifications (no API calls)")
+    parser.add_argument("--prompt", default="agent-instructions-v4.txt", help="instructions file for the system prompt")
+    parser.add_argument("--results", default="results.json", help="output path, e.g. runs/results_v5.json")
     args = parser.parse_args()
+    global RESULTS
+    RESULTS = ROOT / args.results
+    RESULTS.parent.mkdir(parents=True, exist_ok=True)
 
     if args.reroute:
         results = json.load(open(RESULTS))
@@ -142,7 +147,7 @@ def main():
         return
 
     load_env()
-    system = load_system_prompt()
+    system = load_system_prompt(ROOT / args.prompt)
     reports = [{"id": r["id"], "text": r["text"]} for r in json.load(open(ROOT / "corpus.json"))]
 
     if RESULTS.exists() and not args.fresh:
@@ -150,7 +155,7 @@ def main():
     else:
         results = {"run": {"model": MODEL, "started_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
                            "system_prompt_sha256": hashlib.sha256(system.encode()).hexdigest(),
-                           "system_prompt_source": "agent-instructions-v4.txt, '## CONTEXT' to end, minus '## WRITING THE RESULT'",
+                           "system_prompt_source": f"{args.prompt}, '## CONTEXT' to end, minus '## WRITING THE RESULT'",
                            "fallbacks": "server-side default", "delay_between_calls_s": DELAY_S},
                    "records": []}
     done = {r["id"] for r in results["records"]}

@@ -1,0 +1,1140 @@
+{
+  "run": {
+    "model": "claude-opus-5",
+    "started_at": "2026-09-13T21:16:18+00:00",
+    "system_prompt_sha256": "8d34a2bf18ecc430e584462b81710cf656edc4f5a856b0fd8abbd92d44e0f682",
+    "system_prompt_source": "agent-instructions-v5.txt, '## CONTEXT' to end, minus '## WRITING THE RESULT'",
+    "fallbacks": "server-side default",
+    "delay_between_calls_s": 1.0
+  },
+  "records": [
+    {
+      "id": "R001",
+      "text": "'Can you grab 4 of morphine, 4 of zofran, and a liter for 12?' That's how it came at me at the med prep shelf, which is a shelf in the hallway across from triage. No door, no wall. In the three minutes drawing it up I got asked where the bathroom was twice, a tech needed a hand with a stretcher, and triage overhead paged twice. Drew 2 mL of the 4 mg/mL morphine. That's 8. Realized when I went to label the syringe. Wasted with a witness, redrew. Nothing given. We need somewhere to draw up meds that is not a hallway.",
+      "parsed": true,
+      "attempts": 1,
+      "parse_stage": "direct",
+      "schema_errors": [],
+      "classification": {
+        "label": "ENV",
+        "alternative_label": "ORG",
+        "amplifiers": [
+          "INTERRUPTION",
+          "MEMORY_LOAD"
+        ],
+        "fits_taxonomy": true,
+        "reasoning": "The drawing-up happened at a med prep shelf \"in the hallway across from triage\" with \"no door, no wall,\" and the three-minute task was broken into by two wayfinding questions, a stretcher request, and two overhead pages before the 2 mL/8 mg draw was caught.",
+        "processing_note": null
+      },
+      "routing": {
+        "confidence": "REVIEW",
+        "status": "Needs Review",
+        "reason": "alternative label named"
+      },
+      "raw_responses": [
+        {
+          "text": "{\"label\": \"ENV\", \"alternative_label\": \"ORG\", \"amplifiers\": [\"INTERRUPTION\", \"MEMORY_LOAD\"], \"fits_taxonomy\": true, \"reasoning\": \"The drawing-up happened at a med prep shelf \\\"in the hallway across from triage\\\" with \\\"no door, no wall,\\\" and the three-minute task was broken into by two wayfinding questions, a stretcher request, and two overhead pages before the 2 mL/8 mg draw was caught.\", \"processing_note\": null}",
+          "stop_reason": "end_turn",
+          "served_by": "claude-opus-5",
+          "request_id": "req_011Cf28ed9MWX3e7DP6Wg7N1",
+          "usage": {
+            "input_tokens": 2347,
+            "output_tokens": 741
+          },
+          "latency_s": 11.14
+        }
+      ]
+    },
+    {
+      "id": "R002",
+      "text": "Pt moved MICU to 4 Stepdown yesterday afternoon, extubated 2 days, on HFNC 40L/50%. Night BiPAP settings and suction needs (thick, q2-3h, needs deep NT not just yankauer) were given to me verbally by the MICU RT around 1500 while I was covering 3 other floors. I passed on what I had to the stepdown night RT at 1900. Pt plugged ~0230, sat 78%, rapid called, deep suction cleared it, back to ICU for obs. On stepdown there's no RT sheet and no set place for any of this - some people text, some write it on the whiteboard, some leave it to the RN. Honestly not sure which part didn't get across.",
+      "parsed": true,
+      "attempts": 1,
+      "parse_stage": "direct",
+      "schema_errors": [],
+      "classification": {
+        "label": "ORG",
+        "alternative_label": "TASK",
+        "amplifiers": [
+          "MEMORY_LOAD"
+        ],
+        "fits_taxonomy": true,
+        "reasoning": "The report states there is \"no RT sheet and no set place\" for respiratory handoff on stepdown, with some staff texting, some using the whiteboard and some leaving it to the RN, making an absent unit communication structure the condition under which verbally relayed BiPAP and deep-suction needs were lost.",
+        "processing_note": null
+      },
+      "routing": {
+        "confidence": "REVIEW",
+        "status": "Needs Review",
+        "reason": "alternative label named"
+      },
+      "raw_responses": [
+        {
+          "text": "{\"label\": \"ORG\", \"alternative_label\": \"TASK\", \"amplifiers\": [\"MEMORY_LOAD\"], \"fits_taxonomy\": true, \"reasoning\": \"The report states there is \\\"no RT sheet and no set place\\\" for respiratory handoff on stepdown, with some staff texting, some using the whiteboard and some leaving it to the RN, making an absent unit communication structure the condition under which verbally relayed BiPAP and deep-suction needs were lost.\", \"processing_note\": null}",
+          "stop_reason": "end_turn",
+          "served_by": "claude-opus-5",
+          "request_id": "req_011Cf28fWcUZptqqTLZovjEx",
+          "usage": {
+            "input_tokens": 2383,
+            "output_tokens": 689
+          },
+          "latency_s": 9.33
+        }
+      ]
+    },
+    {
+      "id": "R003",
+      "text": "4 mo with bronchiolitis on HFNC 8L/40%. About 0400 I came in to check on him and he was dusky, sat 79% on the monitor, no alarm - it was silenced. Mom was asleep in the chair. She told us after she'd been hitting silence all night because it kept going off in the high 80s and waking him up. The monitor lets anyone press it, stays quiet 2 min, then she'd press it again. Suctioned, went up to 10L/50%, 94% within a few min. Don't know if one of us showed her that button at some point or if she just figured it out.",
+      "parsed": true,
+      "attempts": 1,
+      "parse_stage": "direct",
+      "schema_errors": [],
+      "classification": {
+        "label": "TECH",
+        "alternative_label": "ORG",
+        "amplifiers": [],
+        "fits_taxonomy": true,
+        "reasoning": "The monitor \"lets anyone press it, stays quiet 2 min,\" and alarm limits that repeatedly triggered in the high 80s allowed a desaturation to 79% to go unannounced, which is an alarm-design and alarm-threshold condition.",
+        "processing_note": null
+      },
+      "routing": {
+        "confidence": "REVIEW",
+        "status": "Needs Review",
+        "reason": "alternative label named"
+      },
+      "raw_responses": [
+        {
+          "text": "{\"label\": \"TECH\", \"alternative_label\": \"ORG\", \"amplifiers\": [], \"fits_taxonomy\": true, \"reasoning\": \"The monitor \\\"lets anyone press it, stays quiet 2 min,\\\" and alarm limits that repeatedly triggered in the high 80s allowed a desaturation to 79% to go unannounced, which is an alarm-design and alarm-threshold condition.\", \"processing_note\": null}",
+          "stop_reason": "end_turn",
+          "served_by": "claude-opus-5",
+          "request_id": "req_011Cf28gGpnVPKZeWkJduPeT",
+          "usage": {
+            "input_tokens": 2336,
+            "output_tokens": 576
+          },
+          "latency_s": 8.04
+        }
+      ]
+    },
+    {
+      "id": "R004",
+      "text": "Near miss. Restocking the ADC on 9 East around 1600. Heparin 1,000 units/mL and 5,000 units/mL now come from the same manufacturer - same size vial, same blue cap, strength in tiny print on the side - and they sit in adjacent pockets. Main pharmacy called me partway through the restock, and when I picked back up I loaded 5,000s into the 1,000 pocket. RN pulled one for a line flush at 1620 and the bedside scan flagged the strength. Nothing given. Pockets fixed, shelf tags on both. Can we please get these moved apart?",
+      "parsed": true,
+      "attempts": 1,
+      "parse_stage": "direct",
+      "schema_errors": [],
+      "classification": {
+        "label": "TECH",
+        "alternative_label": "TASK",
+        "amplifiers": [
+          "INTERRUPTION"
+        ],
+        "fits_taxonomy": true,
+        "reasoning": "Two heparin strengths from the same manufacturer with \"same size vial, same blue cap, strength in tiny print\" sitting in \"adjacent pockets\" is a product-labeling and storage-design condition that let the wrong strength be loaded, and the bedside scan is what caught it.",
+        "processing_note": null
+      },
+      "routing": {
+        "confidence": "REVIEW",
+        "status": "Needs Review",
+        "reason": "alternative label named"
+      },
+      "raw_responses": [
+        {
+          "text": "{\"label\": \"TECH\", \"alternative_label\": \"TASK\", \"amplifiers\": [\"INTERRUPTION\"], \"fits_taxonomy\": true, \"reasoning\": \"Two heparin strengths from the same manufacturer with \\\"same size vial, same blue cap, strength in tiny print\\\" sitting in \\\"adjacent pockets\\\" is a product-labeling and storage-design condition that let the wrong strength be loaded, and the bedside scan is what caught it.\", \"processing_note\": null}",
+          "stop_reason": "end_turn",
+          "served_by": "claude-opus-5",
+          "request_id": "req_011Cf28gwTUt46KCawWidVb7",
+          "usage": {
+            "input_tokens": 2345,
+            "output_tokens": 607
+          },
+          "latency_s": 8.96
+        }
+      ]
+    },
+    {
+      "id": "R005",
+      "text": "Hoyer transfer bed to chair, rm 5 rehab, 118 kg pt. Large sling. Shoulder straps on the 2nd loop, leg straps 1st loop on one side and 2nd on the other - uneven, I see that now. She tipped L and slid in the sling as I lifted. Lowered her back, arm caught the rail, 4 cm skin tear L forearm, RN dressed it. Second half of a double.",
+      "parsed": true,
+      "attempts": 1,
+      "parse_stage": "direct",
+      "schema_errors": [],
+      "classification": {
+        "label": "PERSON",
+        "alternative_label": "ORG",
+        "amplifiers": [
+          "FATIGUE"
+        ],
+        "fits_taxonomy": true,
+        "reasoning": "The sling was rigged with mismatched loop settings — shoulder straps on the 2nd loop and leg straps on the 1st and 2nd on opposite sides — a skill-based setup error the reporter performed and recognized after the fact.",
+        "processing_note": null
+      },
+      "routing": {
+        "confidence": "REVIEW",
+        "status": "Needs Review",
+        "reason": "alternative label named"
+      },
+      "raw_responses": [
+        {
+          "text": "{\"label\": \"PERSON\", \"alternative_label\": \"ORG\", \"amplifiers\": [\"FATIGUE\"], \"fits_taxonomy\": true, \"reasoning\": \"The sling was rigged with mismatched loop settings — shoulder straps on the 2nd loop and leg straps on the 1st and 2nd on opposite sides — a skill-based setup error the reporter performed and recognized after the fact.\", \"processing_note\": null}",
+          "stop_reason": "end_turn",
+          "served_by": "claude-opus-5",
+          "request_id": "req_011Cf28hgZ4yPPF6MtYh3BeA",
+          "usage": {
+            "input_tokens": 2290,
+            "output_tokens": 1470
+          },
+          "latency_s": 22.45
+        }
+      ]
+    },
+    {
+      "id": "R006",
+      "text": "Took over at 1910. 4 y/o, ~16 kg, D5 1/2NS with 20 KCl ordered at 45 mL/h. Unit expectation is offgoing and oncoming RN look at the pump against the order together at the bedside. Two call-outs tonight, report happened at the desk, and the pump look didn't happen for any of my 4 - that's pretty usual when we're short. 2030: the 1 L bag hung at 1500 was almost empty. Pump reads 45 mL/h now. Volume infused counter says 880 mL. That doesn't add up at 45. K 5.4, periorbital edema, team at bedside, furosemide given. Pump pulled and sent to biomed. Whether it was programmed wrong or ran wrong I can't tell from the screen.",
+      "parsed": true,
+      "attempts": 1,
+      "parse_stage": "direct",
+      "schema_errors": [],
+      "classification": {
+        "label": "ORG",
+        "alternative_label": "TECH",
+        "amplifiers": [],
+        "fits_taxonomy": true,
+        "reasoning": "The unit's expected bedside pump-versus-order check at handoff was skipped for all four patients because \"two call-outs tonight\" pushed report to the desk, which the reporter describes as \"pretty usual when we're short.\"",
+        "processing_note": null
+      },
+      "routing": {
+        "confidence": "REVIEW",
+        "status": "Needs Review",
+        "reason": "alternative label named"
+      },
+      "raw_responses": [
+        {
+          "text": "{\"label\": \"ORG\", \"alternative_label\": \"TECH\", \"amplifiers\": [], \"fits_taxonomy\": true, \"reasoning\": \"The unit's expected bedside pump-versus-order check at handoff was skipped for all four patients because \\\"two call-outs tonight\\\" pushed report to the desk, which the reporter describes as \\\"pretty usual when we're short.\\\"\", \"processing_note\": null}",
+          "stop_reason": "end_turn",
+          "served_by": "claude-opus-5",
+          "request_id": "req_011Cf28jQVEavFKkURkDmg4d",
+          "usage": {
+            "input_tokens": 2406,
+            "output_tokens": 518
+          },
+          "latency_s": 7.57
+        }
+      ]
+    },
+    {
+      "id": "R007",
+      "text": "PPH after SVD, EBL ~900 at 2230, fundus still boggy after massage and oxytocin. I ordered methylergonovine 0.2 mg IM. She had gestational HTN this pregnancy, 140s-150s in labor. I knew that. It didn't register as a contraindication in the moment - I was thinking next uterotonic on the list. 15 min after it went in, BP 182/110 and a headache. Labetalol IV x2, back to 150s, carboprost after for tone, mag started. Labs ok so far. Attending was in the room right after. The HTN is right there on the problem list.",
+      "parsed": true,
+      "attempts": 1,
+      "parse_stage": "direct",
+      "schema_errors": [],
+      "classification": {
+        "label": "PERSON",
+        "alternative_label": "TASK",
+        "amplifiers": [],
+        "fits_taxonomy": true,
+        "reasoning": "The ordering clinician states the known gestational HTN \"didn't register as a contraindication in the moment\" while reaching for the \"next uterotonic on the list,\" which is a rule-based error by an individual with the information available on the problem list.",
+        "processing_note": null
+      },
+      "routing": {
+        "confidence": "REVIEW",
+        "status": "Needs Review",
+        "reason": "alternative label named"
+      },
+      "raw_responses": [
+        {
+          "text": "{\"label\": \"PERSON\", \"alternative_label\": \"TASK\", \"amplifiers\": [], \"fits_taxonomy\": true, \"reasoning\": \"The ordering clinician states the known gestational HTN \\\"didn't register as a contraindication in the moment\\\" while reaching for the \\\"next uterotonic on the list,\\\" which is a rule-based error by an individual with the information available on the problem list.\", \"processing_note\": null}",
+          "stop_reason": "end_turn",
+          "served_by": "claude-opus-5",
+          "request_id": "req_011Cf28k35AGK2EzbjWLmwoB",
+          "usage": {
+            "input_tokens": 2346,
+            "output_tokens": 718
+          },
+          "latency_s": 9.65
+        }
+      ]
+    },
+    {
+      "id": "R008",
+      "text": "Post-d/c pharmacy f/u call, day 3. Pt seen in ED for DVT, sent home on apixaban. On the phone she says she's still taking her warfarin too 'because nobody said to stop.' INR 3.8 at the clinic today, gums bleeding, sent back in. The d/c instructions do say stop warfarin, page 4. Per the ED RN, pt was discharged from hallway bed H6 around 1840, directly across from trauma 1 during an activation. RN says she went through the meds out loud, but it was loud enough she was basically shouting and the pt kept nodding. Pt never read the packet. Hard to know what she actually heard.",
+      "parsed": true,
+      "attempts": 1,
+      "parse_stage": "direct",
+      "schema_errors": [],
+      "classification": {
+        "label": "ENV",
+        "alternative_label": "ORG",
+        "amplifiers": [],
+        "fits_taxonomy": true,
+        "reasoning": "Medication teaching was delivered from a hallway bed directly across from an active trauma resuscitation, loud enough that the RN was \"basically shouting\" while the patient \"kept nodding,\" so the physical noise and layout degraded the verbal handoff of the stop-warfarin instruction.",
+        "processing_note": null
+      },
+      "routing": {
+        "confidence": "REVIEW",
+        "status": "Needs Review",
+        "reason": "alternative label named"
+      },
+      "raw_responses": [
+        {
+          "text": "{\"label\": \"ENV\", \"alternative_label\": \"ORG\", \"amplifiers\": [], \"fits_taxonomy\": true, \"reasoning\": \"Medication teaching was delivered from a hallway bed directly across from an active trauma resuscitation, loud enough that the RN was \\\"basically shouting\\\" while the patient \\\"kept nodding,\\\" so the physical noise and layout degraded the verbal handoff of the stop-warfarin instruction.\", \"processing_note\": null}",
+          "stop_reason": "end_turn",
+          "served_by": "claude-opus-5",
+          "request_id": "req_011Cf28kqhZuZgSqby3Ffb6A",
+          "usage": {
+            "input_tokens": 2365,
+            "output_tokens": 564
+          },
+          "latency_s": 8.29
+        }
+      ]
+    },
+    {
+      "id": "R009",
+      "text": "Pt went into VF during synchronized cardioversion for AFib RVR, ED rm 3, about 1415. Sync on, 120 J biphasic, markers sitting on the R waves in lead II. Resident asked me to switch the display to paddles/pads view to see the rhythm better. I switched it. I think the sync markers didn't come across to the new view - they weren't on screen when we shocked, but I was watching the pt, not the monitor. Unsynced shock, VF, defib 200 J x1, ROSC, now sinus. Biomed has the defib and the event download.",
+      "parsed": true,
+      "attempts": 1,
+      "parse_stage": "direct",
+      "schema_errors": [],
+      "classification": {
+        "label": "TECH",
+        "alternative_label": "TASK",
+        "amplifiers": [
+          "INTERRUPTION"
+        ],
+        "fits_taxonomy": true,
+        "reasoning": "The reporter describes sync markers that \"didn't come across to the new view\" after switching the monitor display to paddles/pads, implicating device display behavior on lead-source change as the condition that allowed an unsynchronized shock.",
+        "processing_note": null
+      },
+      "routing": {
+        "confidence": "REVIEW",
+        "status": "Needs Review",
+        "reason": "alternative label named"
+      },
+      "raw_responses": [
+        {
+          "text": "{\"label\": \"TECH\", \"alternative_label\": \"TASK\", \"amplifiers\": [\"INTERRUPTION\"], \"fits_taxonomy\": true, \"reasoning\": \"The reporter describes sync markers that \\\"didn't come across to the new view\\\" after switching the monitor display to paddles/pads, implicating device display behavior on lead-source change as the condition that allowed an unsynchronized shock.\", \"processing_note\": null}",
+          "stop_reason": "end_turn",
+          "served_by": "claude-opus-5",
+          "request_id": "req_011Cf28mWKXnuCqTFghpbw5U",
+          "usage": {
+            "input_tokens": 2334,
+            "output_tokens": 908
+          },
+          "latency_s": 14.48
+        }
+      ]
+    },
+    {
+      "id": "R010",
+      "text": "Received pt in PACU 1120 s/p lap chole. Anesthesia gave report at the bedside - airway fine, fluids, 'minimal narcotics' - then got called to start the next case in OR 9, which was already running 20 min behind, and left before we went through the intraop med list. Intraop record wasn't closed yet so I couldn't pull it up. Pt pain 9/10, gave hydromorphone 0.5 mg x2 per PACU orders. 1150 RR 6, sat 84, pinpoint. Narcan 0.08 x2, good response. Anesthesia record later shows hydromorphone 1.5 mg at 1105. Normally we go down the med list together before they walk away. Didn't happen today.",
+      "parsed": true,
+      "attempts": 1,
+      "parse_stage": "direct",
+      "schema_errors": [],
+      "classification": {
+        "label": "ORG",
+        "alternative_label": "TECH",
+        "amplifiers": [
+          "INTERRUPTION"
+        ],
+        "fits_taxonomy": true,
+        "reasoning": "The handoff structure broke down when anesthesia was called to start the next case in a room already running behind and left before the intraop med list was reviewed, contrary to the unit's normal practice of going down the list together.",
+        "processing_note": null
+      },
+      "routing": {
+        "confidence": "REVIEW",
+        "status": "Needs Review",
+        "reason": "alternative label named"
+      },
+      "raw_responses": [
+        {
+          "text": "{\"label\": \"ORG\", \"alternative_label\": \"TECH\", \"amplifiers\": [\"INTERRUPTION\"], \"fits_taxonomy\": true, \"reasoning\": \"The handoff structure broke down when anesthesia was called to start the next case in a room already running behind and left before the intraop med list was reviewed, contrary to the unit's normal practice of going down the list together.\", \"processing_note\": null}",
+          "stop_reason": "end_turn",
+          "served_by": "claude-opus-5",
+          "request_id": "req_011Cf28nf2Ru92HN4sGEgFtz",
+          "usage": {
+            "input_tokens": 2386,
+            "output_tokens": 562
+          },
+          "latency_s": 8.59
+        }
+      ]
+    },
+    {
+      "id": "R011",
+      "text": "Monitor tech called the desk at 2144 asking why nobody answered for rm 22. Pt had a 40 sec run of VT at 2141, self-terminated. My phone never alarmed. Neither did the charge RN's, and she's the backup. Phones got a software push this afternoon and since then, per IT, some of them don't get tele alerts even though calls and texts come through fine. Nobody on the unit knew. Pt asymptomatic, K 3.2, Mg 1.5, both replaced, cards aware. We're carrying the old phones for the rest of the night.",
+      "parsed": true,
+      "attempts": 1,
+      "parse_stage": "direct",
+      "schema_errors": [],
+      "classification": {
+        "label": "TECH",
+        "alternative_label": "ORG",
+        "amplifiers": [],
+        "fits_taxonomy": true,
+        "reasoning": "A software push disabled telemetry alerts on both the primary and backup nurses' phones, so a 40-second VT run generated no notification and was only discovered when the monitor tech called the desk.",
+        "processing_note": null
+      },
+      "routing": {
+        "confidence": "REVIEW",
+        "status": "Needs Review",
+        "reason": "alternative label named"
+      },
+      "raw_responses": [
+        {
+          "text": "{\"label\": \"TECH\", \"alternative_label\": \"ORG\", \"amplifiers\": [], \"fits_taxonomy\": true, \"reasoning\": \"A software push disabled telemetry alerts on both the primary and backup nurses' phones, so a 40-second VT run generated no notification and was only discovered when the monitor tech called the desk.\", \"processing_note\": null}",
+          "stop_reason": "end_turn",
+          "served_by": "claude-opus-5",
+          "request_id": "req_011Cf28oMmdj5mhsBrZBSkq3",
+          "usage": {
+            "input_tokens": 2333,
+            "output_tokens": 617
+          },
+          "latency_s": 8.83
+        }
+      ]
+    },
+    {
+      "id": "R012",
+      "text": "Around 2000 on 4W I pulled 2 premixed bags from the med room: magnesium 2 g for my pt in 12 and IV acetaminophen 1 g for my pt in 14. Acetaminophen has always been the stiff glass-looking bottle. Tonight it was a soft 100 mL bag, green and white label, same size and colors as the mag. Went into 14, spiked it, then got called into 12 for a bed alarm. Back in 14 to program the pump, read the bag to pick the drug and it was the mag. Nothing had run. Swapped them. I don't know when the new acetaminophen bags started coming up.",
+      "parsed": true,
+      "attempts": 1,
+      "parse_stage": "direct",
+      "schema_errors": [],
+      "classification": {
+        "label": "TECH",
+        "alternative_label": "ORG",
+        "amplifiers": [
+          "INTERRUPTION",
+          "MEMORY_LOAD"
+        ],
+        "fits_taxonomy": true,
+        "reasoning": "The IV acetaminophen changed from a \"stiff glass-looking bottle\" to a \"soft 100 mL bag, green and white label, same size and colors as the mag,\" creating look-alike packaging between two bags carried for two different patients, with a bed alarm pulling the nurse away after spiking.",
+        "processing_note": null
+      },
+      "routing": {
+        "confidence": "REVIEW",
+        "status": "Needs Review",
+        "reason": "alternative label named"
+      },
+      "raw_responses": [
+        {
+          "text": "{\"label\": \"TECH\", \"alternative_label\": \"ORG\", \"amplifiers\": [\"INTERRUPTION\", \"MEMORY_LOAD\"], \"fits_taxonomy\": true, \"reasoning\": \"The IV acetaminophen changed from a \\\"stiff glass-looking bottle\\\" to a \\\"soft 100 mL bag, green and white label, same size and colors as the mag,\\\" creating look-alike packaging between two bags carried for two different patients, with a bed alarm pulling the nurse away after spiking.\", \"processing_note\": null}",
+          "stop_reason": "end_turn",
+          "served_by": "claude-opus-5",
+          "request_id": "req_011Cf28p5qxUa6BTRzjnGhXN",
+          "usage": {
+            "input_tokens": 2354,
+            "output_tokens": 894
+          },
+          "latency_s": 13.58
+        }
+      ]
+    },
+    {
+      "id": "R013",
+      "text": "Admit from ED hit 5N at 2350 - DKA, gap closed, transitioned to SQ. Glargine 22u on the admission order set, MAR had it flagged overdue (sched 2200) so I gave it at 0020. 4th admit for me since 1900. FSBG 51 at 0410, 38 on recheck, D50 x1, pt diaphoretic but talking, better by 0445. Found out after that ED gave glargine 22u at 2145. It IS documented, in the ED encounter. Once the pt flips to inpatient that admin doesn't show on our MAR. I'm not sure what else I was supposed to look at. Endocrine aware, pt ok this AM.",
+      "parsed": true,
+      "attempts": 1,
+      "parse_stage": "direct",
+      "schema_errors": [],
+      "classification": {
+        "label": "TECH",
+        "alternative_label": "ORG",
+        "amplifiers": [
+          "MEMORY_LOAD"
+        ],
+        "fits_taxonomy": true,
+        "reasoning": "The ED glargine administration was documented in the ED encounter but, per the report, \"once the pt flips to inpatient that admin doesn't show on our MAR,\" so the record system hid a completed dose while the order set showed it as overdue.",
+        "processing_note": null
+      },
+      "routing": {
+        "confidence": "REVIEW",
+        "status": "Needs Review",
+        "reason": "alternative label named"
+      },
+      "raw_responses": [
+        {
+          "text": "{\"label\": \"TECH\", \"alternative_label\": \"ORG\", \"amplifiers\": [\"MEMORY_LOAD\"], \"fits_taxonomy\": true, \"reasoning\": \"The ED glargine administration was documented in the ED encounter but, per the report, \\\"once the pt flips to inpatient that admin doesn't show on our MAR,\\\" so the record system hid a completed dose while the order set showed it as overdue.\", \"processing_note\": null}",
+          "stop_reason": "end_turn",
+          "served_by": "claude-opus-5",
+          "request_id": "req_011Cf28qAR4rbxWRdzLU46xo",
+          "usage": {
+            "input_tokens": 2373,
+            "output_tokens": 932
+          },
+          "latency_s": 13.31
+        }
+      ]
+    },
+    {
+      "id": "R014",
+      "text": "OR 14 is the small room and today it had the C-arm, the nav tower, and a second back table for the spine set all crammed in, so when we flipped the pt prone the only route left for the IV extension was across the floor right where the C-arm base parks, and when radiology rolled the C-arm in for the first localizing shot the wheel went over the tubing and yanked the 18g out of the L AC. Anesthesia had no working IV for about 6-7 minutes, BP dropped from positioning around the same time, they got a line in the foot and the pt did fine. There is no floor in that room for that case.",
+      "parsed": true,
+      "attempts": 1,
+      "parse_stage": "direct",
+      "schema_errors": [],
+      "classification": {
+        "label": "ENV",
+        "alternative_label": null,
+        "amplifiers": [],
+        "fits_taxonomy": true,
+        "reasoning": "The report attributes the IV dislodgement to a small room crammed with the C-arm, nav tower, and second back table, leaving the floor as the only tubing route where the C-arm base parks — a physical layout and space constraint.",
+        "processing_note": null
+      },
+      "routing": {
+        "confidence": "HIGH",
+        "status": "Auto-classified",
+        "reason": "none"
+      },
+      "raw_responses": [
+        {
+          "text": "{\"label\": \"ENV\", \"alternative_label\": null, \"amplifiers\": [], \"fits_taxonomy\": true, \"reasoning\": \"The report attributes the IV dislodgement to a small room crammed with the C-arm, nav tower, and second back table, leaving the floor as the only tubing route where the C-arm base parks — a physical layout and space constraint.\", \"processing_note\": null}",
+          "stop_reason": "end_turn",
+          "served_by": "claude-opus-5",
+          "request_id": "req_011Cf28rDSR5egbzANKMvASr",
+          "usage": {
+            "input_tokens": 2336,
+            "output_tokens": 128
+          },
+          "latency_s": 2.08
+        }
+      ]
+    },
+    {
+      "id": "R015",
+      "text": "Missed doses, pip/tazo, 3 East.\n1) Team changed frequency q6h to q8h Tues ~1100 after creatinine improved.\n2) EHR discontinues the old order and builds a new one. New one's first dose defaults to 'next standard admin time', which it set to Wed 0600, not Tues 1400.\n3) MAR showed nothing due Tues afternoon or evening. RN had no reason to think anything was missing.\nPt went about 19 h without antibiotic. Found on my Wed AM profile review. Tmax 38.6 overnight, lactate normal, cultures redrawn. Second time I've seen the start-time default do this on a frequency change.",
+      "parsed": true,
+      "attempts": 1,
+      "parse_stage": "direct",
+      "schema_errors": [],
+      "classification": {
+        "label": "TECH",
+        "alternative_label": null,
+        "amplifiers": [],
+        "fits_taxonomy": true,
+        "reasoning": "The EHR discontinued the old order and defaulted the new order's first dose to the 'next standard admin time' nearly a day out, so the MAR showed nothing due and the RN 'had no reason to think anything was missing.'",
+        "processing_note": null
+      },
+      "routing": {
+        "confidence": "HIGH",
+        "status": "Auto-classified",
+        "reason": "none"
+      },
+      "raw_responses": [
+        {
+          "text": "{\"label\": \"TECH\", \"alternative_label\": null, \"amplifiers\": [], \"fits_taxonomy\": true, \"reasoning\": \"The EHR discontinued the old order and defaulted the new order's first dose to the 'next standard admin time' nearly a day out, so the MAR showed nothing due and the RN 'had no reason to think anything was missing.'\", \"processing_note\": null}",
+          "stop_reason": "end_turn",
+          "served_by": "claude-opus-5",
+          "request_id": "req_011Cf28rSbSG9yBDqJCahYKV",
+          "usage": {
+            "input_tokens": 2371,
+            "output_tokens": 483
+          },
+          "latency_s": 7.92
+        }
+      ]
+    },
+    {
+      "id": "R016",
+      "text": "Paged 1015 by day RN, new L facial droop + dysarthria, stroke alert called. Day RN had been in the room at 0800 and thought his speech was baseline - she'd never met him before today. Talking to night RN by phone afterward: around 0500 she noticed he was 'a little slurry,' figured it was the trazodone, meant to bring it up. Didn't make it into her note or into report at 0700, and nobody paged cross-cover. So LKW ends up ~0430, not this morning, and he's out of window. MRI pending. I'm not trying to hang this on one person, just laying out the times as best I have them.",
+      "parsed": true,
+      "attempts": 1,
+      "parse_stage": "direct",
+      "schema_errors": [],
+      "classification": {
+        "label": "ORG",
+        "alternative_label": "PERSON",
+        "amplifiers": [],
+        "fits_taxonomy": true,
+        "reasoning": "A new neuro finding noted at 0500 \"didn't make it into her note or into report at 0700, and nobody paged cross-cover,\" so the shift handoff and escalation pathway failed to carry a clinical change forward.",
+        "processing_note": null
+      },
+      "routing": {
+        "confidence": "REVIEW",
+        "status": "Needs Review",
+        "reason": "alternative label named"
+      },
+      "raw_responses": [
+        {
+          "text": "{\"label\": \"ORG\", \"alternative_label\": \"PERSON\", \"amplifiers\": [], \"fits_taxonomy\": true, \"reasoning\": \"A new neuro finding noted at 0500 \\\"didn't make it into her note or into report at 0700, and nobody paged cross-cover,\\\" so the shift handoff and escalation pathway failed to carry a clinical change forward.\", \"processing_note\": null}",
+          "stop_reason": "end_turn",
+          "served_by": "claude-opus-5",
+          "request_id": "req_011Cf28s6j82kNbqthe9Btbh",
+          "usage": {
+            "input_tokens": 2350,
+            "output_tokens": 1158
+          },
+          "latency_s": 16.85
+        }
+      ]
+    },
+    {
+      "id": "R017",
+      "text": "Rituximab, first-ever dose, chair 6. Titration is 50 mg/h then up 50 every 30 min as tolerated, max 400. I had three chairs titrating at once - 6, 9, and 11 - each on a different step, each started at a different time, and I was keeping them straight on a scrap of paper in my pocket because that's faster than clicking into each flowsheet. Phone rang a few times in there and 11 needed a new IV. Chair 6 went from 50 straight to 150 at the 30 min mark. Skipped 100. Around 45 min pt flushed, rigors, SBP 160s then 90s. Stopped, reaction meds per protocol, restarted at 25 an hour later and finished. Went home late but ok.",
+      "parsed": true,
+      "attempts": 1,
+      "parse_stage": "direct",
+      "schema_errors": [],
+      "classification": {
+        "label": "TASK",
+        "alternative_label": "ORG",
+        "amplifiers": [
+          "INTERRUPTION",
+          "MEMORY_LOAD"
+        ],
+        "fits_taxonomy": true,
+        "reasoning": "Three concurrent titrations each on a different step and start time, tracked on a pocket scrap of paper rather than the flowsheet, produced a skipped rung in the 50-mg increments when chair 6 went from 50 straight to 150.",
+        "processing_note": null
+      },
+      "routing": {
+        "confidence": "REVIEW",
+        "status": "Needs Review",
+        "reason": "alternative label named"
+      },
+      "raw_responses": [
+        {
+          "text": "{\"label\": \"TASK\", \"alternative_label\": \"ORG\", \"amplifiers\": [\"INTERRUPTION\", \"MEMORY_LOAD\"], \"fits_taxonomy\": true, \"reasoning\": \"Three concurrent titrations each on a different step and start time, tracked on a pocket scrap of paper rather than the flowsheet, produced a skipped rung in the 50-mg increments when chair 6 went from 50 straight to 150.\", \"processing_note\": null}",
+          "stop_reason": "end_turn",
+          "served_by": "claude-opus-5",
+          "request_id": "req_011Cf28tR6SpWv4zWPweDnnJ",
+          "usage": {
+            "input_tokens": 2390,
+            "output_tokens": 551
+          },
+          "latency_s": 7.43
+        }
+      ]
+    },
+    {
+      "id": "R018",
+      "text": "Anti-Xa 1.38 on the 0600 draw, goal 0.3-0.7. Went back through the pump history: at the 0340 nomogram rate increase the dosing weight was keyed as 118 kg. Pt is 81 kg. So roughly 45% more heparin than intended for about 2.5 h. MAR shows a second RN cosign on the change. Spoke with her - she was at the station on the far side of the pod and cosigned off what the primary RN read out to her. Per her that's how it normally goes on nights in CVICU, and I've heard the same from other pods. Drip held 1 h, no bleeding, team aware, repeat Xa at 1200.",
+      "parsed": true,
+      "attempts": 1,
+      "parse_stage": "direct",
+      "schema_errors": [],
+      "classification": {
+        "label": "ORG",
+        "alternative_label": null,
+        "amplifiers": [],
+        "fits_taxonomy": true,
+        "reasoning": "The cosign was given from across the pod based on what the primary RN read aloud rather than an independent check of the keyed dosing weight, and the cosigning RN described this as how it normally goes on nights in the unit with the same reported in other pods, making the verification norm the contributing condition rather than the single keystroke.",
+        "processing_note": null
+      },
+      "routing": {
+        "confidence": "HIGH",
+        "status": "Auto-classified",
+        "reason": "none"
+      },
+      "raw_responses": [
+        {
+          "text": "{\"label\": \"ORG\", \"alternative_label\": null, \"amplifiers\": [], \"fits_taxonomy\": true, \"reasoning\": \"The cosign was given from across the pod based on what the primary RN read aloud rather than an independent check of the keyed dosing weight, and the cosigning RN described this as how it normally goes on nights in the unit with the same reported in other pods, making the verification norm the contributing condition rather than the single keystroke.\", \"processing_note\": null}",
+          "stop_reason": "end_turn",
+          "served_by": "claude-opus-5",
+          "request_id": "req_011Cf28u38t26HSef5tCJ48E",
+          "usage": {
+            "input_tokens": 2367,
+            "output_tokens": 2177
+          },
+          "latency_s": 32.37
+        }
+      ]
+    },
+    {
+      "id": "R019",
+      "text": "33 wk in pod C moved to bed space 14 yesterday to open a spot for an admit. 14 is under the big west window. Isolette on air mode. By 1500 axillary temp 38.4, isolette had been cutting heat all afternoon. Sun hits that space from about 1300 on and the blinds don't close the whole way (ticket in since spring). Cultures drawn, amp/gent x1 before we put it together. Moved spaces, afebrile within 2 h, cultures neg so far.",
+      "parsed": true,
+      "attempts": 1,
+      "parse_stage": "direct",
+      "schema_errors": [],
+      "classification": {
+        "label": "ENV",
+        "alternative_label": null,
+        "amplifiers": [],
+        "fits_taxonomy": true,
+        "reasoning": "The infant was moved to a bed space under a west window where afternoon sun and blinds that \"don't close the whole way\" drove radiant heat gain, with the isolette cutting heat all afternoon and the temperature normalizing within 2 hours of relocation.",
+        "processing_note": null
+      },
+      "routing": {
+        "confidence": "HIGH",
+        "status": "Auto-classified",
+        "reason": "none"
+      },
+      "raw_responses": [
+        {
+          "text": "{\"label\": \"ENV\", \"alternative_label\": null, \"amplifiers\": [], \"fits_taxonomy\": true, \"reasoning\": \"The infant was moved to a bed space under a west window where afternoon sun and blinds that \\\"don't close the whole way\\\" drove radiant heat gain, with the isolette cutting heat all afternoon and the temperature normalizing within 2 hours of relocation.\", \"processing_note\": null}",
+          "stop_reason": "end_turn",
+          "served_by": "claude-opus-5",
+          "request_id": "req_011Cf28wW2hA1hYSKiwirYuH",
+          "usage": {
+            "input_tokens": 2310,
+            "output_tokens": 905
+          },
+          "latency_s": 12.85
+        }
+      ]
+    },
+    {
+      "id": "R020",
+      "text": "Add-on lap appy, came down to pre-op while the rooms were turning over from the late-morning cases. Allergy field said NKDA, carried forward from a 2023 encounter. Pre-op checklist has 'allergies reviewed with pt' checked off by the RN. She'd had midazolam 2 mg from the standing pre-op order by the time I got to her and was pretty drowsy, so I went off the chart. Cefazolin at incision, then urticaria, wheeze, BP into the 70s. Epi x2, stabilized, case went ahead. Afterward her husband told us penicillin anaphylaxis in 2024 at an outside hospital. Not clear to me whether she was ever actually asked, or asked after she was already sedated.",
+      "parsed": true,
+      "attempts": 1,
+      "parse_stage": "direct",
+      "schema_errors": [],
+      "classification": {
+        "label": "TASK",
+        "alternative_label": "PERSON",
+        "amplifiers": [],
+        "fits_taxonomy": true,
+        "reasoning": "The 'allergies reviewed with pt' box was checked while an NKDA entry carried forward from a 2023 encounter went unreconciled and the verification either never happened or happened after the standing-order midazolam left the patient drowsy, placing the confirmation step out of sequence with sedation.",
+        "processing_note": null
+      },
+      "routing": {
+        "confidence": "REVIEW",
+        "status": "Needs Review",
+        "reason": "alternative label named"
+      },
+      "raw_responses": [
+        {
+          "text": "{\"label\": \"TASK\", \"alternative_label\": \"PERSON\", \"amplifiers\": [], \"fits_taxonomy\": true, \"reasoning\": \"The 'allergies reviewed with pt' box was checked while an NKDA entry carried forward from a 2023 encounter went unreconciled and the verification either never happened or happened after the standing-order midazolam left the patient drowsy, placing the confirmation step out of sequence with sedation.\", \"processing_note\": null}",
+          "stop_reason": "end_turn",
+          "served_by": "claude-opus-5",
+          "request_id": "req_011Cf28xX9wcW27jZ82YjK1j",
+          "usage": {
+            "input_tokens": 2390,
+            "output_tokens": 894
+          },
+          "latency_s": 12.52
+        }
+      ]
+    },
+    {
+      "id": "R021",
+      "text": "0600 meds, surgical stepdown. Metoprolol 25 PO to rm 14 with HR 53. I had hold for <50 in my head - that's rm 12's parameter. His is hold for HR <55 or SBP <100. Day RN found him at 0740 HR 41, BP 86/50, dizzy. Fluids, next dose held, fine by 0900. Six pts, three different hold parameters, third night in a row.",
+      "parsed": true,
+      "attempts": 1,
+      "parse_stage": "direct",
+      "schema_errors": [],
+      "classification": {
+        "label": "PERSON",
+        "alternative_label": "TASK",
+        "amplifiers": [
+          "MEMORY_LOAD",
+          "FATIGUE"
+        ],
+        "fits_taxonomy": true,
+        "reasoning": "The nurse administered metoprolol while holding another patient's hold parameter \"in my head\" instead of this patient's hold for HR <55, a recall-based error at the point of administration.",
+        "processing_note": null
+      },
+      "routing": {
+        "confidence": "REVIEW",
+        "status": "Needs Review",
+        "reason": "alternative label named"
+      },
+      "raw_responses": [
+        {
+          "text": "{\"label\": \"PERSON\", \"alternative_label\": \"TASK\", \"amplifiers\": [\"MEMORY_LOAD\", \"FATIGUE\"], \"fits_taxonomy\": true, \"reasoning\": \"The nurse administered metoprolol while holding another patient's hold parameter \\\"in my head\\\" instead of this patient's hold for HR <55, a recall-based error at the point of administration.\", \"processing_note\": null}",
+          "stop_reason": "end_turn",
+          "served_by": "claude-opus-5",
+          "request_id": "req_011Cf28yX2XgSi2SYusQdakT",
+          "usage": {
+            "input_tokens": 2288,
+            "output_tokens": 1448
+          },
+          "latency_s": 20.93
+        }
+      ]
+    },
+    {
+      "id": "R022",
+      "text": "Pt in 612, NPO after MN for ORIF this AM. Around 0450 night shift moved her to 618 so 612 could be a contact iso room. I did the move with one RN, we had 3 other things going. I think the NPO sign stayed on 612's door, and 618's whiteboard still had the last pt's info on it. 0730 the breakfast tray went in and she ate most of it before anybody caught it. Case pushed to 1500. I gave report to the day tech at 0645 and went through all my rooms. I know I said she moved. I can't say for sure whether I said NPO for her.",
+      "parsed": true,
+      "attempts": 1,
+      "parse_stage": "direct",
+      "schema_errors": [],
+      "classification": {
+        "label": "TASK",
+        "alternative_label": "TECH",
+        "amplifiers": [
+          "MEMORY_LOAD"
+        ],
+        "fits_taxonomy": true,
+        "reasoning": "The room move omitted the status-transfer steps — the NPO sign stayed on the old door, the new room's whiteboard still held the prior patient's information, and NPO may not have carried into the handoff — while the reporter had \"3 other things going.\"",
+        "processing_note": null
+      },
+      "routing": {
+        "confidence": "REVIEW",
+        "status": "Needs Review",
+        "reason": "alternative label named"
+      },
+      "raw_responses": [
+        {
+          "text": "{\"label\": \"TASK\", \"alternative_label\": \"TECH\", \"amplifiers\": [\"MEMORY_LOAD\"], \"fits_taxonomy\": true, \"reasoning\": \"The room move omitted the status-transfer steps — the NPO sign stayed on the old door, the new room's whiteboard still held the prior patient's information, and NPO may not have carried into the handoff — while the reporter had \\\"3 other things going.\\\"\", \"processing_note\": null}",
+          "stop_reason": "end_turn",
+          "served_by": "claude-opus-5",
+          "request_id": "req_011Cf2918huXtZTaWp8sQ7xA",
+          "usage": {
+            "input_tokens": 2339,
+            "output_tokens": 1040
+          },
+          "latency_s": 14.16
+        }
+      ]
+    },
+    {
+      "id": "R023",
+      "text": "Bronch on bed 3, neuro ICU, with the pulm fellow around 1430. FiO2 up to 100% for the procedure like always. Went fine. I was breaking down the bronch cart when the rapid response pager went off for 5th floor and I went straight there. FiO2 never came back down to 40. Caught it at 2330 on my vent rounds - roughly 9 hours at 100%, PaO2 on the 1900 gas was 410. Pt stable throughout. Weaned back. There are a lot of little steps after a bronch, and turning the vent back is the last one anybody thinks about once it's over.",
+      "parsed": true,
+      "attempts": 1,
+      "parse_stage": "direct",
+      "schema_errors": [],
+      "classification": {
+        "label": "TASK",
+        "alternative_label": "ORG",
+        "amplifiers": [
+          "INTERRUPTION"
+        ],
+        "fits_taxonomy": true,
+        "reasoning": "The FiO2 reduction was the final step in a multi-step post-bronchoscopy sequence and was dropped when the rapid response pager pulled the respiratory therapist away mid-cleanup, going undetected until vent rounds nine hours later.",
+        "processing_note": null
+      },
+      "routing": {
+        "confidence": "REVIEW",
+        "status": "Needs Review",
+        "reason": "alternative label named"
+      },
+      "raw_responses": [
+        {
+          "text": "{\"label\": \"TASK\", \"alternative_label\": \"ORG\", \"amplifiers\": [\"INTERRUPTION\"], \"fits_taxonomy\": true, \"reasoning\": \"The FiO2 reduction was the final step in a multi-step post-bronchoscopy sequence and was dropped when the rapid response pager pulled the respiratory therapist away mid-cleanup, going undetected until vent rounds nine hours later.\", \"processing_note\": null}",
+          "stop_reason": "end_turn",
+          "served_by": "claude-opus-5",
+          "request_id": "req_011Cf292FirqrAnD1dYM7nvy",
+          "usage": {
+            "input_tokens": 2348,
+            "output_tokens": 649
+          },
+          "latency_s": 9.5
+        }
+      ]
+    },
+    {
+      "id": "R024",
+      "text": "Bedside thora, 7W, ~1330. I scanned her myself at 1100: L effusion, marked. CHG bath in between, mark gone. Set up on the R - old H&P from two admissions back says R effusion, and I think that's what was in my head. Didn't re-scan. No pause with the RN. Dry tap, coughing, stopped. Post CXR small R PTX. 2L NC, no tube, repeat film 1800. Attending, pt, daughter all informed.",
+      "parsed": true,
+      "attempts": 1,
+      "parse_stage": "direct",
+      "schema_errors": [],
+      "classification": {
+        "label": "TASK",
+        "alternative_label": "PERSON",
+        "amplifiers": [],
+        "fits_taxonomy": true,
+        "reasoning": "The skin mark from the 1100 scan was removed by an intervening CHG bath and the verification steps that would have caught the side error were dropped — \"Didn't re-scan. No pause with the RN\" — leaving stale documentation as the only site check.",
+        "processing_note": null
+      },
+      "routing": {
+        "confidence": "REVIEW",
+        "status": "Needs Review",
+        "reason": "alternative label named"
+      },
+      "raw_responses": [
+        {
+          "text": "{\"label\": \"TASK\", \"alternative_label\": \"PERSON\", \"amplifiers\": [], \"fits_taxonomy\": true, \"reasoning\": \"The skin mark from the 1100 scan was removed by an intervening CHG bath and the verification steps that would have caught the side error were dropped — \\\"Didn't re-scan. No pause with the RN\\\" — leaving stale documentation as the only site check.\", \"processing_note\": null}",
+          "stop_reason": "end_turn",
+          "served_by": "claude-opus-5",
+          "request_id": "req_011Cf2932VeuLvccVFQfiKuC",
+          "usage": {
+            "input_tokens": 2304,
+            "output_tokens": 822
+          },
+          "latency_s": 12.09
+        }
+      ]
+    },
+    {
+      "id": "R025",
+      "text": "Outpatient HD. Chairs 7 and 8 are about 3 ft apart, same machine model, same alarm tone. I had 4 chairs this shift. Heard a venous pressure alarm, went to 8, and 8's screen had an alarm up from a minute earlier, so I cleared it and reset. The one going off was actually 7. Chair 7's venous needle had pulled partway out under her blanket, EBL maybe 150-200 mL, pt dizzy, BP 88/50. NS bolus, needle replaced, nephrologist saw her before she left. I was facing 8 the whole time. From where I was standing I'm honestly not sure 7's screen was even visible.",
+      "parsed": true,
+      "attempts": 1,
+      "parse_stage": "direct",
+      "schema_errors": [],
+      "classification": {
+        "label": "TECH",
+        "alternative_label": "ENV",
+        "amplifiers": [],
+        "fits_taxonomy": true,
+        "reasoning": "Two adjacent machines of the same model with the \"same alarm tone\" gave no way to localize the alarm, and a stale alarm still displayed on chair 8's screen falsely confirmed the wrong source.",
+        "processing_note": null
+      },
+      "routing": {
+        "confidence": "REVIEW",
+        "status": "Needs Review",
+        "reason": "alternative label named"
+      },
+      "raw_responses": [
+        {
+          "text": "{\"label\": \"TECH\", \"alternative_label\": \"ENV\", \"amplifiers\": [], \"fits_taxonomy\": true, \"reasoning\": \"Two adjacent machines of the same model with the \\\"same alarm tone\\\" gave no way to localize the alarm, and a stale alarm still displayed on chair 8's screen falsely confirmed the wrong source.\", \"processing_note\": null}",
+          "stop_reason": "end_turn",
+          "served_by": "claude-opus-5",
+          "request_id": "req_011Cf293zYcGzCAAqKxArcLh",
+          "usage": {
+            "input_tokens": 2370,
+            "output_tokens": 672
+          },
+          "latency_s": 9.34
+        }
+      ]
+    },
+    {
+      "id": "R026",
+      "text": "Caught at my own counter, never left the pharmacy. Outpatient, around 1745. Reconstituting amoxicillin 400/5 for a 2 y/o, 100 mL bottle. Label says add water in two portions, shake between. Added the first portion, drive-thru bell went, came back and added two more because I thought I hadn't started yet. Went to cap it and the liquid was clearly over the fill line. Dumped it, remade it. Would have been roughly two-thirds strength for a 10 day course. If it had landed under the line I don't think I'd have known.",
+      "parsed": true,
+      "attempts": 1,
+      "parse_stage": "direct",
+      "schema_errors": [],
+      "classification": {
+        "label": "TASK",
+        "alternative_label": "ENV",
+        "amplifiers": [
+          "INTERRUPTION"
+        ],
+        "fits_taxonomy": true,
+        "reasoning": "The reconstitution required adding water \"in two portions, shake between\" with no visible marker of which portion was done, so after the drive-thru bell the partially completed state was unrecoverable and two more portions were added.",
+        "processing_note": null
+      },
+      "routing": {
+        "confidence": "REVIEW",
+        "status": "Needs Review",
+        "reason": "alternative label named"
+      },
+      "raw_responses": [
+        {
+          "text": "{\"label\": \"TASK\", \"alternative_label\": \"ENV\", \"amplifiers\": [\"INTERRUPTION\"], \"fits_taxonomy\": true, \"reasoning\": \"The reconstitution required adding water \\\"in two portions, shake between\\\" with no visible marker of which portion was done, so after the drive-thru bell the partially completed state was unrecoverable and two more portions were added.\", \"processing_note\": null}",
+          "stop_reason": "end_turn",
+          "served_by": "claude-opus-5",
+          "request_id": "req_011Cf294kv5xXU36gJZgjAzb",
+          "usage": {
+            "input_tokens": 2331,
+            "output_tokens": 1081
+          },
+          "latency_s": 15.77
+        }
+      ]
+    },
+    {
+      "id": "R027",
+      "text": "Two art sticks back to back, beds 4 and 6 in SICU, both vented, both on the list to have gases back before the team started rounds. Drew 4, went straight to 6, carried both syringes on ice to the analyzer and put the labels on there. They got swapped. Bed 6 showed a PaCO2 of 61 - that was bed 4's - so the resident bumped 6's rate from 14 to 20. Repeat on 6 an hour later: pH 7.57, CO2 24. Bed 4 sat hypercapnic with nothing changed. Figured out when the two sets of numbers made no sense together. Both back on prior settings. Doing them together saves a trip, is the honest answer.",
+      "parsed": true,
+      "attempts": 1,
+      "parse_stage": "direct",
+      "schema_errors": [],
+      "classification": {
+        "label": "TASK",
+        "alternative_label": "ORG",
+        "amplifiers": [
+          "MEMORY_LOAD"
+        ],
+        "fits_taxonomy": true,
+        "reasoning": "Two arterial draws were batched and labeling was deferred from the bedside to the analyzer, so the identity of two unlabeled syringes had to be held mentally across the transport and was lost at the point of labeling.",
+        "processing_note": null
+      },
+      "routing": {
+        "confidence": "REVIEW",
+        "status": "Needs Review",
+        "reason": "alternative label named"
+      },
+      "raw_responses": [
+        {
+          "text": "{\"label\": \"TASK\", \"alternative_label\": \"ORG\", \"amplifiers\": [\"MEMORY_LOAD\"], \"fits_taxonomy\": true, \"reasoning\": \"Two arterial draws were batched and labeling was deferred from the bedside to the analyzer, so the identity of two unlabeled syringes had to be held mentally across the transport and was lost at the point of labeling.\", \"processing_note\": null}",
+          "stop_reason": "end_turn",
+          "served_by": "claude-opus-5",
+          "request_id": "req_011Cf295zVBt16JcxZNZHZGF",
+          "usage": {
+            "input_tokens": 2375,
+            "output_tokens": 782
+          },
+          "latency_s": 11.05
+        }
+      ]
+    },
+    {
+      "id": "R028",
+      "text": "Cross-cover, 0130. Paged for BP 196/108, pt with hx HTN, no symptoms. Typed 'hydr' into order search and clicked what I thought was hydralazine 10 mg IV. It was hydroxyzine 25 mg PO, which sorts first, and in that dropdown both names get cut off to 'HYDR...ZINE' unless you hover. Recheck at 0230 still 190s and pt very drowsy, RN called me back, that's when we saw it. Gave hydralazine, BP came down. Sleepy till morning, otherwise fine. I'd been up since 0700 the day before, for what that's worth.",
+      "parsed": true,
+      "attempts": 1,
+      "parse_stage": "direct",
+      "schema_errors": [],
+      "classification": {
+        "label": "TECH",
+        "alternative_label": "PERSON",
+        "amplifiers": [
+          "FATIGUE"
+        ],
+        "fits_taxonomy": true,
+        "reasoning": "The order search returned look-alike entries truncated to 'HYDR...ZINE' with hydroxyzine sorting first, so the display itself made the two drugs indistinguishable at the point of selection.",
+        "processing_note": null
+      },
+      "routing": {
+        "confidence": "REVIEW",
+        "status": "Needs Review",
+        "reason": "alternative label named"
+      },
+      "raw_responses": [
+        {
+          "text": "{\"label\": \"TECH\", \"alternative_label\": \"PERSON\", \"amplifiers\": [\"FATIGUE\"], \"fits_taxonomy\": true, \"reasoning\": \"The order search returned look-alike entries truncated to 'HYDR...ZINE' with hydroxyzine sorting first, so the display itself made the two drugs indistinguishable at the point of selection.\", \"processing_note\": null}",
+          "stop_reason": "end_turn",
+          "served_by": "claude-opus-5",
+          "request_id": "req_011Cf296su62ubnvkp92cmJD",
+          "usage": {
+            "input_tokens": 2360,
+            "output_tokens": 825
+          },
+          "latency_s": 12.43
+        }
+      ]
+    },
+    {
+      "id": "R029",
+      "text": "AM draws, 4th floor. Rm 409 was a hard stick, got her on the second try in the L forearm. While I was labeling at the bedside her roommate started calling out for help to the bathroom so I got him up and walked him over. Came back, grabbed the tubes and my tray and moved on to 410. Tourniquet was still on 409's arm. RN found it at ~0730 under the gown sleeve. Hand swollen and mottled, pulses present, improved once it was off, no lasting injury per the team so far. That was the last room of 22 on my run. Taking it off is the one thing I never forget, and I did.",
+      "parsed": true,
+      "attempts": 1,
+      "parse_stage": "direct",
+      "schema_errors": [],
+      "classification": {
+        "label": "TASK",
+        "alternative_label": "ORG",
+        "amplifiers": [
+          "INTERRUPTION"
+        ],
+        "fits_taxonomy": true,
+        "reasoning": "The tourniquet-removal step was dropped from the draw sequence when the roommate \"started calling out for help to the bathroom\" mid-labeling, and the phlebotomist resumed at the point of grabbing tubes and tray rather than at the omitted step.",
+        "processing_note": null
+      },
+      "routing": {
+        "confidence": "REVIEW",
+        "status": "Needs Review",
+        "reason": "alternative label named"
+      },
+      "raw_responses": [
+        {
+          "text": "{\"label\": \"TASK\", \"alternative_label\": \"ORG\", \"amplifiers\": [\"INTERRUPTION\"], \"fits_taxonomy\": true, \"reasoning\": \"The tourniquet-removal step was dropped from the draw sequence when the roommate \\\"started calling out for help to the bathroom\\\" mid-labeling, and the phlebotomist resumed at the point of grabbing tubes and tray rather than at the omitted step.\", \"processing_note\": null}",
+          "stop_reason": "end_turn",
+          "served_by": "claude-opus-5",
+          "request_id": "req_011Cf297sMczwu8BMNxXoHWH",
+          "usage": {
+            "input_tokens": 2347,
+            "output_tokens": 1392
+          },
+          "latency_s": 20.54
+        }
+      ]
+    },
+    {
+      "id": "R030",
+      "text": "Pt up from ED at 2200 with urosepsis, ED report was thorough. 0100 HR 118, BP 98/60, lactate I sent per protocol 3.1 (was 1.9 in ED). Paged night hospitalist: 500 mL bolus, recheck in AM. 0300 BP 86/52, new confusion. Paged again. Told the plan hadn't changed and not to keep paging for the same thing. I thought about calling a rapid myself but on this floor you don't go around the hospitalist at night. You just don't. 0600 lactate 5.4, day charge called the rapid, pt to ICU on pressors. I did call twice.",
+      "parsed": true,
+      "attempts": 1,
+      "parse_stage": "direct",
+      "schema_errors": [],
+      "classification": {
+        "label": "ORG",
+        "alternative_label": "PERSON",
+        "amplifiers": [],
+        "fits_taxonomy": true,
+        "reasoning": "The nurse escalated twice with worsening vitals and a rising lactate but did not activate a rapid response because \"on this floor you don't go around the hospitalist at night,\" describing a hierarchy norm that constrained escalation until the day charge acted.",
+        "processing_note": null
+      },
+      "routing": {
+        "confidence": "REVIEW",
+        "status": "Needs Review",
+        "reason": "alternative label named"
+      },
+      "raw_responses": [
+        {
+          "text": "{\"label\": \"ORG\", \"alternative_label\": \"PERSON\", \"amplifiers\": [], \"fits_taxonomy\": true, \"reasoning\": \"The nurse escalated twice with worsening vitals and a rising lactate but did not activate a rapid response because \\\"on this floor you don't go around the hospitalist at night,\\\" describing a hierarchy norm that constrained escalation until the day charge acted.\", \"processing_note\": null}",
+          "stop_reason": "end_turn",
+          "served_by": "claude-opus-5",
+          "request_id": "req_011Cf299TRGN8qF4yk3NB8ub",
+          "usage": {
+            "input_tokens": 2361,
+            "output_tokens": 619
+          },
+          "latency_s": 8.31
+        }
+      ]
+    },
+    {
+      "id": "R031",
+      "text": "Floated from ortho to CSU at 1500. Mandatory, my 4th 12 this week. Assigned 5, one of them post-cath with a R femoral sheath due out at 1800. I've never pulled a sheath. Told charge. She said she'd help, but she had 7 of her own. Ended up pulling it around 1830 with the RN from the next pod talking me through it between her call lights. Held pressure 20 min. Oozing at 1930, hematoma by 2000, Hgb down 1.8, vascular came up and placed a compression device. I asked at 1500 not to take the sheath pt. There wasn't anyone else to give it to.",
+      "parsed": true,
+      "attempts": 1,
+      "parse_stage": "direct",
+      "schema_errors": [],
+      "classification": {
+        "label": "ORG",
+        "alternative_label": null,
+        "amplifiers": [
+          "INTERRUPTION"
+        ],
+        "fits_taxonomy": true,
+        "reasoning": "A mandatory float to an unfamiliar unit was assigned a sheath removal the nurse had never performed and had asked not to take, with the charge nurse carrying 7 of her own and no other staff available, so the coaching came from a neighboring RN working it in between her call lights.",
+        "processing_note": null
+      },
+      "routing": {
+        "confidence": "HIGH",
+        "status": "Auto-classified",
+        "reason": "none"
+      },
+      "raw_responses": [
+        {
+          "text": "{\"label\": \"ORG\", \"alternative_label\": null, \"amplifiers\": [\"INTERRUPTION\"], \"fits_taxonomy\": true, \"reasoning\": \"A mandatory float to an unfamiliar unit was assigned a sheath removal the nurse had never performed and had asked not to take, with the charge nurse carrying 7 of her own and no other staff available, so the coaching came from a neighboring RN working it in between her call lights.\", \"processing_note\": null}",
+          "stop_reason": "end_turn",
+          "served_by": "claude-opus-5",
+          "request_id": "req_011Cf29A9FPzmG7y7WFjf7VZ",
+          "usage": {
+            "input_tokens": 2358,
+            "output_tokens": 1149
+          },
+          "latency_s": 17.94
+        }
+      ]
+    },
+    {
+      "id": "R032",
+      "text": "0705, rm 11, day +9 allo transplant, 1 unit PRBC, irradiated product required. Night RN had picked the unit up from blood bank before report. I scanned band and bag at the bedside - green check - and spiked it. She was going to come back in and read the tag with me before I started, but 14 was vomiting and she was still trying to finish report on her others. The scan had already come back good, so in my head the matching was done, and I started at 50 mL/h. She came in at 0725 and read the tag: no irradiation sticker. About 15 mL in. Stopped, BB notified, heme aware, workup per protocol, pt afebrile and stable. The scanner matches pt to unit. It doesn't know about special requirements.",
+      "parsed": true,
+      "attempts": 1,
+      "parse_stage": "direct",
+      "schema_errors": [],
+      "classification": {
+        "label": "TECH",
+        "alternative_label": "TASK",
+        "amplifiers": [
+          "INTERRUPTION"
+        ],
+        "fits_taxonomy": true,
+        "reasoning": "The bedside scanner returned a \"green check\" that covered only patient-to-unit matching, and that signal stood in for the tag read that would have caught the missing irradiation sticker — as the reporter puts it, \"it doesn't know about special requirements.\"",
+        "processing_note": null
+      },
+      "routing": {
+        "confidence": "REVIEW",
+        "status": "Needs Review",
+        "reason": "alternative label named"
+      },
+      "raw_responses": [
+        {
+          "text": "{\"label\": \"TECH\", \"alternative_label\": \"TASK\", \"amplifiers\": [\"INTERRUPTION\"], \"fits_taxonomy\": true, \"reasoning\": \"The bedside scanner returned a \\\"green check\\\" that covered only patient-to-unit matching, and that signal stood in for the tag read that would have caught the missing irradiation sticker — as the reporter puts it, \\\"it doesn't know about special requirements.\\\"\", \"processing_note\": null}",
+          "stop_reason": "end_turn",
+          "served_by": "claude-opus-5",
+          "request_id": "req_011Cf29BYMjGCZKAJcpwCh7s",
+          "usage": {
+            "input_tokens": 2383,
+            "output_tokens": 1121
+          },
+          "latency_s": 16.65
+        }
+      ]
+    }
+  ]
+}

@@ -159,3 +159,39 @@ Same clustering prompt and match rule, different inputs. This separates clusteri
 | Classifier output, repeated run (stability) | 13 | 2/2 | 100% / 83% | 100% / 83% | 11 |
 | Report text only (no classifier) | 11 | 2/2 | 100% / 67% | 100% / 83% | 8 |
 | Ground-truth label + amplifiers (perfect upstream classifier) | 11 | 2/2 | 100% / 83% | 83% / 83% | 9 |
+
+## 7. Before/after: prompt v4 vs v5 (traced-failure fixes only)
+
+v5 changes exactly two things found in manual error analysis:
+1. It removes the residual 'write the result to the Notion review queue' instruction, which leaked into R032's `processing_note`.
+2. It restricts `processing_note` to policy gates, since R005 used it as a reasoning scratchpad.
+
+Taxonomy definitions and the `alternative_label` bar are unchanged. Both runs use the same 32 reports, so this is not a held-out comparison.
+
+| Metric | v4 (baseline) | v5 (fixed) |
+|---|---|---|
+| Classification accuracy | 23/32 (72%) | 23/32 (72%) |
+| Misclassified reports routed to review | 9/9 (100%) | 9/9 (100%) |
+| Routed to review | 27/32 (84%) | 27/32 (84%) |
+| Routing precision (vs ambiguous) | 6/27 (22%) | 6/27 (22%) |
+| Routing recall (vs ambiguous) | 6/6 (100%) | 6/6 (100%) |
+| `processing_note` set on a labeled report (no policy gate should fire) | 2 | 0 |
+| `alternative_label` named | 27 | 27 |
+| `fits_taxonomy` false | 0 | 0 |
+| Parse failures after retry | 0/32 (0%) | 0/32 (0%) |
+| Exact amplifier-set match | 20/32 (62%) | 22/32 (69%) |
+| API cost (classification) | $1.10 | $1.07 |
+
+Reports whose output changed: 9/32
+
+| Report | True label | Changes (v4 → v5) |
+|---|---|---|
+| R002 | ORG | alternative_label: None → TASK; routing: HIGH → REVIEW |
+| R005 | PERSON | alternative_label: TASK → ORG; processing_note: Alternative TASK would apply if the sling procedure includes a pre-lift symmetry or second-person verification step that was absent or unworkable here; that detail is not in the report. 'Second half of a double' is noted but FATIGUE is not assigned, as |
+| R008 | ENV | alternative_label: TASK → ORG |
+| R014 | ENV | alternative_label: ORG → None; routing: REVIEW → HIGH |
+| R016 | PERSON | label: TASK → ORG; alternative_label: ORG → PERSON |
+| R020 | PERSON | alternative_label: TECH → PERSON |
+| R021 | PERSON | alternative_label: ORG → TASK |
+| R026 | PERSON | alternative_label: ORG → ENV |
+| R032 | TASK | processing_note: No Notion write tool was available in this session; classification is returned inline for manual entry into the review queue. → None |

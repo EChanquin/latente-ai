@@ -164,6 +164,24 @@ The model proposed 11 clusters; 9 match no planted cluster. Some of these read a
 | FATIGUE | 9 | 1 | 100% | 11% |
 | MEMORY_LOAD | 8 | 8 | 75% | 75% |
 
+### Clustering stage tested in isolation
+
+The clustering prompt was run on four inputs and scored with the same fixed match rule. The ground-truth condition shows only `true_label` and `true_amplifiers`, never `planted_cluster` or `notes_for_eval`. These three extra runs cost about $0.75.
+
+| Input to clustering | Found | handoff purity / coverage | verification purity / coverage | False clusters |
+|---|---|---|---|---|
+| Classifier output (production path) | 2/2 | 100% / 67% | 100% / 83% | 9 |
+| Classifier output, repeated run | 2/2 | 100% / 83% | 100% / 83% | 11 |
+| Report text only (no classifier) | 2/2 | 100% / 67% | 100% / 83% | 8 |
+| Ground-truth labels + amplifiers | 2/2 | 100% / 83% | 83% / 83% | 9 |
+
+- **Classifier errors do not propagate into clustering.** Scores are essentially unchanged whether clustering sees the classifier's output, perfect labels, or no labels at all.
+- **The flip side:** the classifier's value in this workflow is review routing, not feeding the pattern stage.
+- **The planted clusters are stable across repeated runs.** The number of false clusters varies from 8 to 11, so any single run's false clusters should be read with that variance in mind.
+- **Several false clusters recur across independent runs.** That recurrence makes them more credible as real, unplanted patterns:
+  - In all 4 runs: interrupted multi-step task resumed at the wrong step, care performed in a space unfit for the task, and risk voiced with no change in care.
+  - In 3 of 4: unannounced product or system change, and a stale record accepted as current.
+
 ### Manual error analysis: traced failures by stage
 
 All 9 misclassifications and both unexpected processing notes were read by hand against the report text, the model's reasoning, and the corpus's settling facts.

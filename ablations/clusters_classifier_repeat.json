@@ -1,0 +1,292 @@
+{
+  "run": {
+    "model": "claude-opus-5",
+    "input": "classifier",
+    "started_at": "2026-09-13T21:08:51+00:00",
+    "attempts": 1,
+    "parse_stage": "direct"
+  },
+  "clusters": [
+    {
+      "name": "interrupted_multistep_task_resumed_at_wrong_step",
+      "hypothesis": "Hypothesis: several of these events share a mechanism in which a multi-step task leaves no external marker of how far it has progressed, so when the worker is pulled away and returns they reconstruct their position from memory and resume at the wrong step or drop a trailing step entirely.",
+      "confidence": "HIGH",
+      "member_ids": [
+        "R001",
+        "R004",
+        "R022",
+        "R023",
+        "R026",
+        "R029"
+      ],
+      "evidence": "R026 explicitly resumed a two-portion reconstitution 'because I thought I hadn't started yet'; R004 reloaded ADC pockets after a phone call and put 5,000s in the 1,000 pocket; R029 lost the trailing tourniquet-removal step after being pulled to a roommate; R023 omitted the last step of a post-bronch sequence after a rapid response page; R001 mis-drew a dose during a three-minute prep broken by five separate intrusions; R022 dropped the dependent steps of a room move (signage, whiteboard, report content) while doing 'three other things.' In each case nothing in the physical or electronic workspace recorded partial completion."
+    },
+    {
+      "name": "per_patient_parameters_carried_in_working_memory_across_parallel_cases",
+      "hypothesis": "Hypothesis: when a clinician runs several near-identical tasks in parallel, each with its own patient-specific parameter, the parameter set is held in the head or on informal paper rather than being bound to the patient at the point of action, and the parameters cross over.",
+      "confidence": "HIGH",
+      "member_ids": [
+        "R017",
+        "R021",
+        "R027"
+      ],
+      "evidence": "R017 tracked three concurrent titrations, each on a different step and start time, on pocket scrap paper 'because that's faster than clicking into each flowsheet,' and skipped a rate step; R021 administered against a hold threshold held 'in my head' that belonged to another room among six patients with three different parameters; R027 drew two arterial samples back to back and deferred labeling to the analyzer, so syringe identity existed only in memory and the samples swapped."
+    },
+    {
+      "name": "verification_step_performed_as_ritual_not_as_independent_check",
+      "hypothesis": "Hypothesis: these reports share a mechanism in which a designated double-check or verification step is nominally in place but is executed in a form that cannot detect the error it exists to catch — read-back instead of independent inspection, a checkbox instead of a live confirmation, or a check deferred until after the action has begun.",
+      "confidence": "MEDIUM",
+      "member_ids": [
+        "R006",
+        "R018",
+        "R020",
+        "R024",
+        "R032"
+      ],
+      "evidence": "R018's cosign was a read-back from across the pod with no independent look at the keyed dosing weight, described as the routine night practice; R006's expected two-RN bedside pump-versus-order check did not occur for any of four patients; R020's 'allergies reviewed with pt' was checked while the source was a carried-forward 2023 entry and the patient was already sedated; R024 had no re-scan and no pause with the RN after the skin mark was washed off; R032 started the unit before the second RN read the tag, treating a completed scan as the completed check."
+    },
+    {
+      "name": "system_display_omits_state_and_is_read_as_affirmative_safety_signal",
+      "hypothesis": "Hypothesis: a shared latent factor is that electronic and device displays silently narrow their scope — omitting a prior administration, a pending dose, a special product requirement, or a mode setting — while presenting an appearance of completeness, so users reasonably infer a safe state from a display that never encoded the relevant information.",
+      "confidence": "MEDIUM",
+      "member_ids": [
+        "R009",
+        "R013",
+        "R015",
+        "R032"
+      ],
+      "evidence": "R032 states the scanner 'matches pt to unit. It doesn't know about special requirements,' yet the green check ended the nurse's matching process; R013's ED glargine administration stopped displaying on the inpatient MAR, which then showed the dose overdue; R015's rebuilt order left the MAR showing nothing due, so 'RN had no reason to think anything was missing'; R009's sync markers, the only on-screen evidence of sync mode, did not carry across a display view change before the shock."
+    },
+    {
+      "name": "alarm_raised_but_never_confirmed_to_reach_a_responder",
+      "hypothesis": "Hypothesis: these events share an absence of any closed loop confirming that an alarm reached a correct and responsible recipient — the alarm can be suppressed, silently undelivered, or attributed to the wrong source, and nothing in the system detects that no one is responding.",
+      "confidence": "MEDIUM",
+      "member_ids": [
+        "R003",
+        "R011",
+        "R025"
+      ],
+      "evidence": "R003's monitor accepted repeated 2-minute silences from anyone at the bedside with no escalation for a sustained desaturation; R011's primary and backup phones stopped receiving tele alerts after a software push with no indication to the unit, and the VT run surfaced only because a monitor tech phoned the desk; R025's identical machines and tones gave no way to localize the alarm, and a stale alarm on the adjacent screen falsely closed the loop on the wrong chair."
+    },
+    {
+      "name": "discriminating_feature_not_perceptible_at_moment_of_selection",
+      "hypothesis": "Hypothesis: in these reports the feature that distinguishes two different items — strength, drug, or machine — is present in the environment but not perceptible in the posture and timescale of actual selection, so selection proceeds on the shared features.",
+      "confidence": "HIGH",
+      "member_ids": [
+        "R004",
+        "R012",
+        "R025",
+        "R028"
+      ],
+      "evidence": "R004 describes two heparin strengths with same vial, same blue cap, strength 'in tiny print on the side,' in adjacent pockets; R012 describes a new acetaminophen bag the same size and label colors as the magnesium premix; R028 describes an order search where both drugs render as truncated 'HYDR...ZINE' unless hovered and the unintended one sorts first; R025 describes adjacent same-model dialysis machines with identical alarm tones."
+    },
+    {
+      "name": "unannounced_upstream_change_to_a_relied_on_cue",
+      "hypothesis": "Hypothesis: a shared mechanism is that a change made upstream — by a supplier, by IT, or by an order-build configuration — altered a cue frontline staff had been using as a reliable discriminator or prompt, with no notification, so staff continued to trust a cue that had quietly stopped being valid.",
+      "confidence": "MEDIUM",
+      "member_ids": [
+        "R004",
+        "R011",
+        "R012",
+        "R015"
+      ],
+      "evidence": "R012: 'Acetaminophen has always been the stiff glass-looking bottle... I don't know when the new acetaminophen bags started coming up'; R004: the two heparin strengths 'now come from the same manufacturer'; R011: a software push changed tele alert delivery and 'nobody on the unit knew'; R015: the order-rebuild start-time default produced an invisible gap, and the reporter notes it is the second time seeing this behavior, suggesting the behavior is not known to ordering clinicians."
+    },
+    {
+      "name": "critical_information_dependent_on_verbal_relay_with_no_durable_destination",
+      "hypothesis": "Hypothesis: these reports share a mechanism in which safety-critical information has no designated persistent place to live, so it travels only as speech at a handoff; whether it actually transferred cannot be verified afterward by anyone, including the sender.",
+      "confidence": "HIGH",
+      "member_ids": [
+        "R002",
+        "R008",
+        "R010",
+        "R016",
+        "R022"
+      ],
+      "evidence": "R002 notes the unit has 'no RT sheet and no set place' and the reporter is 'not sure which part didn't get across'; R010's joint intraop med-list review was cut short and the intraop record was not yet closed, so the prior hydromorphone existed nowhere the PACU nurse could reach; R016's overnight slurred speech 'didn't make it into her note or into report'; R022's reporter 'can't say for sure whether I said NPO for her'; R008's discharge instruction was delivered verbally with the patient nodding and the written packet never read."
+    },
+    {
+      "name": "capacity_pressure_places_task_in_a_space_unfit_for_it",
+      "hypothesis": "Hypothesis: a shared upstream factor is that space and equipment allocation decisions, made under bed or room pressure, place a task in a location that lacks a condition the task requires — quiet, privacy, floor space, or thermal stability — and the resulting hazard is treated as a property of the individual task rather than of the placement.",
+      "confidence": "MEDIUM",
+      "member_ids": [
+        "R001",
+        "R008",
+        "R014",
+        "R019"
+      ],
+      "evidence": "R001: medication draw-up at an open hallway shelf across from triage, 'no door, no wall'; R008: discharge teaching from a hallway bed directly across from an active trauma bay, nurse 'basically shouting'; R014: the small OR holding C-arm, nav tower and a second back table left the IV extension no route but the floor where the C-arm parks; R019: an infant moved to a window space to open a bed for an admit, with blinds that don't fully close and a ticket open since spring."
+    },
+    {
+      "name": "voiced_risk_absorbed_because_no_capacity_to_respond",
+      "hypothesis": "Hypothesis: these reports share a mechanism in which a person correctly identified the hazard and raised it or considered raising it, but the surrounding system had no slack or no sanctioned pathway to act on it, so the recognized hazard proceeded unchanged.",
+      "confidence": "MEDIUM",
+      "member_ids": [
+        "R006",
+        "R017",
+        "R030",
+        "R031"
+      ],
+      "evidence": "R030 escalated twice, was told not to keep paging, and did not call a rapid because 'on this floor you don't go around the hospitalist at night'; R031 asked at 1500 not to take the sheath patient and was coached by an RN working between her own call lights because 'there wasn't anyone else to give it to'; R006 describes the skipped bedside pump check as 'pretty usual when we're short'; R017 carried three simultaneous first-dose titrations with no indication that redistribution was available."
+    },
+    {
+      "name": "aged_record_entry_accepted_as_current_without_currency_signal",
+      "hypothesis": "Hypothesis: a shared factor is that a previously valid piece of information is displayed without any marker of its age or provenance, and is accepted as current when a direct check of the present state is inconvenient or has been silently invalidated.",
+      "confidence": "MEDIUM",
+      "member_ids": [
+        "R020",
+        "R024",
+        "R025"
+      ],
+      "evidence": "R020's allergy field read NKDA carried forward from a 2023 encounter with no indication of its vintage, and the patient was sedated before any direct ask; R024 used an H&P from two admissions back for laterality after the CHG bath erased the current skin mark; R025 cleared and acted on a screen showing an alarm from a minute earlier with nothing marking it as stale, which falsely confirmed the wrong machine."
+    },
+    {
+      "name": "documented_patient_constraint_not_surfaced_at_the_decision_point",
+      "hypothesis": "Hypothesis: these events share a mechanism in which a patient-specific limit or contraindication was correctly recorded somewhere in the chart but was not presented in the workflow at the moment the ordering or administration decision was made, leaving the clinician to retrieve it from memory under time pressure.",
+      "confidence": "MEDIUM",
+      "member_ids": [
+        "R007",
+        "R020",
+        "R021"
+      ],
+      "evidence": "R007: gestational HTN 'is right there on the problem list' but 'didn't register as a contraindication in the moment' while working down the uterotonic sequence; R021: the ordered hold parameters existed but the nurse administered from a threshold held in her head at the bedside; R020: the true penicillin anaphylaxis was never in the local record and the displayed field offered no prompt to re-verify at the pre-op decision point."
+    },
+    {
+      "name": "patient_or_family_acting_inside_the_safety_loop_without_support",
+      "hypothesis": "Hypothesis: a shared factor may be that the system permits a patient or family member to take an action or carry an instruction that is load-bearing for safety, while providing no orientation, no check of understanding, and no feedback to staff that the transfer failed.",
+      "confidence": "LOW",
+      "member_ids": [
+        "R003",
+        "R008"
+      ],
+      "evidence": "R003: a parent repeatedly silenced the monitor all night with no orientation to the button and no signal to staff ('don't know if one of us showed her that button'); R008: the stop-warfarin instruction depended on the patient's comprehension in a shouted hallway exchange where she 'kept nodding' and later said 'nobody said to stop,' with no confirmation of understanding."
+    }
+  ],
+  "assignments": {
+    "R001": [
+      "interrupted_multistep_task_resumed_at_wrong_step",
+      "capacity_pressure_places_task_in_a_space_unfit_for_it"
+    ],
+    "R004": [
+      "interrupted_multistep_task_resumed_at_wrong_step",
+      "discriminating_feature_not_perceptible_at_moment_of_selection",
+      "unannounced_upstream_change_to_a_relied_on_cue"
+    ],
+    "R022": [
+      "interrupted_multistep_task_resumed_at_wrong_step",
+      "critical_information_dependent_on_verbal_relay_with_no_durable_destination"
+    ],
+    "R023": [
+      "interrupted_multistep_task_resumed_at_wrong_step"
+    ],
+    "R026": [
+      "interrupted_multistep_task_resumed_at_wrong_step"
+    ],
+    "R029": [
+      "interrupted_multistep_task_resumed_at_wrong_step"
+    ],
+    "R017": [
+      "per_patient_parameters_carried_in_working_memory_across_parallel_cases",
+      "voiced_risk_absorbed_because_no_capacity_to_respond"
+    ],
+    "R021": [
+      "per_patient_parameters_carried_in_working_memory_across_parallel_cases",
+      "documented_patient_constraint_not_surfaced_at_the_decision_point"
+    ],
+    "R027": [
+      "per_patient_parameters_carried_in_working_memory_across_parallel_cases"
+    ],
+    "R006": [
+      "verification_step_performed_as_ritual_not_as_independent_check",
+      "voiced_risk_absorbed_because_no_capacity_to_respond"
+    ],
+    "R018": [
+      "verification_step_performed_as_ritual_not_as_independent_check"
+    ],
+    "R020": [
+      "verification_step_performed_as_ritual_not_as_independent_check",
+      "aged_record_entry_accepted_as_current_without_currency_signal",
+      "documented_patient_constraint_not_surfaced_at_the_decision_point"
+    ],
+    "R024": [
+      "verification_step_performed_as_ritual_not_as_independent_check",
+      "aged_record_entry_accepted_as_current_without_currency_signal"
+    ],
+    "R032": [
+      "verification_step_performed_as_ritual_not_as_independent_check",
+      "system_display_omits_state_and_is_read_as_affirmative_safety_signal"
+    ],
+    "R009": [
+      "system_display_omits_state_and_is_read_as_affirmative_safety_signal"
+    ],
+    "R013": [
+      "system_display_omits_state_and_is_read_as_affirmative_safety_signal"
+    ],
+    "R015": [
+      "system_display_omits_state_and_is_read_as_affirmative_safety_signal",
+      "unannounced_upstream_change_to_a_relied_on_cue"
+    ],
+    "R003": [
+      "alarm_raised_but_never_confirmed_to_reach_a_responder",
+      "patient_or_family_acting_inside_the_safety_loop_without_support"
+    ],
+    "R011": [
+      "alarm_raised_but_never_confirmed_to_reach_a_responder",
+      "unannounced_upstream_change_to_a_relied_on_cue"
+    ],
+    "R025": [
+      "alarm_raised_but_never_confirmed_to_reach_a_responder",
+      "discriminating_feature_not_perceptible_at_moment_of_selection",
+      "aged_record_entry_accepted_as_current_without_currency_signal"
+    ],
+    "R012": [
+      "discriminating_feature_not_perceptible_at_moment_of_selection",
+      "unannounced_upstream_change_to_a_relied_on_cue"
+    ],
+    "R028": [
+      "discriminating_feature_not_perceptible_at_moment_of_selection"
+    ],
+    "R002": [
+      "critical_information_dependent_on_verbal_relay_with_no_durable_destination"
+    ],
+    "R008": [
+      "critical_information_dependent_on_verbal_relay_with_no_durable_destination",
+      "capacity_pressure_places_task_in_a_space_unfit_for_it",
+      "patient_or_family_acting_inside_the_safety_loop_without_support"
+    ],
+    "R010": [
+      "critical_information_dependent_on_verbal_relay_with_no_durable_destination"
+    ],
+    "R016": [
+      "critical_information_dependent_on_verbal_relay_with_no_durable_destination"
+    ],
+    "R014": [
+      "capacity_pressure_places_task_in_a_space_unfit_for_it"
+    ],
+    "R019": [
+      "capacity_pressure_places_task_in_a_space_unfit_for_it"
+    ],
+    "R030": [
+      "voiced_risk_absorbed_because_no_capacity_to_respond"
+    ],
+    "R031": [
+      "voiced_risk_absorbed_because_no_capacity_to_respond"
+    ],
+    "R007": [
+      "documented_patient_constraint_not_surfaced_at_the_decision_point"
+    ]
+  },
+  "warnings": [],
+  "raw_responses": [
+    {
+      "text": "{\"clusters\":[{\"name\":\"interrupted_multistep_task_resumed_at_wrong_step\",\"hypothesis\":\"Hypothesis: several of these events share a mechanism in which a multi-step task leaves no external marker of how far it has progressed, so when the worker is pulled away and returns they reconstruct their position from memory and resume at the wrong step or drop a trailing step entirely.\",\"confidence\":\"HIGH\",\"member_ids\":[\"R001\",\"R004\",\"R023\",\"R026\",\"R029\",\"R022\"],\"evidence\":\"R026 explicitly resumed a two-portion reconstitution 'because I thought I hadn't started yet'; R004 reloaded ADC pockets after a phone call and put 5,000s in the 1,000 pocket; R029 lost the trailing tourniquet-removal step after being pulled to a roommate; R023 omitted the last step of a post-bronch sequence after a rapid response page; R001 mis-drew a dose during a three-minute prep broken by five separate intrusions; R022 dropped the dependent steps of a room move (signage, whiteboard, report content) while doing 'three other things.' In each case nothing in the physical or electronic workspace recorded partial completion.\"},{\"name\":\"per_patient_parameters_carried_in_working_memory_across_parallel_cases\",\"hypothesis\":\"Hypothesis: when a clinician runs several near-identical tasks in parallel, each with its own patient-specific parameter, the parameter set is held in the head or on informal paper rather than being bound to the patient at the point of action, and the parameters cross over.\",\"confidence\":\"HIGH\",\"member_ids\":[\"R017\",\"R021\",\"R027\"],\"evidence\":\"R017 tracked three concurrent titrations, each on a different step and start time, on pocket scrap paper 'because that's faster than clicking into each flowsheet,' and skipped a rate step; R021 administered against a hold threshold held 'in my head' that belonged to another room among six patients with three different parameters; R027 drew two arterial samples back to back and deferred labeling to the analyzer, so syringe identity existed only in memory and the samples swapped.\"},{\"name\":\"verification_step_performed_as_ritual_not_as_independent_check\",\"hypothesis\":\"Hypothesis: these reports share a mechanism in which a designated double-check or verification step is nominally in place but is executed in a form that cannot detect the error it exists to catch \\u2014 read-back instead of independent inspection, a checkbox instead of a live confirmation, or a check deferred until after the action has begun.\",\"confidence\":\"MEDIUM\",\"member_ids\":[\"R006\",\"R018\",\"R020\",\"R024\",\"R032\"],\"evidence\":\"R018's cosign was a read-back from across the pod with no independent look at the keyed dosing weight, described as the routine night practice; R006's expected two-RN bedside pump-versus-order check did not occur for any of four patients; R020's 'allergies reviewed with pt' was checked while the source was a carried-forward 2023 entry and the patient was already sedated; R024 had no re-scan and no pause with the RN after the skin mark was washed off; R032 started the unit before the second RN read the tag, treating a completed scan as the completed check.\"},{\"name\":\"system_display_omits_state_and_is_read_as_affirmative_safety_signal\",\"hypothesis\":\"Hypothesis: a shared latent factor is that electronic and device displays silently narrow their scope \\u2014 omitting a prior administration, a pending dose, a special product requirement, or a mode setting \\u2014 while presenting an appearance of completeness, so users reasonably infer a safe state from a display that never encoded the relevant information.\",\"confidence\":\"MEDIUM\",\"member_ids\":[\"R009\",\"R013\",\"R015\",\"R032\"],\"evidence\":\"R032 states the scanner 'matches pt to unit. It doesn't know about special requirements,' yet the green check ended the nurse's matching process; R013's ED glargine administration stopped displaying on the inpatient MAR, which then showed the dose overdue; R015's rebuilt order left the MAR showing nothing due, so 'RN had no reason to think anything was missing'; R009's sync markers, the only on-screen evidence of sync mode, did not carry across a display view change before the shock.\"},{\"name\":\"alarm_raised_but_never_confirmed_to_reach_a_responder\",\"hypothesis\":\"Hypothesis: these events share an absence of any closed loop confirming that an alarm reached a correct and responsible recipient \\u2014 the alarm can be suppressed, silently undelivered, or attributed to the wrong source, and nothing in the system detects that no one is responding.\",\"confidence\":\"MEDIUM\",\"member_ids\":[\"R003\",\"R011\",\"R025\"],\"evidence\":\"R003's monitor accepted repeated 2-minute silences from anyone at the bedside with no escalation for a sustained desaturation; R011's primary and backup phones stopped receiving tele alerts after a software push with no indication to the unit, and the VT run surfaced only because a monitor tech phoned the desk; R025's identical machines and tones gave no way to localize the alarm, and a stale alarm on the adjacent screen falsely closed the loop on the wrong chair.\"},{\"name\":\"discriminating_feature_not_perceptible_at_moment_of_selection\",\"hypothesis\":\"Hypothesis: in these reports the feature that distinguishes two different items \\u2014 strength, drug, or machine \\u2014 is present in the environment but not perceptible in the posture and timescale of actual selection, so selection proceeds on the shared features.\",\"confidence\":\"HIGH\",\"member_ids\":[\"R004\",\"R012\",\"R025\",\"R028\"],\"evidence\":\"R004 describes two heparin strengths with same vial, same blue cap, strength 'in tiny print on the side,' in adjacent pockets; R012 describes a new acetaminophen bag the same size and label colors as the magnesium premix; R028 describes an order search where both drugs render as truncated 'HYDR...ZINE' unless hovered and the unintended one sorts first; R025 describes adjacent same-model dialysis machines with identical alarm tones.\"},{\"name\":\"unannounced_upstream_change_to_a_relied_on_cue\",\"hypothesis\":\"Hypothesis: a shared mechanism is that a change made upstream \\u2014 by a supplier, by IT, or by an order-build configuration \\u2014 altered a cue frontline staff had been using as a reliable discriminator or prompt, with no notification, so staff continued to trust a cue that had quietly stopped being valid.\",\"confidence\":\"MEDIUM\",\"member_ids\":[\"R004\",\"R011\",\"R012\",\"R015\"],\"evidence\":\"R012: 'Acetaminophen has always been the stiff glass-looking bottle... I don't know when the new acetaminophen bags started coming up'; R004: the two heparin strengths 'now come from the same manufacturer'; R011: a software push changed tele alert delivery and 'nobody on the unit knew'; R015: the order-rebuild start-time default produced an invisible gap, and the reporter notes it is the second time seeing this behavior, suggesting the behavior is not known to ordering clinicians.\"},{\"name\":\"critical_information_dependent_on_verbal_relay_with_no_durable_destination\",\"hypothesis\":\"Hypothesis: these reports share a mechanism in which safety-critical information has no designated persistent place to live, so it travels only as speech at a handoff; whether it actually transferred cannot be verified afterward by anyone, including the sender.\",\"confidence\":\"HIGH\",\"member_ids\":[\"R002\",\"R008\",\"R010\",\"R016\",\"R022\"],\"evidence\":\"R002 notes the unit has 'no RT sheet and no set place' and the reporter is 'not sure which part didn't get across'; R010's joint intraop med-list review was cut short and the intraop record was not yet closed, so the prior hydromorphone existed nowhere the PACU nurse could reach; R016's overnight slurred speech 'didn't make it into her note or into report'; R022's reporter 'can't say for sure whether I said NPO for her'; R008's discharge instruction was delivered verbally with the patient nodding and the written packet never read.\"},{\"name\":\"capacity_pressure_places_task_in_a_space_unfit_for_it\",\"hypothesis\":\"Hypothesis: a shared upstream factor is that space and equipment allocation decisions, made under bed or room pressure, place a task in a location that lacks a condition the task requires \\u2014 quiet, privacy, floor space, or thermal stability \\u2014 and the resulting hazard is treated as a property of the individual task rather than of the placement.\",\"confidence\":\"MEDIUM\",\"member_ids\":[\"R001\",\"R008\",\"R014\",\"R019\"],\"evidence\":\"R001: medication draw-up at an open hallway shelf across from triage, 'no door, no wall'; R008: discharge teaching from a hallway bed directly across from an active trauma bay, nurse 'basically shouting'; R014: the small OR holding C-arm, nav tower and a second back table left the IV extension no route but the floor where the C-arm parks; R019: an infant moved to a window space to open a bed for an admit, with blinds that don't fully close and a ticket open since spring.\"},{\"name\":\"voiced_risk_absorbed_because_no_capacity_to_respond\",\"hypothesis\":\"Hypothesis: these reports share a mechanism in which a person correctly identified the hazard and raised it or considered raising it, but the surrounding system had no slack or no sanctioned pathway to act on it, so the recognized hazard proceeded unchanged.\",\"confidence\":\"MEDIUM\",\"member_ids\":[\"R006\",\"R017\",\"R030\",\"R031\"],\"evidence\":\"R030 escalated twice, was told not to keep paging, and did not call a rapid because 'on this floor you don't go around the hospitalist at night'; R031 asked at 1500 not to take the sheath patient and was coached by an RN working between her own call lights because 'there wasn't anyone else to give it to'; R006 describes the skipped bedside pump check as 'pretty usual when we're short'; R017 carried three simultaneous first-dose titrations with no indication that redistribution was available.\"},{\"name\":\"aged_record_entry_accepted_as_current_without_currency_signal\",\"hypothesis\":\"Hypothesis: a shared factor is that a previously valid piece of information is displayed without any marker of its age or provenance, and is accepted as current when a direct check of the present state is inconvenient or has been silently invalidated.\",\"confidence\":\"MEDIUM\",\"member_ids\":[\"R020\",\"R024\",\"R025\"],\"evidence\":\"R020's allergy field read NKDA carried forward from a 2023 encounter with no indication of its vintage, and the patient was sedated before any direct ask; R024 used an H&P from two admissions back for laterality after the CHG bath erased the current skin mark; R025 cleared and acted on a screen showing an alarm from a minute earlier with nothing marking it as stale, which falsely confirmed the wrong machine.\"},{\"name\":\"documented_patient_constraint_not_surfaced_at_the_decision_point\",\"hypothesis\":\"Hypothesis: these events share a mechanism in which a patient-specific limit or contraindication was correctly recorded somewhere in the chart but was not presented in the workflow at the moment the ordering or administration decision was made, leaving the clinician to retrieve it from memory under time pressure.\",\"confidence\":\"MEDIUM\",\"member_ids\":[\"R007\",\"R020\",\"R021\"],\"evidence\":\"R007: gestational HTN 'is right there on the problem list' but 'didn't register as a contraindication in the moment' while working down the uterotonic sequence; R021: the ordered hold parameters existed but the nurse administered from a threshold held in her head at the bedside; R020: the true penicillin anaphylaxis was never in the local record and the displayed field offered no prompt to re-verify at the pre-op decision point.\"},{\"name\":\"patient_or_family_acting_inside_the_safety_loop_without_support\",\"hypothesis\":\"Hypothesis: a shared factor may be that the system permits a patient or family member to take an action or carry an instruction that is load-bearing for safety, while providing no orientation, no check of understanding, and no feedback to staff that the transfer failed.\",\"confidence\":\"LOW\",\"member_ids\":[\"R003\",\"R008\"],\"evidence\":\"R003: a parent repeatedly silenced the monitor all night with no orientation to the button and no signal to staff ('don't know if one of us showed her that button'); R008: the stop-warfarin instruction depended on the patient's comprehension in a shouted hallway exchange where she 'kept nodding' and later said 'nobody said to stop,' with no confirmation of understanding.\"}]}",
+      "stop_reason": "end_turn",
+      "served_by": "claude-opus-5",
+      "request_id": "req_011Cf27vgeXBVGeStR1qPhf5",
+      "usage": {
+        "input_tokens": 11611,
+        "output_tokens": 8741
+      }
+    }
+  ]
+}

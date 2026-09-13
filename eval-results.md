@@ -148,3 +148,14 @@ All proposed clusters:
 | MEMORY_LOAD | 8 | 8 | 6 | 75% | 75% |
 
 Exact amplifier-set match: 20/32 (62%). Untagged reports: 12 true vs 16 predicted.
+
+## 6. Clustering stage tested in isolation
+
+Same clustering prompt and match rule, different inputs. This separates clustering quality from upstream classifier errors (does a classifier mistake propagate?) and measures run-to-run stability. The ground-truth condition shows the model only `true_label` and `true_amplifiers`, never `planted_cluster` or `notes_for_eval`.
+
+| Input to clustering | Proposed | Found | handoff purity / coverage | verification purity / coverage | False clusters |
+|---|---|---|---|---|---|
+| Classifier output (production path) | 11 | 2/2 | 100% / 67% | 100% / 83% | 9 |
+| Classifier output, repeated run (stability) | 13 | 2/2 | 100% / 83% | 100% / 83% | 11 |
+| Report text only (no classifier) | 11 | 2/2 | 100% / 67% | 100% / 83% | 8 |
+| Ground-truth label + amplifiers (perfect upstream classifier) | 11 | 2/2 | 100% / 83% | 83% / 83% | 9 |

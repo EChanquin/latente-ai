@@ -1,0 +1,281 @@
+{
+  "run": {
+    "model": "claude-opus-5",
+    "input": "text-only",
+    "started_at": "2026-09-13T21:08:44+00:00",
+    "attempts": 1,
+    "parse_stage": "direct"
+  },
+  "clusters": [
+    {
+      "name": "interrupted_task_resumed_without_place_keeping",
+      "hypothesis": "Hypothesis: multi-step preparation tasks are performed with no physical or system place-keeper, so when an interruption occurs the worker resumes from memory and either repeats, skips, or abandons a step; the error is invisible until a downstream check happens to catch it.",
+      "confidence": "HIGH",
+      "member_ids": [
+        "R001",
+        "R004",
+        "R012",
+        "R023",
+        "R026",
+        "R029"
+      ],
+      "evidence": "Each describes a step-sequence broken mid-task and resumed from recall: syringe draw-up interrupted repeatedly in an open hallway prep area (wrong volume drawn); cabinet restock interrupted by a phone call (strengths loaded into wrong pocket); IV bag spiked then a call-out to another room, drug identity re-established only at pump programming; reconstitution interrupted by a service bell, diluent added twice; a rapid-response page mid-cleanup left a post-procedure vent setting unreverted for ~9 hours; phlebotomy interrupted to assist a roommate, tourniquet left in place. In every case the reporter notes the resumed-from step was wrong, not the original step.",
+      "notes": null
+    },
+    {
+      "name": "independent_verification_collapses_into_formality",
+      "hypothesis": "Hypothesis: required second-person or pre-procedure verification steps are being completed as documentation events rather than as independent checks, so the barrier is recorded as done while providing no detection capability.",
+      "confidence": "HIGH",
+      "member_ids": [
+        "R006",
+        "R018",
+        "R020",
+        "R024",
+        "R032"
+      ],
+      "evidence": "Bedside pump-versus-order check by off- and on-going nurses routinely omitted when short-staffed ('didn't happen for any of my four... pretty usual'); anticoagulant dosing-weight cosign given from across the pod off a read-out number, described as the normal night practice; pre-procedure checklist item 'allergies reviewed with pt' checked although the patient may never have been asked and was sedated by the time of the next opportunity; bedside procedure begun with no pause with the nurse and no re-marking after the mark was washed off; blood product two-person tag read deferred because a barcode scan had already returned a green check. Each reporter states the verification existed on paper but was not independently performed.",
+      "notes": null
+    },
+    {
+      "name": "silent_safeguard_gap_read_as_all_clear",
+      "hypothesis": "Hypothesis: several safety technologies fail or narrow their scope without announcing it, and staff interpret the absence of an alert, an empty task list, or a positive scan as positive confirmation that nothing is wrong.",
+      "confidence": "MEDIUM",
+      "member_ids": [
+        "R003",
+        "R009",
+        "R011",
+        "R013",
+        "R015",
+        "R032"
+      ],
+      "evidence": "A monitor alarm was repeatedly silenced by a family member with no escalation or lockout, so 'no alarm' coexisted with desaturation; sync markers appear to have been dropped when the display view was changed, with no indication on screen; a phone software update silently stopped telemetry alerts while calls and texts still worked, and no one on the unit was informed; a prior dose documented in the emergency encounter does not carry onto the inpatient medication record, so the receiving nurse saw a blank; an order-frequency change rebuilt the order with a default next-standard-time, so the record showed nothing due and the nurse had no cue that a dose was missing; a barcode match returned a green check that does not evaluate special product requirements. Each reporter describes acting on an absence of signal.",
+      "notes": null
+    },
+    {
+      "name": "parallel_similar_patients_held_in_working_memory",
+      "hypothesis": "Hypothesis: when a clinician runs several near-identical processes at once, patient-specific values are carried in memory or on informal notes with no per-patient physical separation or point-of-use check, so attributes migrate between patients.",
+      "confidence": "MEDIUM",
+      "member_ids": [
+        "R017",
+        "R021",
+        "R025",
+        "R027"
+      ],
+      "evidence": "Three simultaneous infusion titrations at different steps tracked on a pocket scrap of paper, one step skipped; three different hold parameters for six patients held in the reporter's head, one patient's parameter applied to another; two identical adjacent machines with the same alarm tone, the alarm attributed to the wrong chair while facing away from the other; two arterial samples drawn back to back and labeled together at the analyzer rather than at each bedside, resulting in a swap and a ventilator change on the wrong patient. All four reporters explicitly name the batching or memory-carrying as the normal, time-saving practice.",
+      "notes": null
+    },
+    {
+      "name": "critical_information_moves_only_by_informal_verbal_channel",
+      "hypothesis": "Hypothesis: certain categories of safety-critical information have no designated field, form, or required element in handoff, so they travel only if an individual remembers to say them and the receiver remembers to ask, and their loss is undetectable to the receiver.",
+      "confidence": "HIGH",
+      "member_ids": [
+        "R002",
+        "R010",
+        "R016",
+        "R022"
+      ],
+      "evidence": "Respiratory support and suctioning requirements passed verbally with no standard sheet or agreed location on the receiving unit ('some people text, some write it on the whiteboard'); intraoperative medication list never reviewed because the anesthesia clinician was pulled to the next case and the record was not yet viewable; an overnight change in speech attributed to a medication and never entered in a note or handoff, later shifting last-known-well outside the treatment window; a fasting status not reliably transferred during a nursing-assistant handoff after a room change. In each, the reporter cannot reconstruct whether the item was said, which is itself evidence there is no artifact to check.",
+      "notes": null
+    },
+    {
+      "name": "relocation_for_bed_flow_strips_patient_safety_context",
+      "hypothesis": "Hypothesis: moves made for capacity reasons (new unit, new room, new bed space) relocate the patient faster than the attributes attached to their prior location, so signage, environmental assumptions, care requirements, and prior administrations are left behind with no reconciliation step tied to the move.",
+      "confidence": "MEDIUM",
+      "member_ids": [
+        "R002",
+        "R013",
+        "R019",
+        "R022"
+      ],
+      "evidence": "Step-down transfer after extubation with respiratory requirements not landing anywhere on the receiving unit; conversion from emergency to inpatient encounter leaving a recent long-acting insulin dose off the inpatient record and duplicated; neonate moved to a bed space with known uncontrolled solar gain while the incubator ran in air mode, producing a febrile workup; overnight room swap to free an isolation room leaving fasting signage on the old door and stale information on the new whiteboard. Each reporter ties the event to the move itself, not to the clinical care.",
+      "notes": null
+    },
+    {
+      "name": "lookalike_identity_cues_at_point_of_selection",
+      "hypothesis": "Hypothesis: product and order-entry identity relies on small, low-contrast textual differences at the moment of selection, with no forcing function such as separation, differentiated packaging, or disambiguation prompts; a change in supplier or display can silently remove the informal cue staff had been using.",
+      "confidence": "MEDIUM",
+      "member_ids": [
+        "R004",
+        "R012",
+        "R028"
+      ],
+      "evidence": "Two concentrations of the same anticoagulant in identical vials with identical caps and strength in tiny print, stored in adjacent pockets; a premixed product that changed from a rigid container to a soft bag with label colors and size matching a different premixed drug, with no notification of the change; an order search dropdown that truncates two similarly spelled drug names to the same visible string and sorts the wrong one first. Each reporter identifies the discriminating cue as the only barrier and notes it was inadequate or had recently changed.",
+      "notes": null
+    },
+    {
+      "name": "care_task_performed_in_space_not_designed_for_it",
+      "hypothesis": "Hypothesis: tasks requiring concentration, privacy, or physical clearance are routinely performed in spaces whose noise, traffic, proximity, or equipment density makes the task's own error checks ineffective.",
+      "confidence": "MEDIUM",
+      "member_ids": [
+        "R001",
+        "R008",
+        "R014",
+        "R025"
+      ],
+      "evidence": "Medication preparation on an open hallway shelf opposite triage, with the reporter counting the interruptions during a three-minute draw-up; discharge counseling delivered from a hallway bed opposite an active trauma bay at shouting volume, with comprehension unverifiable; an operating room too small for the case's equipment, leaving no route for intravenous tubing except across the floor where a mobile imaging base parks; dialysis stations roughly three feet apart with identical machines and alarm tones and no sightline to the adjacent screen. Each reporter names the physical setting, rather than an individual action, as the limiting factor.",
+      "notes": null
+    },
+    {
+      "name": "risk_voiced_but_no_available_resolution_path",
+      "hypothesis": "Hypothesis: staff recognized and verbalized a specific risk in advance, but the local escalation route was either socially closed or had no capacity to absorb the request, leaving proceeding-as-assigned as the only option.",
+      "confidence": "MEDIUM",
+      "member_ids": [
+        "R030",
+        "R031"
+      ],
+      "evidence": "A nurse escalated deteriorating vitals twice, was told not to page again, and describes a unit norm against activating a rapid response over the covering physician ('on this floor you don't go around the hospitalist at night'); a floated nurse disclosed never having performed a required procedure and asked not to be assigned that patient, and the charge nurse who agreed to help had a full assignment of her own. Both describe the concern being raised and the system having nowhere to put it.",
+      "notes": null
+    },
+    {
+      "name": "patient_specific_constraint_dependent_on_recall",
+      "hypothesis": "Hypothesis: patient-specific contraindications, hold parameters, and laterality are documented somewhere in the record but are not surfaced at the moment of ordering or administration, so the barrier is the clinician's unaided recall against a default action pattern.",
+      "confidence": "LOW",
+      "member_ids": [
+        "R007",
+        "R021",
+        "R024"
+      ],
+      "evidence": "A hypertensive disorder on the problem list did not register as a contraindication while the prescriber was working down a standard uterotonic sequence; hold parameters for one patient were recalled and applied to another among several differing sets; a procedure was set up on the side named in a superseded history rather than the side imaged hours earlier after the skin mark was washed off. In each the correct information existed in the record but nothing prompted with it at the decision point.",
+      "notes": null
+    },
+    {
+      "name": "cumulative_duty_load_appended_as_context",
+      "hypothesis": "Hypothesis: reporters spontaneously attach consecutive-shift, extended-hours, or admission-volume detail to routine task failures, suggesting scheduling and assignment practices are an unaccounted contributing factor rather than incidental background.",
+      "confidence": "LOW",
+      "member_ids": [
+        "R005",
+        "R013",
+        "R021",
+        "R028",
+        "R031"
+      ],
+      "evidence": "A mechanical-lift sling mis-rigging closes with 'second half of a double'; a duplicated long-acting insulin dose is reported alongside 'fourth admit for me since 1900'; a hold-parameter mix-up ends with 'third night in a row'; a drug-selection error ends with 'up since 0700 the day before'; an unfamiliar procedure performed by a floated nurse on her 'fourth 12 this week'. Each mentions duty load without connecting it causally, and none of the reports proposes it as the failure.",
+      "notes": null
+    }
+  ],
+  "assignments": {
+    "R001": [
+      "interrupted_task_resumed_without_place_keeping",
+      "care_task_performed_in_space_not_designed_for_it"
+    ],
+    "R004": [
+      "interrupted_task_resumed_without_place_keeping",
+      "lookalike_identity_cues_at_point_of_selection"
+    ],
+    "R012": [
+      "interrupted_task_resumed_without_place_keeping",
+      "lookalike_identity_cues_at_point_of_selection"
+    ],
+    "R023": [
+      "interrupted_task_resumed_without_place_keeping"
+    ],
+    "R026": [
+      "interrupted_task_resumed_without_place_keeping"
+    ],
+    "R029": [
+      "interrupted_task_resumed_without_place_keeping"
+    ],
+    "R006": [
+      "independent_verification_collapses_into_formality"
+    ],
+    "R018": [
+      "independent_verification_collapses_into_formality"
+    ],
+    "R020": [
+      "independent_verification_collapses_into_formality"
+    ],
+    "R024": [
+      "independent_verification_collapses_into_formality",
+      "patient_specific_constraint_dependent_on_recall"
+    ],
+    "R032": [
+      "independent_verification_collapses_into_formality",
+      "silent_safeguard_gap_read_as_all_clear"
+    ],
+    "R003": [
+      "silent_safeguard_gap_read_as_all_clear"
+    ],
+    "R009": [
+      "silent_safeguard_gap_read_as_all_clear"
+    ],
+    "R011": [
+      "silent_safeguard_gap_read_as_all_clear"
+    ],
+    "R013": [
+      "silent_safeguard_gap_read_as_all_clear",
+      "relocation_for_bed_flow_strips_patient_safety_context",
+      "cumulative_duty_load_appended_as_context"
+    ],
+    "R015": [
+      "silent_safeguard_gap_read_as_all_clear"
+    ],
+    "R017": [
+      "parallel_similar_patients_held_in_working_memory"
+    ],
+    "R021": [
+      "parallel_similar_patients_held_in_working_memory",
+      "patient_specific_constraint_dependent_on_recall",
+      "cumulative_duty_load_appended_as_context"
+    ],
+    "R025": [
+      "parallel_similar_patients_held_in_working_memory",
+      "care_task_performed_in_space_not_designed_for_it"
+    ],
+    "R027": [
+      "parallel_similar_patients_held_in_working_memory"
+    ],
+    "R002": [
+      "critical_information_moves_only_by_informal_verbal_channel",
+      "relocation_for_bed_flow_strips_patient_safety_context"
+    ],
+    "R010": [
+      "critical_information_moves_only_by_informal_verbal_channel"
+    ],
+    "R016": [
+      "critical_information_moves_only_by_informal_verbal_channel"
+    ],
+    "R022": [
+      "critical_information_moves_only_by_informal_verbal_channel",
+      "relocation_for_bed_flow_strips_patient_safety_context"
+    ],
+    "R019": [
+      "relocation_for_bed_flow_strips_patient_safety_context"
+    ],
+    "R028": [
+      "lookalike_identity_cues_at_point_of_selection",
+      "cumulative_duty_load_appended_as_context"
+    ],
+    "R008": [
+      "care_task_performed_in_space_not_designed_for_it"
+    ],
+    "R014": [
+      "care_task_performed_in_space_not_designed_for_it"
+    ],
+    "R030": [
+      "risk_voiced_but_no_available_resolution_path"
+    ],
+    "R031": [
+      "risk_voiced_but_no_available_resolution_path",
+      "cumulative_duty_load_appended_as_context"
+    ],
+    "R007": [
+      "patient_specific_constraint_dependent_on_recall"
+    ],
+    "R005": [
+      "cumulative_duty_load_appended_as_context"
+    ]
+  },
+  "warnings": [],
+  "raw_responses": [
+    {
+      "text": "{\"clusters\": [\n  {\n    \"name\": \"interrupted_task_resumed_without_place_keeping\",\n    \"hypothesis\": \"Hypothesis: multi-step preparation tasks are performed with no physical or system place-keeper, so when an interruption occurs the worker resumes from memory and either repeats, skips, or abandons a step; the error is invisible until a downstream check happens to catch it.\",\n    \"confidence\": \"HIGH\",\n    \"member_ids\": [\"R001\", \"R004\", \"R012\", \"R023\", \"R026\", \"R029\"],\n    \"evidence\": \"Each describes a step-sequence broken mid-task and resumed from recall: syringe draw-up interrupted repeatedly in an open hallway prep area (wrong volume drawn); cabinet restock interrupted by a phone call (strengths loaded into wrong pocket); IV bag spiked then a call-out to another room, drug identity re-established only at pump programming; reconstitution interrupted by a service bell, diluent added twice; a rapid-response page mid-cleanup left a post-procedure vent setting unreverted for ~9 hours; phlebotomy interrupted to assist a roommate, tourniquet left in place. In every case the reporter notes the resumed-from step was wrong, not the original step.\",\n    \"notes\": null\n  },\n  {\n    \"name\": \"independent_verification_collapses_into_formality\",\n    \"hypothesis\": \"Hypothesis: required second-person or pre-procedure verification steps are being completed as documentation events rather than as independent checks, so the barrier is recorded as done while providing no detection capability.\",\n    \"confidence\": \"HIGH\",\n    \"member_ids\": [\"R006\", \"R018\", \"R020\", \"R024\", \"R032\"],\n    \"evidence\": \"Bedside pump-versus-order check by off- and on-going nurses routinely omitted when short-staffed ('didn't happen for any of my four... pretty usual'); anticoagulant dosing-weight cosign given from across the pod off a read-out number, described as the normal night practice; pre-procedure checklist item 'allergies reviewed with pt' checked although the patient may never have been asked and was sedated by the time of the next opportunity; bedside procedure begun with no pause with the nurse and no re-marking after the mark was washed off; blood product two-person tag read deferred because a barcode scan had already returned a green check. Each reporter states the verification existed on paper but was not independently performed.\",\n    \"notes\": null\n  },\n  {\n    \"name\": \"silent_safeguard_gap_read_as_all_clear\",\n    \"hypothesis\": \"Hypothesis: several safety technologies fail or narrow their scope without announcing it, and staff interpret the absence of an alert, an empty task list, or a positive scan as positive confirmation that nothing is wrong.\",\n    \"confidence\": \"MEDIUM\",\n    \"member_ids\": [\"R003\", \"R009\", \"R011\", \"R013\", \"R015\", \"R032\"],\n    \"evidence\": \"A monitor alarm was repeatedly silenced by a family member with no escalation or lockout, so 'no alarm' coexisted with desaturation; sync markers appear to have been dropped when the display view was changed, with no indication on screen; a phone software update silently stopped telemetry alerts while calls and texts still worked, and no one on the unit was informed; a prior dose documented in the emergency encounter does not carry onto the inpatient medication record, so the receiving nurse saw a blank; an order-frequency change rebuilt the order with a default next-standard-time, so the record showed nothing due and the nurse had no cue that a dose was missing; a barcode match returned a green check that does not evaluate special product requirements. Each reporter describes acting on an absence of signal.\",\n    \"notes\": null\n  },\n  {\n    \"name\": \"parallel_similar_patients_held_in_working_memory\",\n    \"hypothesis\": \"Hypothesis: when a clinician runs several near-identical processes at once, patient-specific values are carried in memory or on informal notes with no per-patient physical separation or point-of-use check, so attributes migrate between patients.\",\n    \"confidence\": \"MEDIUM\",\n    \"member_ids\": [\"R017\", \"R021\", \"R025\", \"R027\"],\n    \"evidence\": \"Three simultaneous infusion titrations at different steps tracked on a pocket scrap of paper, one step skipped; three different hold parameters for six patients held in the reporter's head, one patient's parameter applied to another; two identical adjacent machines with the same alarm tone, the alarm attributed to the wrong chair while facing away from the other; two arterial samples drawn back to back and labeled together at the analyzer rather than at each bedside, resulting in a swap and a ventilator change on the wrong patient. All four reporters explicitly name the batching or memory-carrying as the normal, time-saving practice.\",\n    \"notes\": null\n  },\n  {\n    \"name\": \"critical_information_moves_only_by_informal_verbal_channel\",\n    \"hypothesis\": \"Hypothesis: certain categories of safety-critical information have no designated field, form, or required element in handoff, so they travel only if an individual remembers to say them and the receiver remembers to ask, and their loss is undetectable to the receiver.\",\n    \"confidence\": \"HIGH\",\n    \"member_ids\": [\"R002\", \"R010\", \"R016\", \"R022\"],\n    \"evidence\": \"Respiratory support and suctioning requirements passed verbally with no standard sheet or agreed location on the receiving unit ('some people text, some write it on the whiteboard'); intraoperative medication list never reviewed because the anesthesia clinician was pulled to the next case and the record was not yet viewable; an overnight change in speech attributed to a medication and never entered in a note or handoff, later shifting last-known-well outside the treatment window; a fasting status not reliably transferred during a nursing-assistant handoff after a room change. In each, the reporter cannot reconstruct whether the item was said, which is itself evidence there is no artifact to check.\",\n    \"notes\": null\n  },\n  {\n    \"name\": \"relocation_for_bed_flow_strips_patient_safety_context\",\n    \"hypothesis\": \"Hypothesis: moves made for capacity reasons (new unit, new room, new bed space) relocate the patient faster than the attributes attached to their prior location, so signage, environmental assumptions, care requirements, and prior administrations are left behind with no reconciliation step tied to the move.\",\n    \"confidence\": \"MEDIUM\",\n    \"member_ids\": [\"R002\", \"R013\", \"R019\", \"R022\"],\n    \"evidence\": \"Step-down transfer after extubation with respiratory requirements not landing anywhere on the receiving unit; conversion from emergency to inpatient encounter leaving a recent long-acting insulin dose off the inpatient record and duplicated; neonate moved to a bed space with known uncontrolled solar gain while the incubator ran in air mode, producing a febrile workup; overnight room swap to free an isolation room leaving fasting signage on the old door and stale information on the new whiteboard. Each reporter ties the event to the move itself, not to the clinical care.\",\n    \"notes\": null\n  },\n  {\n    \"name\": \"lookalike_identity_cues_at_point_of_selection\",\n    \"hypothesis\": \"Hypothesis: product and order-entry identity relies on small, low-contrast textual differences at the moment of selection, with no forcing function such as separation, differentiated packaging, or disambiguation prompts; a change in supplier or display can silently remove the informal cue staff had been using.\",\n    \"confidence\": \"MEDIUM\",\n    \"member_ids\": [\"R004\", \"R012\", \"R028\"],\n    \"evidence\": \"Two concentrations of the same anticoagulant in identical vials with identical caps and strength in tiny print, stored in adjacent pockets; a premixed product that changed from a rigid container to a soft bag with label colors and size matching a different premixed drug, with no notification of the change; an order search dropdown that truncates two similarly spelled drug names to the same visible string and sorts the wrong one first. Each reporter identifies the discriminating cue as the only barrier and notes it was inadequate or had recently changed.\",\n    \"notes\": null\n  },\n  {\n    \"name\": \"care_task_performed_in_space_not_designed_for_it\",\n    \"hypothesis\": \"Hypothesis: tasks requiring concentration, privacy, or physical clearance are routinely performed in spaces whose noise, traffic, proximity, or equipment density makes the task's own error checks ineffective.\",\n    \"confidence\": \"MEDIUM\",\n    \"member_ids\": [\"R001\", \"R008\", \"R014\", \"R025\"],\n    \"evidence\": \"Medication preparation on an open hallway shelf opposite triage, with the reporter counting the interruptions during a three-minute draw-up; discharge counseling delivered from a hallway bed opposite an active trauma bay at shouting volume, with comprehension unverifiable; an operating room too small for the case's equipment, leaving no route for intravenous tubing except across the floor where a mobile imaging base parks; dialysis stations roughly three feet apart with identical machines and alarm tones and no sightline to the adjacent screen. Each reporter names the physical setting, rather than an individual action, as the limiting factor.\",\n    \"notes\": null\n  },\n  {\n    \"name\": \"risk_voiced_but_no_available_resolution_path\",\n    \"hypothesis\": \"Hypothesis: staff recognized and verbalized a specific risk in advance, but the local escalation route was either socially closed or had no capacity to absorb the request, leaving proceeding-as-assigned as the only option.\",\n    \"confidence\": \"MEDIUM\",\n    \"member_ids\": [\"R030\", \"R031\"],\n    \"evidence\": \"A nurse escalated deteriorating vitals twice, was told not to page again, and describes a unit norm against activating a rapid response over the covering physician ('on this floor you don't go around the hospitalist at night'); a floated nurse disclosed never having performed a required procedure and asked not to be assigned that patient, and the charge nurse who agreed to help had a full assignment of her own. Both describe the concern being raised and the system having nowhere to put it.\",\n    \"notes\": null\n  },\n  {\n    \"name\": \"patient_specific_constraint_dependent_on_recall\",\n    \"hypothesis\": \"Hypothesis: patient-specific contraindications, hold parameters, and laterality are documented somewhere in the record but are not surfaced at the moment of ordering or administration, so the barrier is the clinician's unaided recall against a default action pattern.\",\n    \"confidence\": \"LOW\",\n    \"member_ids\": [\"R007\", \"R021\", \"R024\"],\n    \"evidence\": \"A hypertensive disorder on the problem list did not register as a contraindication while the prescriber was working down a standard uterotonic sequence; hold parameters for one patient were recalled and applied to another among several differing sets; a procedure was set up on the side named in a superseded history rather than the side imaged hours earlier after the skin mark was washed off. In each the correct information existed in the record but nothing prompted with it at the decision point.\",\n    \"notes\": null\n  },\n  {\n    \"name\": \"cumulative_duty_load_appended_as_context\",\n    \"hypothesis\": \"Hypothesis: reporters spontaneously attach consecutive-shift, extended-hours, or admission-volume detail to routine task failures, suggesting scheduling and assignment practices are an unaccounted contributing factor rather than incidental background.\",\n    \"confidence\": \"LOW\",\n    \"member_ids\": [\"R005\", \"R013\", \"R021\", \"R028\", \"R031\"],\n    \"evidence\": \"A mechanical-lift sling mis-rigging closes with 'second half of a double'; a duplicated long-acting insulin dose is reported alongside 'fourth admit for me since 1900'; a hold-parameter mix-up ends with 'third night in a row'; a drug-selection error ends with 'up since 0700 the day before'; an unfamiliar procedure performed by a floated nurse on her 'fourth 12 this week'. Each mentions duty load without connecting it causally, and none of the reports proposes it as the failure.\",\n    \"notes\": null\n  }\n]}",
+      "stop_reason": "end_turn",
+      "served_by": "claude-opus-5",
+      "request_id": "req_011Cf27vghVmGVsBHy8esaok",
+      "usage": {
+        "input_tokens": 7814,
+        "output_tokens": 8029
+      }
+    }
+  ]
+}

@@ -1,0 +1,270 @@
+{
+  "run": {
+    "model": "claude-opus-5",
+    "input": "truth",
+    "started_at": "2026-09-13T21:08:40+00:00",
+    "attempts": 1,
+    "parse_stage": "direct"
+  },
+  "clusters": [
+    {
+      "name": "interrupted_multistep_task_resumed_at_wrong_step",
+      "hypothesis": "Preparation and procedure tasks that consist of several sequential steps appear to have no external marker of 'where I am in the sequence,' so when an interruption occurs the clinician resumes from a remembered rather than a verified position; the hypothesis is that the vulnerability is the memory-only task state, not the interruption itself.",
+      "confidence": "HIGH",
+      "member_ids": [
+        "R001",
+        "R004",
+        "R012",
+        "R017",
+        "R023",
+        "R026",
+        "R029"
+      ],
+      "evidence": "R001 drew a double volume after repeated hallway interruptions mid-draw. R004 resumed a cabinet restock after a phone call and loaded the wrong strength pocket. R012 was pulled to another room between spiking and programming and returned to the wrong bag. R017 tracked three concurrent titration schedules on pocket paper and skipped a step after phone calls. R023 left the ventilator at 100% because the restore step comes after the procedure and the reporter was pulled to a rapid response. R026 re-added diluent because the resumption point was misremembered after the drive-thru bell. R029 left a tourniquet on after stepping away to help a roommate. In each, the step omitted or repeated was invisible once the task was paused."
+    },
+    {
+      "name": "independent_verification_collapses_under_workload_but_still_documents_as_done",
+      "hypothesis": "Second-person and bedside verification barriers (pump-to-order check, cosign of a rate change, allergy review, blood product tag check, procedural pause) may be routinely performed in a degraded form or skipped when staffing is tight, while the record still shows them as completed, so the barrier's failure is invisible to anyone downstream.",
+      "confidence": "HIGH",
+      "member_ids": [
+        "R006",
+        "R010",
+        "R018",
+        "R020",
+        "R024",
+        "R032"
+      ],
+      "evidence": "R006 states the expected bedside pump/order check did not occur for any patient and that this is 'pretty usual when we're short.' R018 describes a cosign given by read-back from across the pod and says this is the normal night practice. R020 shows an 'allergies reviewed with pt' checkbox completed while the patient may never have been asked, or was asked after sedation. R032 describes the two-person tag read being deferred because the barcode scan had already returned green. R010 notes the intraop medication list is normally reviewed together and was not. R024 notes no pause with the RN before a laterality-dependent procedure. All describe an existing barrier that yielded to competing demands rather than a barrier that did not exist."
+    },
+    {
+      "name": "critical_information_held_only_in_a_channel_the_receiver_cannot_see",
+      "hypothesis": "Across care-boundary transitions, key clinical facts appear to travel only in verbal, provisional, or encounter-segmented channels, so the receiving clinician's view of the chart looks complete while missing the decisive item; the hypothesis is that the failure is structural invisibility rather than an individual omission in report.",
+      "confidence": "MEDIUM",
+      "member_ids": [
+        "R002",
+        "R008",
+        "R010",
+        "R013",
+        "R016"
+      ],
+      "evidence": "R002 describes ICU-to-stepdown respiratory details passed verbally with no standard place to document them on the receiving unit. R010 describes the intraop record not yet closed and anesthesia leaving before the medication list was reviewed, leaving a recent opioid dose unseen. R013 notes the ED insulin administration is documented but does not appear on the inpatient MAR after conversion. R016 describes a subtle finding noticed overnight that reached neither the note nor handoff, shifting the apparent last-known-well. R008 describes discharge medication instructions delivered verbally in conditions where the content could not reliably be received, with the written packet unread."
+    },
+    {
+      "name": "systems_change_state_or_behavior_without_announcing_it",
+      "hypothesis": "Products, devices, and software appear to have changed appearance or behavior without a reliable route for notifying the people who depend on the prior pattern, so staff continue to rely on a mental model that is no longer valid; the reports suggest the change-notification path, not the change itself, is the latent weakness.",
+      "confidence": "MEDIUM",
+      "member_ids": [
+        "R004",
+        "R009",
+        "R011",
+        "R012",
+        "R015"
+      ],
+      "evidence": "R004 notes both heparin strengths now come from the same manufacturer in identical vials. R012 notes IV acetaminophen has arrived in a new soft bag resembling the magnesium bag and the reporter does not know when the change started. R011 notes a phone software push silently disabled telemetry alerts and 'nobody on the unit knew.' R015 notes an order-rebuild default that silently set the next dose to the following morning, and that the reporter has seen it before. R009 notes sync markers apparently not carrying across a display view change, discovered only after the shock."
+    },
+    {
+      "name": "discriminating_feature_too_small_or_non_redundant",
+      "hypothesis": "Several near misses may share the feature that the only thing distinguishing a correct from an incorrect item is a small, single, non-redundant cue (fine print, a truncated name string), with no second differing attribute such as shape, colour, or position to catch the error.",
+      "confidence": "MEDIUM",
+      "member_ids": [
+        "R004",
+        "R012",
+        "R028"
+      ],
+      "evidence": "R004 describes two heparin concentrations differing only by strength in tiny side print, in adjacent pockets. R012 describes two premixed bags of the same size and label colours where the drug name is the only differentiator. R028 describes an order-search dropdown truncating two dissimilar drugs to the same visible string unless hovered. In each, the discriminating cue existed but was carried by one small visual feature."
+    },
+    {
+      "name": "stale_record_content_accepted_as_current_state",
+      "hypothesis": "Information objects that persist without an expiry or freshness cue (carried-forward allergy fields, old notes, door signs, whiteboards) may be read as describing the patient's present state, and the hypothesis is that nothing in the environment signals how old the item is.",
+      "confidence": "MEDIUM",
+      "member_ids": [
+        "R020",
+        "R022",
+        "R024"
+      ],
+      "evidence": "R020 describes an NKDA field carried forward from a 2023 encounter being used as the basis for antibiotic choice. R024 describes an effusion side taken from an H&P two admissions old after the current skin mark was washed off. R022 describes a status sign left on the vacated room and a whiteboard still showing the previous occupant's information after a room move. All three involve artefacts that remained visually authoritative after they ceased to be true."
+    },
+    {
+      "name": "parallel_near_identical_workstreams_transposed",
+      "hypothesis": "When one clinician runs several structurally identical tasks or patients concurrently and the distinguishing details are held in memory or on informal notes, the details may attach to the wrong instance; the hypothesis is that the workflow provides no per-instance anchoring at the point of action.",
+      "confidence": "MEDIUM",
+      "member_ids": [
+        "R017",
+        "R021",
+        "R025",
+        "R027"
+      ],
+      "evidence": "R021 applied one room's hold parameter to another with six patients and three different parameter sets in mind. R027 batched two arterial samples and labelled both away from the bedside, swapping them and triggering a ventilator change on the wrong patient. R025 responded to an alarm from an adjacent identical machine and reset the wrong chair while the alarming one was out of view. R017 ran three titrations on different steps and schedules tracked on a scrap of paper. In each the items were interchangeable at the moment of action."
+    },
+    {
+      "name": "alarm_generated_but_does_not_reach_a_responder",
+      "hypothesis": "The last link of the alarm chain, from the device to a person able to act, appears to be unverified and can be broken silently, by remote silencing, by a delivery failure, or by ambiguous localisation, with no back-check that anyone actually received the signal.",
+      "confidence": "MEDIUM",
+      "member_ids": [
+        "R003",
+        "R011",
+        "R025"
+      ],
+      "evidence": "R003 describes a bedside monitor that allows repeated silencing by anyone at the bedside with no escalation, leaving a desaturation unannounced. R011 describes telemetry alerts silently not reaching the primary or backup phone, discovered only when the monitor tech called the desk. R025 describes identical alarm tones on adjacent machines so the alarm was heard but attributed to the wrong chair. In all three the alarm functioned but the responder was not effectively reached."
+    },
+    {
+      "name": "concern_voiced_through_available_channel_produces_no_change",
+      "hypothesis": "Staff who recognised a hazard in advance and raised it through the channel available to them appear to have had no functional route to a different outcome, suggesting that escalation depends on individual willingness to override hierarchy rather than on a defined mechanism.",
+      "confidence": "LOW",
+      "member_ids": [
+        "R030",
+        "R031"
+      ],
+      "evidence": "R030 describes paging twice with worsening vital signs and a rising lactate, being told not to page again, and describing an unwritten norm against going around the overnight physician. R031 describes stating at the start of the shift that the sheath patient should not be assigned, receiving an offer of help that workload prevented, and proceeding without a trained alternative. Both reporters identified the risk before the harm and had no available path that changed the plan."
+    },
+    {
+      "name": "physical_space_not_matched_to_the_task_performed_in_it",
+      "hypothesis": "Tasks requiring concentration, privacy, line-of-sight, or floor space may be routinely performed in spaces allocated without regard to those requirements, so the environment itself removes a condition the task depends on.",
+      "confidence": "MEDIUM",
+      "member_ids": [
+        "R001",
+        "R008",
+        "R014",
+        "R019",
+        "R025"
+      ],
+      "evidence": "R001 describes drawing controlled medications on an open hallway shelf opposite triage. R008 describes discharge medication teaching delivered in a hallway bed during a trauma activation at shouting volume. R014 describes equipment crowding in a small operating room leaving no route for IV tubing except the path of a mobile imaging base. R019 describes a bed space under an unshaded west window defeating an incubator's temperature control. R025 describes treatment chairs about three feet apart with the alarming screen out of the operator's sightline."
+    },
+    {
+      "name": "extended_and_consecutive_duty_patterns_as_a_shared_background_condition",
+      "hypothesis": "Several reports involving slips in well-practised skills occur against an explicitly described scheduling pattern of doubles, consecutive nights, mandatory floats, and extended wakefulness, raising the hypothesis that staffing and scheduling practice is a shared upstream condition rather than an individual characteristic.",
+      "confidence": "LOW",
+      "member_ids": [
+        "R005",
+        "R021",
+        "R028",
+        "R031"
+      ],
+      "evidence": "R005 notes the event occurred in the second half of a double shift during a routine transfer technique. R021 notes a third consecutive night while holding multiple differing parameter sets. R028 notes continuous wakefulness since the previous morning while ordering from a truncated search list. R031 notes a fourth twelve-hour shift that week plus a mandatory float into an unfamiliar specialty. The reporters volunteer the schedule themselves as context, but the link to each specific error is inferred rather than demonstrated."
+    }
+  ],
+  "assignments": {
+    "R001": [
+      "interrupted_multistep_task_resumed_at_wrong_step",
+      "physical_space_not_matched_to_the_task_performed_in_it"
+    ],
+    "R004": [
+      "interrupted_multistep_task_resumed_at_wrong_step",
+      "systems_change_state_or_behavior_without_announcing_it",
+      "discriminating_feature_too_small_or_non_redundant"
+    ],
+    "R012": [
+      "interrupted_multistep_task_resumed_at_wrong_step",
+      "systems_change_state_or_behavior_without_announcing_it",
+      "discriminating_feature_too_small_or_non_redundant"
+    ],
+    "R017": [
+      "interrupted_multistep_task_resumed_at_wrong_step",
+      "parallel_near_identical_workstreams_transposed"
+    ],
+    "R023": [
+      "interrupted_multistep_task_resumed_at_wrong_step"
+    ],
+    "R026": [
+      "interrupted_multistep_task_resumed_at_wrong_step"
+    ],
+    "R029": [
+      "interrupted_multistep_task_resumed_at_wrong_step"
+    ],
+    "R006": [
+      "independent_verification_collapses_under_workload_but_still_documents_as_done"
+    ],
+    "R010": [
+      "independent_verification_collapses_under_workload_but_still_documents_as_done",
+      "critical_information_held_only_in_a_channel_the_receiver_cannot_see"
+    ],
+    "R018": [
+      "independent_verification_collapses_under_workload_but_still_documents_as_done"
+    ],
+    "R020": [
+      "independent_verification_collapses_under_workload_but_still_documents_as_done",
+      "stale_record_content_accepted_as_current_state"
+    ],
+    "R024": [
+      "independent_verification_collapses_under_workload_but_still_documents_as_done",
+      "stale_record_content_accepted_as_current_state"
+    ],
+    "R032": [
+      "independent_verification_collapses_under_workload_but_still_documents_as_done"
+    ],
+    "R002": [
+      "critical_information_held_only_in_a_channel_the_receiver_cannot_see"
+    ],
+    "R008": [
+      "critical_information_held_only_in_a_channel_the_receiver_cannot_see",
+      "physical_space_not_matched_to_the_task_performed_in_it"
+    ],
+    "R013": [
+      "critical_information_held_only_in_a_channel_the_receiver_cannot_see"
+    ],
+    "R016": [
+      "critical_information_held_only_in_a_channel_the_receiver_cannot_see"
+    ],
+    "R009": [
+      "systems_change_state_or_behavior_without_announcing_it"
+    ],
+    "R011": [
+      "systems_change_state_or_behavior_without_announcing_it",
+      "alarm_generated_but_does_not_reach_a_responder"
+    ],
+    "R015": [
+      "systems_change_state_or_behavior_without_announcing_it"
+    ],
+    "R028": [
+      "discriminating_feature_too_small_or_non_redundant",
+      "extended_and_consecutive_duty_patterns_as_a_shared_background_condition"
+    ],
+    "R022": [
+      "stale_record_content_accepted_as_current_state"
+    ],
+    "R021": [
+      "parallel_near_identical_workstreams_transposed",
+      "extended_and_consecutive_duty_patterns_as_a_shared_background_condition"
+    ],
+    "R025": [
+      "parallel_near_identical_workstreams_transposed",
+      "alarm_generated_but_does_not_reach_a_responder",
+      "physical_space_not_matched_to_the_task_performed_in_it"
+    ],
+    "R027": [
+      "parallel_near_identical_workstreams_transposed"
+    ],
+    "R003": [
+      "alarm_generated_but_does_not_reach_a_responder"
+    ],
+    "R030": [
+      "concern_voiced_through_available_channel_produces_no_change"
+    ],
+    "R031": [
+      "concern_voiced_through_available_channel_produces_no_change",
+      "extended_and_consecutive_duty_patterns_as_a_shared_background_condition"
+    ],
+    "R014": [
+      "physical_space_not_matched_to_the_task_performed_in_it"
+    ],
+    "R019": [
+      "physical_space_not_matched_to_the_task_performed_in_it"
+    ],
+    "R005": [
+      "extended_and_consecutive_duty_patterns_as_a_shared_background_condition"
+    ]
+  },
+  "warnings": [],
+  "raw_responses": [
+    {
+      "text": "{\"clusters\": [{\"name\": \"interrupted_multistep_task_resumed_at_wrong_step\", \"hypothesis\": \"Preparation and procedure tasks that consist of several sequential steps appear to have no external marker of 'where I am in the sequence,' so when an interruption occurs the clinician resumes from a remembered rather than a verified position; the hypothesis is that the vulnerability is the memory-only task state, not the interruption itself.\", \"confidence\": \"HIGH\", \"member_ids\": [\"R001\", \"R004\", \"R012\", \"R017\", \"R023\", \"R026\", \"R029\"], \"evidence\": \"R001 drew a double volume after repeated hallway interruptions mid-draw. R004 resumed a cabinet restock after a phone call and loaded the wrong strength pocket. R012 was pulled to another room between spiking and programming and returned to the wrong bag. R017 tracked three concurrent titration schedules on pocket paper and skipped a step after phone calls. R023 left the ventilator at 100% because the restore step comes after the procedure and the reporter was pulled to a rapid response. R026 re-added diluent because the resumption point was misremembered after the drive-thru bell. R029 left a tourniquet on after stepping away to help a roommate. In each, the step omitted or repeated was invisible once the task was paused.\"}, {\"name\": \"independent_verification_collapses_under_workload_but_still_documents_as_done\", \"hypothesis\": \"Second-person and bedside verification barriers (pump-to-order check, cosign of a rate change, allergy review, blood product tag check, procedural pause) may be routinely performed in a degraded form or skipped when staffing is tight, while the record still shows them as completed, so the barrier's failure is invisible to anyone downstream.\", \"confidence\": \"HIGH\", \"member_ids\": [\"R006\", \"R010\", \"R018\", \"R020\", \"R024\", \"R032\"], \"evidence\": \"R006 states the expected bedside pump/order check did not occur for any patient and that this is 'pretty usual when we're short.' R018 describes a cosign given by read-back from across the pod and says this is the normal night practice. R020 shows an 'allergies reviewed with pt' checkbox completed while the patient may never have been asked, or was asked after sedation. R032 describes the two-person tag read being deferred because the barcode scan had already returned green. R010 notes the intraop medication list is normally reviewed together and was not. R024 notes no pause with the RN before a laterality-dependent procedure. All describe an existing barrier that yielded to competing demands rather than a barrier that did not exist.\"}, {\"name\": \"critical_information_held_only_in_a_channel_the_receiver_cannot_see\", \"hypothesis\": \"Across care-boundary transitions, key clinical facts appear to travel only in verbal, provisional, or encounter-segmented channels, so the receiving clinician's view of the chart looks complete while missing the decisive item; the hypothesis is that the failure is structural invisibility rather than an individual omission in report.\", \"confidence\": \"MEDIUM\", \"member_ids\": [\"R002\", \"R008\", \"R010\", \"R013\", \"R016\"], \"evidence\": \"R002 describes ICU-to-stepdown respiratory details passed verbally with no standard place to document them on the receiving unit. R010 describes the intraop record not yet closed and anesthesia leaving before the medication list was reviewed, leaving a recent opioid dose unseen. R013 notes the ED insulin administration is documented but does not appear on the inpatient MAR after conversion. R016 describes a subtle finding noticed overnight that reached neither the note nor handoff, shifting the apparent last-known-well. R008 describes discharge medication instructions delivered verbally in conditions where the content could not reliably be received, with the written packet unread.\"}, {\"name\": \"systems_change_state_or_behavior_without_announcing_it\", \"hypothesis\": \"Products, devices, and software appear to have changed appearance or behavior without a reliable route for notifying the people who depend on the prior pattern, so staff continue to rely on a mental model that is no longer valid; the reports suggest the change-notification path, not the change itself, is the latent weakness.\", \"confidence\": \"MEDIUM\", \"member_ids\": [\"R004\", \"R009\", \"R011\", \"R012\", \"R015\"], \"evidence\": \"R004 notes both heparin strengths now come from the same manufacturer in identical vials. R012 notes IV acetaminophen has arrived in a new soft bag resembling the magnesium bag and the reporter does not know when the change started. R011 notes a phone software push silently disabled telemetry alerts and 'nobody on the unit knew.' R015 notes an order-rebuild default that silently set the next dose to the following morning, and that the reporter has seen it before. R009 notes sync markers apparently not carrying across a display view change, discovered only after the shock.\"}, {\"name\": \"discriminating_feature_too_small_or_non_redundant\", \"hypothesis\": \"Several near misses may share the feature that the only thing distinguishing a correct from an incorrect item is a small, single, non-redundant cue (fine print, a truncated name string), with no second differing attribute such as shape, colour, or position to catch the error.\", \"confidence\": \"MEDIUM\", \"member_ids\": [\"R004\", \"R012\", \"R028\"], \"evidence\": \"R004 describes two heparin concentrations differing only by strength in tiny side print, in adjacent pockets. R012 describes two premixed bags of the same size and label colours where the drug name is the only differentiator. R028 describes an order-search dropdown truncating two dissimilar drugs to the same visible string unless hovered. In each, the discriminating cue existed but was carried by one small visual feature.\"}, {\"name\": \"stale_record_content_accepted_as_current_state\", \"hypothesis\": \"Information objects that persist without an expiry or freshness cue (carried-forward allergy fields, old notes, door signs, whiteboards) may be read as describing the patient's present state, and the hypothesis is that nothing in the environment signals how old the item is.\", \"confidence\": \"MEDIUM\", \"member_ids\": [\"R020\", \"R022\", \"R024\"], \"evidence\": \"R020 describes an NKDA field carried forward from a 2023 encounter being used as the basis for antibiotic choice. R024 describes an effusion side taken from an H&P two admissions old after the current skin mark was washed off. R022 describes a status sign left on the vacated room and a whiteboard still showing the previous occupant's information after a room move. All three involve artefacts that remained visually authoritative after they ceased to be true.\"}, {\"name\": \"parallel_near_identical_workstreams_transposed\", \"hypothesis\": \"When one clinician runs several structurally identical tasks or patients concurrently and the distinguishing details are held in memory or on informal notes, the details may attach to the wrong instance; the hypothesis is that the workflow provides no per-instance anchoring at the point of action.\", \"confidence\": \"MEDIUM\", \"member_ids\": [\"R017\", \"R021\", \"R025\", \"R027\"], \"evidence\": \"R021 applied one room's hold parameter to another with six patients and three different parameter sets in mind. R027 batched two arterial samples and labelled both away from the bedside, swapping them and triggering a ventilator change on the wrong patient. R025 responded to an alarm from an adjacent identical machine and reset the wrong chair while the alarming one was out of view. R017 ran three titrations on different steps and schedules tracked on a scrap of paper. In each the items were interchangeable at the moment of action.\"}, {\"name\": \"alarm_generated_but_does_not_reach_a_responder\", \"hypothesis\": \"The last link of the alarm chain, from the device to a person able to act, appears to be unverified and can be broken silently, by remote silencing, by a delivery failure, or by ambiguous localisation, with no back-check that anyone actually received the signal.\", \"confidence\": \"MEDIUM\", \"member_ids\": [\"R003\", \"R011\", \"R025\"], \"evidence\": \"R003 describes a bedside monitor that allows repeated silencing by anyone at the bedside with no escalation, leaving a desaturation unannounced. R011 describes telemetry alerts silently not reaching the primary or backup phone, discovered only when the monitor tech called the desk. R025 describes identical alarm tones on adjacent machines so the alarm was heard but attributed to the wrong chair. In all three the alarm functioned but the responder was not effectively reached.\"}, {\"name\": \"concern_voiced_through_available_channel_produces_no_change\", \"hypothesis\": \"Staff who recognised a hazard in advance and raised it through the channel available to them appear to have had no functional route to a different outcome, suggesting that escalation depends on individual willingness to override hierarchy rather than on a defined mechanism.\", \"confidence\": \"LOW\", \"member_ids\": [\"R030\", \"R031\"], \"evidence\": \"R030 describes paging twice with worsening vital signs and a rising lactate, being told not to page again, and describing an unwritten norm against going around the overnight physician. R031 describes stating at the start of the shift that the sheath patient should not be assigned, receiving an offer of help that workload prevented, and proceeding without a trained alternative. Both reporters identified the risk before the harm and had no available path that changed the plan.\"}, {\"name\": \"physical_space_not_matched_to_the_task_performed_in_it\", \"hypothesis\": \"Tasks requiring concentration, privacy, line-of-sight, or floor space may be routinely performed in spaces allocated without regard to those requirements, so the environment itself removes a condition the task depends on.\", \"confidence\": \"MEDIUM\", \"member_ids\": [\"R001\", \"R008\", \"R014\", \"R019\", \"R025\"], \"evidence\": \"R001 describes drawing controlled medications on an open hallway shelf opposite triage. R008 describes discharge medication teaching delivered in a hallway bed during a trauma activation at shouting volume. R014 describes equipment crowding in a small operating room leaving no route for IV tubing except the path of a mobile imaging base. R019 describes a bed space under an unshaded west window defeating an incubator's temperature control. R025 describes treatment chairs about three feet apart with the alarming screen out of the operator's sightline.\"}, {\"name\": \"extended_and_consecutive_duty_patterns_as_a_shared_background_condition\", \"hypothesis\": \"Several reports involving slips in well-practised skills occur against an explicitly described scheduling pattern of doubles, consecutive nights, mandatory floats, and extended wakefulness, raising the hypothesis that staffing and scheduling practice is a shared upstream condition rather than an individual characteristic.\", \"confidence\": \"LOW\", \"member_ids\": [\"R005\", \"R021\", \"R028\", \"R031\"], \"evidence\": \"R005 notes the event occurred in the second half of a double shift during a routine transfer technique. R021 notes a third consecutive night while holding multiple differing parameter sets. R028 notes continuous wakefulness since the previous morning while ordering from a truncated search list. R031 notes a fourth twelve-hour shift that week plus a mandatory float into an unfamiliar specialty. The reporters volunteer the schedule themselves as context, but the link to each specific error is inferred rather than demonstrated.\"}]}",
+      "stop_reason": "end_turn",
+      "served_by": "claude-opus-5",
+      "request_id": "req_011Cf27vgb3nd1R25KccjxmZ",
+      "usage": {
+        "input_tokens": 8886,
+        "output_tokens": 7752
+      }
+    }
+  ]
+}

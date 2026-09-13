@@ -2,9 +2,45 @@
 
 **Latent failure detection for patient safety incident reports.** *Latente* is Spanish for "latent": the hazards this project looks for sit hidden across reports that each describe them differently.
 
-**Reviewer dashboard:** https://claude.ai/code/artifact/0ba01431-1be1-41a1-a626-ae96f63f9a3d (built from this repo's run outputs by `dashboard/build.py`)
-
 **All data in this repository is synthetic.** No real patients, staff, or incidents. `corpus.json` was written for this project; it contains no PHI.
+
+## At a glance
+
+| | |
+|---|---|
+| **For** | Hospital quality and safety reviewers who triage incident reports |
+| **Problem it removes** | Reports are filed one at a time, so hazards that span many reports stay invisible, and confident but wrong categories silently distort any pattern analysis |
+| **What it does** | For each report, Claude proposes a contributing factor and flags its own uncertainty. Uncertain reports go to a human review queue in Notion with a Slack review request. Across all reports, a second agent proposes hidden failure patterns and alerts the team in Slack. A person makes every final decision. |
+| **Apps** | Claude API · Notion · Slack, coordinated by one deterministic orchestrator (`run_pipeline.py`) |
+| **Evidence so far** | On 32 synthetic reports with ground truth: every wrong label reached a human (9/9); both hidden failure patterns were recovered at 100% purity under a rule fixed in advance; 0/32 parse failures; 6/6 adversarial inputs handled; all 6 stage gates pass; a simulated Notion outage lost no report |
+| **Not yet shown** | Evaluation with real reviewers, time saved, performance on real incident data, and a held-out test set |
+| **See it** | Reviewer dashboard: https://claude.ai/code/artifact/0ba01431-1be1-41a1-a626-ae96f63f9a3d |
+
+**Key insights from building it:**
+- **The value is in routing, not in the label.** The classifier's label is right 72% of the time, but every wrong label was flagged for a person. A queue that never silently accepts an error is more useful than a more accurate classifier that sometimes does.
+- **Cross-report patterns do not depend on per-report labels.** The pattern agent found both planted failure modes equally well from raw text, from the classifier's output, or from perfect labels. Classification errors do not propagate into pattern detection.
+- **Most failures traced to instructions, not the model.** Reading every error by hand showed a taxonomy definition mismatch and a leftover instruction. Those are fixable at the prompt, and one fix was verified before and after.
+- **The uncertainty signal is cautious and not fully consistent.** 27 of 32 reports went to review, and 2 of 10 routing decisions flipped on a rerun. Calibrating that signal is the clearest next step.
+
+## Key features
+
+1. **Per-report classification with explicit uncertainty.** A SEIPS contributing-factor label, amplifiers, and three signals: `fits_taxonomy`, `alternative_label`, and `processing_note`.
+2. **A human-first routing gate.** Any uncertainty signal sends a report to review, and the model can never set a final `Confirmed` status.
+3. **A three-app workflow.** One orchestrator writes the Notion review queue and posts Slack review requests and pattern alerts.
+4. **Cross-report pattern detection.** Latent failure modes are proposed as hypotheses with confidence and member reports.
+5. **Failure handling and a decision trail.** Failed writes are held and retried, and every step is logged with the run, model, and prompt version.
+6. **Stage-by-stage evaluation.** Each stage passes gates with fixed thresholds, is tested in isolation and against adversarial inputs, and is diagnosed through manual error analysis.
+
+## How this README is organized
+
+| Section | What it covers | Most useful for |
+|---|---|---|
+| Problem and intended outcome · Where the idea came from | Why this exists | Everyone |
+| What was built · The orchestrator | Architecture, stages, apps, failure handling | Judges, technical staff |
+| Adopting Latente AI | How a safety team could pilot it, and what to measure | Sponsors, safety leaders |
+| Building on it | How to try it in minutes and where to change things | Developers, designers |
+| How to run · Stage-by-stage testing · How reliability was tested · Evaluation results | Reproduction steps and all evidence | Judges, technical staff |
+| Next steps · Design note · Demo script · Repository contents | What is not built yet, design rationale, file map | Everyone |
 
 ## Problem and intended outcome
 
@@ -316,6 +352,67 @@ The remaining traced failures, the taxonomy definition mismatch and handoff read
 - **FATIGUE recall is low by design tension, not a parsing issue.** The prompt forbids tagging FATIGUE from night-shift timing alone. The corpus tagged it more liberally. The two definitions disagree.
 - **Clustering recovered both planted failure modes with no false members,** despite their members being filed under different labels and amplifiers.
 <!-- EVAL:END -->
+
+## Adopting Latente AI: a pilot path for a safety team
+
+**No real reviewers have used Latente AI yet.** All evidence above comes from a synthetic corpus with ground truth. No study has measured reviewers' overall experience or time saved, and a pilot is how that evidence would be gathered.
+
+**1. Run in shadow mode first (for example, 4 weeks).** Export de-identified incident reports from the existing reporting system as `[{"id": ..., "text": ...}]` and run `run_pipeline.py` on them. Reviewers keep their current process, and Latente's queue and pattern alerts run alongside it for comparison. No decision depends on the tool during this phase.
+
+**2. Measure what a sponsor would need to see:**
+
+| Question | Measure |
+|---|---|
+| Does it catch what matters? | Share of reviewer-corrected labels that Latente had already routed to review (target: all of them) |
+| Does it save time? | Reviewer minutes per report, with and without the pre-filled queue |
+| Is the queue the right size? | Share of `Needs Review` reports that the reviewer agreed needed a second look |
+| Are the patterns useful? | Share of pattern hypotheses the safety team judges worth investigating, and whether any were already known |
+| Is the overall experience better? | Reviewer ratings of the whole workflow: trust, effort, and whether they would keep using it |
+| Is it safe to rely on? | Any high-harm report that was auto-classified, which should be zero |
+
+**3. Integration points:**
+
+| Today | In a hospital pilot |
+|---|---|
+| `incoming/*.json` | A scheduled export or API pull from the incident reporting system |
+| Notion review queue | The team's existing review tool, or Notion during the pilot |
+| Slack channel | The safety team's Slack or Teams channel |
+| Claude API | An enterprise deployment covered by a business associate agreement if identifiable data is used; otherwise de-identify before sending |
+
+**4. Governance before any real data:**
+- De-identify reports, or use a deployment covered by a BAA.
+- Confirm how peer-review protections apply to reports processed by the tool.
+- Keep human confirmation as the only path to a final label.
+- Use `runs/pipeline_log.jsonl` as the audit trail.
+
+## Building on it: for developers and designers
+
+**Try it at three levels of setup:**
+
+| Setup | Time | What you can do |
+|---|---|---|
+| **No API keys** | ~5 min | See the list below |
+| **Anthropic API key only** | ~5 min, ~$0.10 | Run `.venv/bin/python test_stage1.py --skip-repeat` to rerun the adversarial classifier tests on your own inputs; edit `tests/policy_gate_cases.json` to add cases |
+| **Anthropic + Notion + Slack** | ~15 min | Share a Notion database with your integration, then run `.venv/bin/python run_pipeline.py --input incoming/demo_reports.json --no-slack`, and drop `--no-slack` once the Notion rows look right |
+
+With no API keys you can:
+- Clone the repo, create the venv, and run `.venv/bin/python eval.py` to regenerate every metric from saved outputs.
+- Run `.venv/bin/python stage_gates.py --through 2` to check gates 1 and 2.
+- Run `.venv/bin/python dashboard/build.py` and open `dashboard/index.html`.
+- Run `.venv/bin/python notify_slack.py` to preview the Slack message.
+
+**Where to change things:**
+
+| To change… | Edit | Then run |
+|---|---|---|
+| Taxonomy, rules, or examples the classifier follows | `agent-instructions-v5.txt` (keep a new version file) | `test_stage1.py`, then `stage_gates.py` |
+| Adversarial and policy test cases | `tests/policy_gate_cases.json` | `test_stage1.py` |
+| Routing rules | `route()` in `classify.py` | `classify.py --reroute`, then `eval.py` |
+| Pattern-finding instructions | `SYSTEM_TEMPLATE` in `cluster.py` | `cluster.py`, then `eval.py` |
+| Notion columns | `row_properties()` in `write_notion.py` | `run_pipeline.py --no-slack` |
+| Slack message wording | `review_request()` and `failure_alert()` in `run_pipeline.py`; `build_blocks()` in `notify_slack.py` | `notify_slack.py` (dry run) |
+| Dashboard design | `dashboard/template.html` | `dashboard/build.py` |
+| Input source | Anything that writes `[{"id", "text"}]` JSON | `run_pipeline.py --input your_file.json` |
 
 ## Next steps (not built)
 

@@ -109,7 +109,7 @@ All proposed clusters:
 | interrupted_task_resumed_without_external_place_marker | HIGH | 6 | R001, R004, R012, R023, R026, R029 | noise: 6 | no |
 | cross_patient_task_interleaving_identity_in_memory | MEDIUM | 5 | R012, R017, R021, R025, R027 | noise: 4, verification_step_erosion: 1 | no |
 | double_check_present_in_policy_degraded_in_practice | HIGH | 5 | R006, R018, R020, R024, R032 | verification_step_erosion: 5 | yes |
-| automated_signal_read_as_broader_assurance_than_it_covers | MEDIUM | 5 | R011, R013, R015, R025, R032 | noise: 3, handoff_information_loss: 1, verification_step_erosion: 1 | no |
+| automated_signal_read_as_broader_assurance_than_it_covers | MEDIUM | 5 | R011, R013, R015, R025, R032 | noise: 3, verification_step_erosion: 1, handoff_information_loss: 1 | no |
 | unannounced_change_to_product_or_system_configuration | MEDIUM | 4 | R004, R011, R012, R015 | noise: 4 | no |
 | verbal_only_handoff_with_no_required_field | HIGH | 4 | R002, R010, R016, R022 | handoff_information_loss: 4 | yes |
 | capacity_pressure_relocates_care_to_unsuitable_space | MEDIUM | 5 | R001, R008, R014, R019, R025 | noise: 4, handoff_information_loss: 1 | no |

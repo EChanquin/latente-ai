@@ -1,5 +1,7 @@
 # Latent failure detection for patient safety incident reports
 
+**Reviewer dashboard:** https://claude.ai/code/artifact/0ba01431-1be1-41a1-a626-ae96f63f9a3d (built from this repo's run outputs by `dashboard/build.py`)
+
 **All data in this repository is synthetic.** No real patients, staff, or incidents. `corpus.json` was written for this project; it contains no PHI.
 
 ## Problem and intended outcome

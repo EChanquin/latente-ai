@@ -93,7 +93,19 @@ Incident reports enter as `corpus.json`, a synthetic stand-in for an incident-re
 
 **When an integration fails,** the report is never dropped. If the Notion write fails, the classified report is saved to `runs/held_reports.json`, Slack gets an integration-failure alert, and `--retry-held` delivers it later. If Slack fails, the Notion row still exists and the failure is logged.
 
-**Every step is appended to `runs/pipeline_log.jsonl`** as a decision trail: preflight result, proposed label, gate decision and reason, each write, and each failure.
+**Every step is appended to `runs/pipeline_log.jsonl`** as a decision trail: preflight result, proposed label, gate decision and reason, each write, and each failure. Each entry is stamped with:
+- a run id
+- the model
+- the prompt file and a short SHA-256 of the exact prompt
+- for classifier steps, the API request id, the model that actually served the call, and the parse stage
+
+A failure can therefore be traced from one log line to a prompt version, a model change, or the input itself. A held report keeps the context it was classified under, so a later retry still points back to the right prompt.
+
+**Sequential vs. parallel, and why:**
+- **Classification is independent per report.** It could run in parallel, but it runs one report at a time with a 1-second gap, to stay within API and Notion rate limits and to keep the decision trail in order.
+- **Routing, the Notion write, and the Slack request are strictly sequential within a report.** Each depends on the step before it.
+- **Clustering runs after classification.** It needs every classification at once, so it cannot start early.
+- **Evaluation-only work can run in parallel.** The clustering isolation tests have no dependencies, so they did.
 
 ```bash
 .venv/bin/python run_pipeline.py --input incoming/demo_reports.json                 # normal run
@@ -304,6 +316,16 @@ The remaining traced failures, the taxonomy definition mismatch and handoff read
 - **FATIGUE recall is low by design tension, not a parsing issue.** The prompt forbids tagging FATIGUE from night-shift timing alone. The corpus tagged it more liberally. The two definitions disagree.
 - **Clustering recovered both planted failure modes with no false members,** despite their members being filed under different labels and amplifiers.
 <!-- EVAL:END -->
+
+## Next steps (not built)
+
+- **Harm-severity escalation.** Escalation should weigh how bad the outcome was. The label and the pattern analysis should not, because judging a system flaw by its outcome is a known bias, and near-misses often reveal latent failures before anyone is hurt. The planned design has three parts:
+  - extract a harm level, on the NCC MERP or AHRQ harm scale, as a separate field
+  - apply a deterministic rule, for example: permanent harm or death always goes to review and triggers an urgent Slack alert, regardless of uncertainty signals
+  - evaluate that extraction in isolation before any gate trusts it
+- **Retrieval for information that changes.** Unit policies, shortage notices, and prior incidents belong in an indexed source, as described below.
+- **Calibrating the `alternative_label` signal,** to reduce over-routing and improve routing consistency.
+- **A held-out report set** for future prompt changes.
 
 ## Design note: what goes in the prompt, and what should not
 

@@ -19,10 +19,12 @@ Usage:
   python run_pipeline.py --input incoming/demo_reports.json --no-slack     # print Slack messages, post nothing
 """
 import argparse
+import hashlib
 import json
 import os
 import sys
 import time
+import uuid
 from collections import Counter
 from datetime import datetime, timezone
 
@@ -31,18 +33,19 @@ import requests
 
 import write_notion as wn
 from classify import DELAY_S, classify_report
-from common import ROOT, load_env, load_system_prompt
+from common import MODEL, ROOT, load_env, load_system_prompt
 from notify_slack import NOTION_DB_URL, esc
 from stage_gates import gate_classifier_isolated
 
 PROMPT = "agent-instructions-v5.txt"
 LOG = ROOT / "runs" / "pipeline_log.jsonl"
 HELD = ROOT / "runs" / "held_reports.json"
+RUN = {}  # run id, model, prompt file and hash: stamped on every log entry so a failure traces to prompt vs model vs data
 
 
-def log(report_id, stage, outcome, detail=""):
-    entry = {"ts": datetime.now(timezone.utc).isoformat(timespec="seconds"), "report_id": report_id,
-             "stage": stage, "outcome": outcome, "detail": detail}
+def log(report_id, stage, outcome, detail="", context=None, **extra):
+    entry = {"ts": datetime.now(timezone.utc).isoformat(timespec="seconds"), **(context or RUN),
+             "report_id": report_id, "stage": stage, "outcome": outcome, "detail": detail, **extra}
     LOG.parent.mkdir(exist_ok=True)
     with open(LOG, "a") as f:
         f.write(json.dumps(entry, ensure_ascii=False) + "\n")
@@ -125,24 +128,25 @@ def save_held(records):
 def deliver(record, headers, slack):
     """Stages 3-4 for one classified report. Returns False if the report had to be held."""
     rid = record["id"]
+    ctx = record.setdefault("pipeline_context", dict(RUN))  # a held report keeps the run context it was classified under
     try:
         url = write_row(headers, record)
-        log(rid, "notion", "row written", f"status {record['routing']['status']}")
+        log(rid, "notion", "row written", f"status {record['routing']['status']}", context=ctx)
     except Exception as e:
-        log(rid, "notion", "FAILED: report held for retry", str(e)[:160])
+        log(rid, "notion", "FAILED: report held for retry", str(e)[:160], context=ctx)
         save_held([r for r in load_held() if r["id"] != rid] + [record])
         try:
-            log(rid, "slack", sent(slack.post(*failure_alert(record, str(e))), "integration-failure alert"))
+            log(rid, "slack", sent(slack.post(*failure_alert(record, str(e))), "integration-failure alert"), context=ctx)
         except Exception as se:
-            log(rid, "slack", "FAILED to post alert", str(se)[:160])
+            log(rid, "slack", "FAILED to post alert", str(se)[:160], context=ctx)
         return False
     if record["routing"]["confidence"] == "REVIEW":
         try:
-            log(rid, "slack", sent(slack.post(*review_request(record, url)), "review request"))
+            log(rid, "slack", sent(slack.post(*review_request(record, url)), "review request"), context=ctx)
         except Exception as e:
-            log(rid, "slack", "FAILED: row is in Notion but review request not sent", str(e)[:160])
+            log(rid, "slack", "FAILED: row is in Notion but review request not sent", str(e)[:160], context=ctx)
     else:
-        log(rid, "slack", "no review request", "auto-classified; waits for a person to confirm in Notion")
+        log(rid, "slack", "no review request", "auto-classified; waits for a person to confirm in Notion", context=ctx)
     return True
 
 
@@ -166,6 +170,9 @@ def main():
     args = parser.parse_args()
     load_env()
     slack = Slack(enabled=not args.no_slack)
+    system = load_system_prompt(ROOT / PROMPT)
+    RUN.update({"run_id": uuid.uuid4().hex[:8], "model": MODEL, "prompt": PROMPT,
+                "prompt_sha256": hashlib.sha256(system.encode()).hexdigest()[:12]})
 
     if args.retry_held:
         held = load_held()
@@ -200,16 +207,18 @@ def main():
                 log(report["id"], "reset", "previous demo row moved to Notion trash")
     headers = notion_headers(args.simulate_notion_outage)
     client = anthropic.Anthropic()
-    system = load_system_prompt(ROOT / PROMPT)
 
     counts = Counter()
-    for i, report in enumerate(reports):
+    for i, report in enumerate(reports):  # reports are independent; run one at a time for rate limits and an ordered trail
         if i:
             time.sleep(DELAY_S)
         record = classify_report(client, system, report)
         c = record["classification"]
         log(report["id"], "classifier", f"proposed {c['label'] or 'no label'}",
-            f"alternative {c['alternative_label']}, amplifiers {c['amplifiers']}, fits_taxonomy {c['fits_taxonomy']}, attempts {record['attempts']}")
+            f"alternative {c['alternative_label']}, amplifiers {c['amplifiers']}, fits_taxonomy {c['fits_taxonomy']}, attempts {record['attempts']}",
+            request_ids=[a.get("request_id") for a in record["raw_responses"]],
+            served_by=[a.get("served_by") for a in record["raw_responses"]],
+            parse_stage=record["parse_stage"])
         log(report["id"], "gate", record["routing"]["status"], record["routing"]["reason"])
         counts["held" if not deliver(record, headers, slack) else record["routing"]["status"]] += 1
 

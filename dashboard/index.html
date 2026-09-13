@@ -264,7 +264,7 @@ footer a { color: var(--tab-ink); }
     <div class="sechead">
       <span class="eyebrow">Workflow</span>
       <h2 id="h-flow">Two agents, one gate, a person at the end of every path</h2>
-      <p>A deterministic orchestrator, <span class="mono">run_pipeline.py</span>, runs the steps in order: code controls the flow, Claude only does the judgment inside each stage. If Notion is unreachable, the report is held and Slack is alerted instead of anything being dropped.</p>
+      <p>A deterministic orchestrator, <span class="mono">run_pipeline.py</span>, runs the steps in order: code controls the flow, Claude only does the judgment inside each stage. If Notion is unreachable, the report is held and Slack is alerted instead of anything being dropped. Reports are independent, so they run one at a time for rate limits and an ordered decision trail; the pattern finder waits until every report is classified.</p>
     </div>
     <div class="lanes">
       <div class="panel">

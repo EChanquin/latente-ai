@@ -1,4 +1,6 @@
-# Latent failure detection for patient safety incident reports
+# Latente AI
+
+**Latent failure detection for patient safety incident reports.** *Latente* is Spanish for "latent": the hazards this project looks for sit hidden across reports that each describe them differently.
 
 **Reviewer dashboard:** https://claude.ai/code/artifact/0ba01431-1be1-41a1-a626-ae96f63f9a3d (built from this repo's run outputs by `dashboard/build.py`)
 

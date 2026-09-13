@@ -54,7 +54,7 @@ def build_blocks(records, clusters, urls):
     parse_failures = sum(1 for r in records if not r["parsed"])
 
     blocks = [
-        {"type": "header", "text": {"type": "plain_text", "text": "Patient safety review queue: new batch classified"}},
+        {"type": "header", "text": {"type": "plain_text", "text": "Latente AI · review queue: new batch classified"}},
         section(f"*{len(records)} incident reports* classified. _Synthetic data._\n"
                 f"• *{len(review)} need human review*: " + ", ".join(f"{k} ({v})" for k, v in reasons.most_common()) + "\n"
                 f"• *{len(auto)} auto-classified*, awaiting human confirmation\n"
@@ -87,7 +87,7 @@ def main():
     records = json.load(open(ROOT / "results.json"))["records"]
     clusters = json.load(open(ROOT / "clusters.json"))["clusters"]
     blocks = build_blocks(records, clusters, page_urls())
-    payload = {"text": f"Patient safety review queue: {len(records)} reports classified", "blocks": blocks}
+    payload = {"text": f"Latente AI: {len(records)} incident reports classified", "blocks": blocks}
 
     if not args.send:
         print(json.dumps(payload, indent=2, ensure_ascii=False))

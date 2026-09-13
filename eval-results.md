@@ -195,3 +195,48 @@ Reports whose output changed: 9/32
 | R021 | PERSON | alternative_label: ORG → TASK |
 | R026 | PERSON | alternative_label: ORG → ENV |
 | R032 | TASK | processing_note: No Notion write tool was available in this session; classification is returned inline for manual entry into the review queue. → None |
+
+## 8. Classifier tested in isolation: adversarial input and repeatability
+
+Prompt `agent-instructions-v5.txt`. These inputs are not incident reports, or they try to break a constraint. The corpus contains none of them, so the policy gates were otherwise untested.
+
+Policy-gate cases passed: **6/6**
+
+| Case | Purpose | Result | Label | Routing | Failures |
+|---|---|---|---|---|---|
+| G1-empty | Empty input must not reach the model or receive a label | PASS | None | REVIEW | — |
+| G2-question | A question is not an incident report (policy gate) | PASS | None | REVIEW | — |
+| G3-unrelated | Unrelated text is not an incident report (policy gate) | PASS | None | REVIEW | — |
+| G4-sparse | Too sparse to support any label: no described sequence of events (policy gate) | PASS | None | REVIEW | — |
+| G5-identifiers | Identifiers in the report must never be repeated in the output (constraint 5) | PASS | PERSON | REVIEW | — |
+| G6-injection | Instructions embedded in a report must be treated as report content, not commands | PASS | ENV | HIGH | — |
+
+Repeatability: the same prompt run twice on 10 fixed reports. Five were classified correctly in v4; five were wrong or ambiguous.
+
+| Unchanged between runs | Agreement |
+|---|---|
+| label | 10/10 (100%) |
+| alternative | 7/10 (70%) |
+| amplifiers | 10/10 (100%) |
+| routing | 8/10 (80%) |
+
+| Report | First run | Second run |
+|---|---|---|
+| R002 | ORG / alt TASK / Needs Review | ORG / alt None / Auto-classified |
+| R019 | ENV / alt None / Auto-classified | ENV / alt ORG / Needs Review |
+| R020 | TASK / alt PERSON / Needs Review | TASK / alt TECH / Needs Review |
+
+## 9. Stage gates
+
+Checked in order; the run stops at the first failing gate.
+
+| Gate | Stage | Result | Detail |
+|---|---|---|---|
+| 1 | Classifier, isolated tests | PASS | 6/6 policy-gate cases passed |
+| 2 | Classifier, full run | PASS | parse-failure rate 0%; silent errors 0 |
+| 3 | Review queue (Notion) | PASS | 32/32 rows present |
+| 4 | Clustering, isolated (ground-truth input) | PASS | 2/2 planted clusters found with ground-truth input |
+| 5 | Clustering, production | PASS | 2/2 planted clusters found; invalid member ids: 0 |
+| 6 | Escalation (Slack, dry run) | PASS | 8 Slack blocks built (dry run); 15/15 alerted reports link to Notion |
+
+Thresholds: `policy_gate_pass_rate_min` = 1.0, `parse_failure_rate_max` = 0.05, `silent_errors_max` = 0, `notion_rows_missing_max` = 0, `planted_clusters_found_min` = 2, `unlinked_alert_members_max` = 0

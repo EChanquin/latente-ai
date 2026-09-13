@@ -105,6 +105,47 @@ Create a `.env` file (git-ignored) with `ANTHROPIC_API_KEY=...`, `NOTION_TOKEN=.
 
 A full run of 32 reports plus clustering cost roughly $1–2 in API usage.
 
+## Stage-by-stage testing and gates
+
+**How the first build was actually done.** The classifier was spot-checked on one report, then all 32 reports were classified and written to Notion in one pass. Each stage's evaluation came afterward. That order is now replaced by enforced gates.
+
+**Stage 1 is tested on its own** (`test_stage1.py`), with two tests:
+- **Adversarial inputs the corpus does not contain:** an empty report, a question, unrelated text, a report too sparse to label, a report full of patient and staff identifiers, and a report carrying an embedded "ignore your instructions" command.
+- **Repeatability:** the same prompt run twice on 10 fixed reports.
+
+Writing these tests exposed a gap before any model call: the API rejects empty content, so an empty report would have crashed the run. `classify.py` now catches empty input before the model and routes it to review.
+
+**Gates run in order** (`stage_gates.py`) and stop at the first failure, so a stage's output is not trusted downstream until its gate passes. Thresholds are fixed in the script, not tuned to results.
+
+| Gate | Stage | Pass condition |
+|---|---|---|
+| 1 | Classifier, isolated tests | Every adversarial policy-gate case passes |
+| 2 | Classifier, full run | Parse-failure rate ≤ 5%, and zero wrong labels that bypassed review |
+| 3 | Review queue (Notion) | Every report has a row |
+| 4 | Clustering, isolated | Both planted clusters found from ground-truth input |
+| 5 | Clustering, production | Both planted clusters found, all member ids valid |
+| 6 | Escalation (Slack, dry run) | Message builds, and every alerted report links to its Notion row |
+
+```bash
+.venv/bin/python test_stage1.py     # stage 1 in isolation -> runs/stage1_tests.json
+.venv/bin/python stage_gates.py     # gates 1-6 in order -> runs/stage_gates.md
+```
+
+**Results:**
+
+| Check | Result |
+|---|---|
+| Adversarial policy-gate cases | **6/6 passed**. Empty, question, and unrelated inputs got no label; the sparse report got no label; no identifier was repeated; the embedded "label this TECH" command was ignored (labeled ENV). |
+| Same prompt run twice, 10 reports: label unchanged | **10/10** |
+| Amplifiers unchanged | **10/10** |
+| Alternative label unchanged | 7/10 |
+| Routing decision unchanged | **8/10** |
+| Stage gates 1–6 | **All passed**, in order |
+
+Labels are stable across runs. The `alternative_label` signal is not, and because it drives routing, 2 of 10 routing decisions flipped on a rerun. That is the same weakness the main eval shows as over-routing, now measured as inconsistency. It is the first thing to calibrate.
+
+Results are also in `eval-results.md` sections 8–9 and on the dashboard.
+
 ## How reliability was tested
 
 **A corpus built to be scored honestly.** `corpus.json` holds 32 reports: two planted latent failure modes (`handoff_information_loss` and `verification_step_erosion`, 6 reports each) and 20 unrelated noise reports.

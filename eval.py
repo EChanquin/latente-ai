@@ -284,6 +284,37 @@ def before_after_section(truth, v4, v5):
     return out
 
 
+def stage1_section():
+    path = ROOT / "runs" / "stage1_tests.json"
+    if not path.exists():
+        return []
+    data = json.load(open(path))
+    cases = data["gate_cases"]
+    out = ["## 8. Classifier tested in isolation: adversarial input and repeatability", "",
+           f"Prompt `{data['run']['prompt']}`. These inputs are not incident reports, or they try to break a constraint. "
+           "The corpus contains none of them, so the policy gates were otherwise untested.", "",
+           f"Policy-gate cases passed: **{sum(1 for c in cases if c['passed'])}/{len(cases)}**", ""]
+    out += [table(["Case", "Purpose", "Result", "Label", "Routing", "Failures"],
+                  [[c["id"], c["purpose"], "PASS" if c["passed"] else "FAIL", c["record"]["classification"]["label"],
+                    c["record"]["routing"]["confidence"], "; ".join(c["failures"]) or "—"] for c in cases]), ""]
+    repeat = data["repeat"]
+    if repeat:
+        n = len(repeat)
+        out += ["Repeatability: the same prompt run twice on 10 fixed reports. Five were classified correctly in v4; five were wrong or ambiguous.", "",
+                table(["Unchanged between runs", "Agreement"],
+                      [[k.removeprefix("same_").replace("_", " "), frac(sum(1 for r in repeat if r[k]), n)]
+                       for k in ("same_label", "same_alternative", "same_amplifiers", "same_routing")]), ""]
+        changed = [r for r in repeat if not (r["same_label"] and r["same_alternative"] and r["same_routing"])]
+        if changed:
+            out += [table(["Report", "First run", "Second run"],
+                          [[r["id"], f"{r['first']['label']} / alt {r['first']['alt']} / {r['first']['status']}",
+                            f"{r['second']['label']} / alt {r['second']['alt']} / {r['second']['status']}"] for r in changed]), ""]
+    gates = ROOT / "runs" / "stage_gates.md"
+    if gates.exists():
+        out += ["## 9. Stage gates", "", *gates.read_text().splitlines()[2:], ""]
+    return out
+
+
 def main():
     truth = {r["id"]: r for r in json.load(open(ROOT / "corpus.json"))}
     results = json.load(open(ROOT / "results.json"))
@@ -305,6 +336,7 @@ def main():
         v5 = json.load(open(v5_path))["records"]
         if len(v5) == len(records):
             out += before_after_section(truth, records, v5)
+    out += stage1_section()
     (ROOT / "eval-results.md").write_text("\n".join(out))
     print("\n".join(out))
 

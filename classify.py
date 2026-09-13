@@ -106,6 +106,13 @@ def route(c):
 
 
 def classify_report(client, system, report):
+    if not report["text"].strip():
+        # Input gate: the API rejects empty content, and an empty report must never receive a label.
+        classification = {"label": None, "alternative_label": None, "amplifiers": [], "fits_taxonomy": False,
+                          "reasoning": None, "processing_note": "empty report: not sent to the model"}
+        return {"id": report["id"], "text": report["text"], "parsed": True, "attempts": 0, "parse_stage": "not sent",
+                "schema_errors": [], "classification": classification, "routing": route(classification),
+                "raw_responses": []}
     raw_responses = []
     for attempt in (1, 2):
         raw = call_model(client, system, report["text"])

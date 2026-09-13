@@ -112,12 +112,28 @@ def main():
         m5 = ev.headline_metrics(truth, list(v5.values()))
         before_after = [[a[0].replace("`", ""), str(a[1]), str(b[1]), direction(a[0], a[1], b[1])] for a, b in zip(m4, m5)]
 
+    gate_cases, repeat, repeat_note, gates = None, None, "", None
+    stage1_path = ROOT / "runs" / "stage1_tests.json"
+    if stage1_path.exists():
+        stage1 = json.load(open(stage1_path))
+        gate_cases = [[g["id"], g["purpose"], "PASS" if g["passed"] else "FAIL"] for g in stage1["gate_cases"]]
+        if stage1["repeat"]:
+            k = len(stage1["repeat"])
+            repeat = [[key.removeprefix("same_").replace("_", " ").capitalize(), ev.frac(sum(1 for r in stage1["repeat"] if r[key]), k)]
+                      for key in ("same_label", "same_alternative", "same_amplifiers", "same_routing")]
+            repeat_note = f"The v5 prompt run twice on {k} fixed reports, half previously correct and half previously wrong or ambiguous."
+    gates_path = ROOT / "runs" / "stage_gates.md"
+    if gates_path.exists():
+        gates = [[cell.strip() for cell in line.strip("|").split("|")]
+                 for line in gates_path.read_text().splitlines() if re.match(r"^\| \d+ \|", line)]
+
     usage = [a.get("usage", {}) for r in records for a in r["raw_responses"]]
     cost = sum(u.get("input_tokens", 0) for u in usage) * 5e-6 + sum(u.get("output_tokens", 0) for u in usage) * 25e-6
     data = {
         "meta": {"reports": f"{n} synthetic", "model": results["run"]["model"], "cost": f"${cost:.2f} per classification run"},
         "proof": proof, "caveat": caveat, "reports": reports, "clusters": cluster_items,
         "isolation": isolation, "byLabel": by_label, "beforeAfter": before_after, "defaultReport": "R018",
+        "gateCases": gate_cases, "repeat": repeat, "repeatNote": repeat_note, "gates": gates,
     }
     html = (HERE / "template.html").read_text().replace("__DATA__", json.dumps(data, ensure_ascii=False).replace("</", "<\\/"))
     (HERE / "index.html").write_text(html)

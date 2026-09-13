@@ -1,234 +1,301 @@
 <title>Latent Failure Review</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,500;1,9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
 :root {
-  --ground: #EDF1EF; --surface: #FFFFFF; --sunk: #E3E9E6; --ink: #14201C; --muted: #56655F; --rule: #D0D9D5;
-  --accent: #23597C; --accent-soft: #DAE7EF;
-  --review: #8A560A; --review-bg: #F4E4C8; --auto: #2B684A; --auto-bg: #D7E9DD; --bad: #A5342A; --bad-bg: #F3DAD6; --good: #2B684A;
-  --handoff: #684A92; --handoff-bg: #E7DFF1; --verif: #1B6C75; --verif-bg: #D3EAEC; --noise: #66716D; --noise-bg: #E2E7E5;
-  --PERSON: #7A4893; --TASK: #2E60A1; --TECH: #11706C; --ORG: #92551A; --ENV: #587126;
-  --sans: "Public Sans", "Helvetica Neue", Arial, sans-serif;
+  --ground: #F5F6FA; --surface: #FFFFFF; --sunk: #EEF1F6; --ink: #173A33; --muted: #5C6E68; --rule: #DDE3E8;
+  --tab: #1D4239; --tab-ink: #EAF6F2;
+  --mint: #3FAE95; --mint-ink: #1C6B5A; --mint-soft: #DDF2EC; --on-mint: #FFFFFF;
+  --violet: #4B47C9; --violet-soft: #E7E6FB;
+  --blob-a: #CBCDF6; --blob-b: #C3EEE6; --blob-c: #FFF0C4;
+  --review: #955800; --review-bg: #FBEBC8; --auto: #1C6B5A; --auto-bg: #DDF2EC; --bad: #B2382C; --bad-bg: #F8DEDA; --good: #1C6B5A;
+  --handoff: #5B45A8; --handoff-bg: #E9E3F8; --verif: #146C78; --verif-bg: #D5EDF0; --noise: #66716D; --noise-bg: #E6EAEC;
+  --PERSON: #7A4893; --TASK: #2E60A1; --TECH: #0F6E69; --ORG: #92551A; --ENV: #587126;
+  --sans: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --serif: "Fraunces", Georgia, "Times New Roman", serif;
   --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --r-lg: 22px; --r-md: 14px; --r-sm: 8px;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --ground: #0F1614; --surface: #17201D; --sunk: #1E2825; --ink: #E2EAE6; --muted: #98A7A1; --rule: #2B3733;
-    --accent: #86B6D8; --accent-soft: #1D3140;
-    --review: #E3AA4F; --review-bg: #3A2B12; --auto: #7FC39D; --auto-bg: #1A3325; --bad: #EE8D82; --bad-bg: #3D1E1A; --good: #7FC39D;
-    --handoff: #B9A0DD; --handoff-bg: #2C2340; --verif: #7CCAD2; --verif-bg: #15343A; --noise: #A3AEAA; --noise-bg: #26302D;
-    --PERSON: #C49BDA; --TASK: #8DB4E6; --TECH: #6FCBC5; --ORG: #E0A566; --ENV: #B3CB78;
+    --ground: #0D1715; --surface: #14211E; --sunk: #1A2A26; --ink: #E4EFEB; --muted: #9BB0A9; --rule: #26362F;
+    --tab: #0A2A23; --tab-ink: #CFEDE4;
+    --mint: #5FCBB0; --mint-ink: #7FDCC4; --mint-soft: #16372F; --on-mint: #0B1F1A;
+    --violet: #ABA8F6; --violet-soft: #24234A;
+    --blob-a: #2A2B5C; --blob-b: #123B34; --blob-c: #3A3217;
+    --review: #EDB45A; --review-bg: #3A2A10; --auto: #7FDCC4; --auto-bg: #16372F; --bad: #F0928A; --bad-bg: #3E1E1A; --good: #7FDCC4;
+    --handoff: #C0ABEC; --handoff-bg: #2C2448; --verif: #7CCED8; --verif-bg: #12363C; --noise: #A6B2AE; --noise-bg: #25312E;
+    --PERSON: #C9A1DD; --TASK: #93B8E8; --TECH: #6FCFC8; --ORG: #E3A86A; --ENV: #B6CE7C;
   }
 }
 :root[data-theme="dark"] {
-  --ground: #0F1614; --surface: #17201D; --sunk: #1E2825; --ink: #E2EAE6; --muted: #98A7A1; --rule: #2B3733;
-  --accent: #86B6D8; --accent-soft: #1D3140;
-  --review: #E3AA4F; --review-bg: #3A2B12; --auto: #7FC39D; --auto-bg: #1A3325; --bad: #EE8D82; --bad-bg: #3D1E1A; --good: #7FC39D;
-  --handoff: #B9A0DD; --handoff-bg: #2C2340; --verif: #7CCAD2; --verif-bg: #15343A; --noise: #A3AEAA; --noise-bg: #26302D;
-  --PERSON: #C49BDA; --TASK: #8DB4E6; --TECH: #6FCBC5; --ORG: #E0A566; --ENV: #B3CB78;
+  --ground: #0D1715; --surface: #14211E; --sunk: #1A2A26; --ink: #E4EFEB; --muted: #9BB0A9; --rule: #26362F;
+  --tab: #0A2A23; --tab-ink: #CFEDE4;
+  --mint: #5FCBB0; --mint-ink: #7FDCC4; --mint-soft: #16372F; --on-mint: #0B1F1A;
+  --violet: #ABA8F6; --violet-soft: #24234A;
+  --blob-a: #2A2B5C; --blob-b: #123B34; --blob-c: #3A3217;
+  --review: #EDB45A; --review-bg: #3A2A10; --auto: #7FDCC4; --auto-bg: #16372F; --bad: #F0928A; --bad-bg: #3E1E1A; --good: #7FDCC4;
+  --handoff: #C0ABEC; --handoff-bg: #2C2448; --verif: #7CCED8; --verif-bg: #12363C; --noise: #A6B2AE; --noise-bg: #25312E;
+  --PERSON: #C9A1DD; --TASK: #93B8E8; --TECH: #6FCFC8; --ORG: #E3A86A; --ENV: #B6CE7C;
 }
 
 * { box-sizing: border-box; }
-body { margin: 0; background: var(--ground); color: var(--ink); font: 400 15px/1.55 var(--sans); }
-.wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px 72px; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--ground); color: var(--ink); font: 400 16px/1.55 var(--sans); }
+.wrap { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
 h1, h2, h3 { text-wrap: balance; margin: 0; }
 p { margin: 0; }
-.mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
-.eyebrow { font: 500 11px/1.2 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+a { color: inherit; }
 button { font: inherit; color: inherit; }
-:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+:focus-visible { outline: 2px solid var(--violet); outline-offset: 2px; }
+.mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.eyebrow { font: 600 12px/1.2 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--mint-ink); }
 
-/* Header: set like an incident form's header band */
-.masthead { border-bottom: 1px solid var(--rule); background: var(--surface); }
-.masthead .wrap { padding-top: 28px; padding-bottom: 24px; display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: end; }
-.masthead h1 { font-size: 34px; line-height: 1.1; font-weight: 700; letter-spacing: -.02em; margin-top: 8px; }
-.masthead .lede { color: var(--muted); max-width: 64ch; margin-top: 10px; }
-.formmeta { display: grid; grid-template-columns: auto auto; gap: 4px 16px; font-size: 13px; }
-.formmeta dt { color: var(--muted); }
-.formmeta dd { margin: 0; font-family: var(--mono); }
-.synthetic { display: inline-block; margin-top: 12px; font: 500 11px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; padding: 5px 8px; border: 1px dashed var(--muted); color: var(--muted); }
+/* Announcement bar + nav */
+.announce { background: var(--tab); color: var(--tab-ink); font-size: 14px; }
+.announce .wrap { display: flex; justify-content: space-between; gap: 16px; padding-top: 10px; padding-bottom: 10px; flex-wrap: wrap; }
+.announce a { color: var(--tab-ink); text-underline-offset: 3px; }
+.nav { position: relative; z-index: 2; }
+.nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-top: 18px; padding-bottom: 18px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; letter-spacing: -.01em; text-decoration: none; }
+.mark { width: 26px; height: 26px; border-radius: 7px; background: var(--mint); position: relative; }
+.mark::after { content: ""; position: absolute; right: -4px; bottom: -4px; width: 12px; height: 12px; border-radius: 4px; background: var(--violet); border: 3px solid var(--ground); }
+.links { display: flex; gap: 22px; align-items: center; font-size: 15px; }
+.links a { text-decoration: none; color: var(--muted); }
+.links a:hover { color: var(--ink); }
 
-section { margin-top: 44px; }
-.sechead { display: flex; gap: 16px; align-items: baseline; justify-content: space-between; flex-wrap: wrap; margin-bottom: 16px; }
-.sechead h2 { font-size: 22px; font-weight: 700; letter-spacing: -.01em; }
-.sechead p { color: var(--muted); max-width: 70ch; }
+/* Hero */
+.hero { position: relative; overflow: hidden; padding: 36px 0 44px; }
+.hero::before { content: ""; position: absolute; inset: -160px -10% auto -10%; height: 560px; z-index: 0; filter: blur(60px); opacity: .9;
+  background: radial-gradient(40% 55% at 22% 40%, var(--blob-a), transparent 70%), radial-gradient(35% 50% at 78% 30%, var(--blob-b), transparent 70%),
+              radial-gradient(22% 35% at 55% 70%, var(--blob-c), transparent 70%); }
+.hero .wrap { position: relative; z-index: 1; display: grid; justify-items: center; text-align: center; gap: 18px; }
+.hero h1 { font-size: clamp(38px, 5.4vw, 64px); line-height: 1.04; font-weight: 600; letter-spacing: -.03em; max-width: 18ch; }
+.hero h1 em { font-family: var(--serif); font-weight: 500; font-style: italic; color: var(--violet); letter-spacing: -.01em; }
+.hero .sub { font-size: 19px; color: var(--muted); max-width: 58ch; }
+.cta { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 6px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 999px; font-weight: 600; font-size: 15px; text-decoration: none; cursor: pointer; border: 1.5px solid transparent; }
+.btn-solid { background: var(--mint); color: var(--on-mint); }
+.btn-ghost { border-color: var(--violet); color: var(--violet); background: transparent; }
+.btn .arr { font-family: var(--mono); }
+.apps { margin-top: 26px; display: grid; justify-items: center; gap: 12px; }
+.apps .label { font-size: 14px; color: var(--muted); }
+.applist { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.app { display: inline-flex; align-items: center; gap: 10px; padding: 9px 16px; background: var(--surface); border: 1px solid var(--rule); border-radius: 999px; font-weight: 600; font-size: 15px; }
+.app small { font-weight: 400; color: var(--muted); font-size: 13px; }
+.sq { width: 12px; height: 12px; border-radius: 3px; flex: none; display: inline-block; }
+.sq-agent { background: var(--violet); } .sq-gate { background: var(--review); } .sq-app { background: var(--mint); } .sq-human { background: var(--tab); border: 1px solid var(--tab-ink); }
 
-/* Proof strip */
-.proof { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--rule); background: var(--surface); }
-.proof > div { padding: 18px 20px; display: grid; gap: 6px; align-content: start; }
+section { margin-top: 64px; scroll-margin-top: 16px; }
+.sechead { display: grid; gap: 8px; margin-bottom: 22px; max-width: 70ch; }
+.sechead h2 { font-size: clamp(26px, 3vw, 36px); font-weight: 600; letter-spacing: -.02em; line-height: 1.12; }
+.sechead p { color: var(--muted); font-size: 17px; }
+
+/* Panels with a header tab (Plenful-style) */
+.panel { background: var(--surface); border: 1px solid var(--rule); border-radius: var(--r-lg); overflow: hidden; }
+.tabhead { background: var(--tab); color: var(--tab-ink); font: 600 12px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; padding: 12px 22px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.tabhead span:last-child { letter-spacing: .04em; text-transform: none; font-weight: 400; opacity: .85; }
+
+/* Proof */
+.proof { display: grid; grid-template-columns: repeat(4, 1fr); }
+.proof > div { padding: 24px 22px; display: grid; gap: 8px; align-content: start; }
 .proof > div + div { border-left: 1px solid var(--rule); }
-.proof .fig { font: 500 30px/1 var(--mono); letter-spacing: -.02em; }
-.proof .cap { font-size: 13px; color: var(--muted); }
-.caveat { margin-top: 10px; display: flex; gap: 10px; align-items: baseline; font-size: 14px; }
-.caveat .pill { flex: none; }
+.fig { font: 600 44px/1 var(--sans); letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+.proof .cap { font-size: 14.5px; color: var(--muted); }
+.caveat { display: flex; gap: 12px; align-items: baseline; padding: 14px 22px; border-top: 1px solid var(--rule); background: var(--sunk); font-size: 15px; }
+
+/* Quote (Lexi-style testimonial, but real agent output) */
+.quote { margin: 40px auto 0; max-width: 780px; text-align: center; display: grid; gap: 14px; }
+.quote blockquote { margin: 0; font: italic 500 clamp(21px, 2.4vw, 27px)/1.4 var(--serif); color: var(--violet); }
+.quote .by { font-size: 14.5px; color: var(--muted); }
+.quote .by strong { color: var(--ink); font-weight: 600; font-family: var(--mono); font-size: 13px; }
 
 /* Pills and chips */
-.pill { display: inline-flex; align-items: center; gap: 6px; font: 500 12px/1 var(--sans); padding: 5px 9px; border-radius: 999px; white-space: nowrap; }
+.pill { display: inline-flex; align-items: center; gap: 6px; font: 600 12.5px/1 var(--sans); padding: 6px 10px; border-radius: 999px; white-space: nowrap; }
 .pill::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
 .st-review { color: var(--review); background: var(--review-bg); }
 .st-auto { color: var(--auto); background: var(--auto-bg); }
 .st-bad { color: var(--bad); background: var(--bad-bg); }
-.lab { display: inline-block; font: 500 11px/1 var(--mono); letter-spacing: .04em; padding: 4px 6px; border: 1px solid currentColor; border-radius: 3px; }
+.lab { display: inline-block; font: 500 11.5px/1 var(--mono); letter-spacing: .03em; padding: 5px 7px; border: 1.5px solid currentColor; border-radius: 6px; }
 .lab-PERSON { color: var(--PERSON); } .lab-TASK { color: var(--TASK); } .lab-TECH { color: var(--TECH); }
 .lab-ORG { color: var(--ORG); } .lab-ENV { color: var(--ENV); } .lab-none { color: var(--muted); }
-.amp { font: 400 11px/1 var(--mono); color: var(--muted); padding: 4px 6px; background: var(--sunk); border-radius: 3px; }
+.amp { font: 400 12px/1 var(--mono); color: var(--muted); padding: 5px 7px; background: var(--sunk); border-radius: 6px; }
 
 /* Workflow */
-.lanes { display: grid; gap: 14px; }
-.lane { display: grid; grid-template-columns: 120px 1fr; gap: 16px; align-items: stretch; }
-.lane > .eyebrow { padding-top: 14px; }
-.steps { display: grid; grid-template-columns: repeat(5, minmax(150px, 1fr)); gap: 22px; overflow-x: auto; padding-bottom: 4px; }
-.step { position: relative; background: var(--surface); border: 1px solid var(--rule); padding: 12px 12px 14px; display: grid; gap: 6px; align-content: start; min-height: 128px; }
-.step + .step::before { content: "→"; position: absolute; left: -18px; top: 44px; color: var(--muted); font-family: var(--mono); }
-.step .kind { font: 500 10px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
-.step h3 { font-size: 14px; font-weight: 600; }
-.step p { font-size: 12.5px; color: var(--muted); line-height: 1.45; }
-.k-agent .kind { color: var(--accent); }
-.k-gate { border-style: dashed; } .k-gate .kind { color: var(--review); }
-.k-app .kind { color: var(--muted); }
-.k-human { background: var(--accent-soft); border-color: transparent; } .k-human .kind { color: var(--accent); }
+.lanes { display: grid; gap: 18px; }
+.steps { display: grid; grid-template-columns: repeat(5, minmax(160px, 1fr)); gap: 26px; padding: 22px; overflow-x: auto; }
+.step { position: relative; background: var(--sunk); border-radius: var(--r-md); padding: 16px; display: grid; gap: 8px; align-content: start; min-height: 150px; }
+.step + .step::before { content: "→"; position: absolute; left: -21px; top: 50px; color: var(--muted); font-family: var(--mono); }
+.step .kind { display: flex; align-items: center; gap: 8px; font: 600 11px/1 var(--sans); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.step h3 { font-size: 16.5px; font-weight: 600; letter-spacing: -.01em; }
+.step p { font-size: 14px; color: var(--muted); line-height: 1.45; }
+.step.k-human { background: var(--mint-soft); }
+.step.k-gate { background: transparent; border: 1.5px dashed var(--review); }
 
 /* Inspector */
-.inspector { display: grid; grid-template-columns: 320px 1fr; border: 1px solid var(--rule); background: var(--surface); min-height: 600px; }
+.inspector { display: grid; grid-template-columns: 340px 1fr; min-height: 620px; }
 .listpane { border-right: 1px solid var(--rule); display: grid; grid-template-rows: auto 1fr; min-height: 0; }
-.filters { display: flex; flex-wrap: wrap; gap: 6px; padding: 12px; border-bottom: 1px solid var(--rule); }
-.filters button { border: 1px solid var(--rule); background: transparent; padding: 5px 9px; border-radius: 999px; font-size: 12px; cursor: pointer; }
-.filters button[aria-pressed="true"] { background: var(--ink); color: var(--surface); border-color: var(--ink); }
-.filters .count { font-family: var(--mono); opacity: .7; margin-left: 4px; }
-.rows { list-style: none; margin: 0; padding: 0; overflow-y: auto; max-height: 640px; }
-.rows button { width: 100%; display: grid; grid-template-columns: 44px 58px 1fr 16px; gap: 8px; align-items: center; padding: 9px 12px; border: 0; border-bottom: 1px solid var(--rule); background: transparent; text-align: left; cursor: pointer; }
+.filters { display: flex; flex-wrap: wrap; gap: 6px; padding: 14px; border-bottom: 1px solid var(--rule); }
+.filters button { border: 1px solid var(--rule); background: var(--surface); padding: 6px 11px; border-radius: 999px; font-size: 13px; cursor: pointer; }
+.filters button[aria-pressed="true"] { background: var(--tab); color: var(--tab-ink); border-color: var(--tab); }
+.filters .count { font-family: var(--mono); opacity: .7; margin-left: 5px; }
+.rows { list-style: none; margin: 0; padding: 6px; overflow-y: auto; max-height: 660px; }
+.rows button { width: 100%; display: grid; grid-template-columns: 46px 62px 1fr 16px; gap: 8px; align-items: center; padding: 10px; border: 0; border-radius: 10px; background: transparent; text-align: left; cursor: pointer; }
 .rows button:hover { background: var(--sunk); }
-.rows button[aria-current="true"] { background: var(--accent-soft); }
-.rows .rid { font: 500 13px/1 var(--mono); }
-.rows .mark { font: 500 13px/1 var(--mono); text-align: right; }
+.rows button[aria-current="true"] { background: var(--violet-soft); }
+.rows .rid { font: 500 13.5px/1 var(--mono); }
+.rows .mark { font: 600 14px/1 var(--mono); text-align: right; }
 .ok { color: var(--good); } .no { color: var(--bad); }
-.detail { padding: 22px 26px 26px; display: grid; gap: 18px; align-content: start; min-width: 0; }
+.detail { padding: 26px 28px 28px; display: grid; gap: 20px; align-content: start; min-width: 0; }
 .dhead { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; }
-.dhead .rid { font: 500 22px/1 var(--mono); }
-.dhead .role { color: var(--muted); font-size: 13px; }
-.dhead .reason { font-size: 13px; color: var(--muted); }
-blockquote { margin: 0; padding: 14px 16px; background: var(--sunk); border-radius: 4px; font-size: 14.5px; line-height: 1.6; max-width: 78ch; }
-.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-.panel { display: grid; gap: 10px; align-content: start; }
-.panel h3 { font: 500 11px/1.2 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
-.kv { display: grid; grid-template-columns: 118px 1fr; gap: 8px 12px; margin: 0; font-size: 13.5px; }
+.dhead .rid { font: 500 24px/1 var(--mono); }
+.dhead .role { color: var(--muted); font-size: 14px; }
+.dhead .reason { font-size: 14px; color: var(--muted); }
+.report { margin: 0; padding: 18px 20px; background: var(--sunk); border-radius: var(--r-md); font-size: 15.5px; line-height: 1.65; max-width: 80ch; }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+.block { display: grid; gap: 12px; align-content: start; }
+.block h3 { font: 600 12px/1.2 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--mint-ink); padding-bottom: 10px; border-bottom: 1px solid var(--rule); }
+.kv { display: grid; grid-template-columns: 124px 1fr; gap: 9px 12px; margin: 0; font-size: 14.5px; }
 .kv dt { color: var(--muted); }
-.kv dd { margin: 0; display: flex; flex-wrap: wrap; gap: 5px; align-items: center; min-width: 0; overflow-wrap: anywhere; }
-.null { color: var(--muted); font-family: var(--mono); font-size: 12px; }
-.gt { background: transparent; }
-.settle { font-size: 13px; color: var(--muted); border-left: 2px solid var(--rule); padding-left: 10px; }
+.kv dd { margin: 0; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; min-width: 0; overflow-wrap: anywhere; }
+.null { color: var(--muted); font-family: var(--mono); font-size: 12.5px; }
+.settle { font-size: 14px; color: var(--muted); border-left: 3px solid var(--review); padding-left: 12px; }
 .clchips { display: flex; flex-wrap: wrap; gap: 6px; }
-.clchip { font: 400 12px/1.2 var(--mono); padding: 5px 8px; border-radius: 3px; background: var(--sunk); overflow-wrap: anywhere; }
-.v5note { font-size: 13px; padding: 10px 12px; border: 1px dashed var(--rule); border-radius: 4px; }
+.clchip { font: 400 12.5px/1.25 var(--mono); padding: 6px 9px; border-radius: 8px; background: var(--violet-soft); color: var(--violet); overflow-wrap: anywhere; }
+.v5note { font-size: 14px; padding: 12px 14px; border: 1.5px dashed var(--rule); border-radius: var(--r-sm); display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 
 /* Patterns */
-.legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: 13px; color: var(--muted); }
-.legend span { display: inline-flex; align-items: center; gap: 6px; }
-.sw { width: 12px; height: 12px; border-radius: 2px; display: inline-block; }
-.patterns { border: 1px solid var(--rule); background: var(--surface); }
-.pattern { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 24px; padding: 16px 20px; }
+.legend { display: flex; flex-wrap: wrap; gap: 16px; font-size: 14px; color: var(--muted); padding: 14px 22px; border-bottom: 1px solid var(--rule); }
+.legend span { display: inline-flex; align-items: center; gap: 7px; }
+.pattern { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 26px; padding: 20px 22px; }
 .pattern + .pattern { border-top: 1px solid var(--rule); }
-.pattern.matched { background: linear-gradient(90deg, var(--accent-soft), transparent 55%); }
-.pname { font: 500 13.5px/1.35 var(--mono); overflow-wrap: anywhere; }
-.pmeta { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin: 6px 0 8px; }
-.conf { font: 500 10.5px/1 var(--mono); letter-spacing: .06em; padding: 4px 6px; border-radius: 3px; background: var(--sunk); color: var(--muted); }
-.conf-HIGH { background: var(--ink); color: var(--surface); }
-.match { font-size: 12px; color: var(--accent); font-weight: 600; }
-.phyp { font-size: 13.5px; color: var(--muted); max-width: 70ch; }
-.members { display: flex; flex-wrap: wrap; gap: 6px; align-content: start; }
-.member { font: 500 12px/1 var(--mono); padding: 6px 7px; border-radius: 3px; border: 0; cursor: pointer; }
+.pattern.matched { background: linear-gradient(90deg, var(--mint-soft), transparent 60%); }
+.pname { font: 500 14px/1.35 var(--mono); overflow-wrap: anywhere; }
+.pmeta { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin: 8px 0 10px; }
+.conf { font: 600 11px/1 var(--sans); letter-spacing: .08em; padding: 5px 8px; border-radius: 999px; background: var(--sunk); color: var(--muted); }
+.conf-HIGH { background: var(--tab); color: var(--tab-ink); }
+.match { font-size: 13px; color: var(--mint-ink); font-weight: 600; }
+.phyp { font-size: 15px; color: var(--muted); max-width: 70ch; }
+.members { display: flex; flex-wrap: wrap; gap: 7px; align-content: start; }
+.member { font: 500 12.5px/1 var(--mono); padding: 7px 9px; border-radius: 8px; border: 0; cursor: pointer; }
 .m-handoff_information_loss { color: var(--handoff); background: var(--handoff-bg); }
 .m-verification_step_erosion { color: var(--verif); background: var(--verif-bg); }
 .m-noise { color: var(--noise); background: var(--noise-bg); }
-.sw.m-handoff_information_loss { background: var(--handoff); } .sw.m-verification_step_erosion { background: var(--verif); } .sw.m-noise { background: var(--noise); }
+.sq.m-handoff_information_loss { background: var(--handoff); } .sq.m-verification_step_erosion { background: var(--verif); } .sq.m-noise { background: var(--noise); }
 
-/* Reliability tables */
-.tables { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-.tblwrap { background: var(--surface); border: 1px solid var(--rule); overflow-x: auto; }
-.tblwrap h3 { font-size: 14px; font-weight: 600; padding: 14px 16px 4px; }
-.tblwrap .sub { font-size: 12.5px; color: var(--muted); padding: 0 16px 10px; }
-table { border-collapse: collapse; width: 100%; font-size: 13px; }
-th, td { text-align: left; padding: 8px 16px; border-top: 1px solid var(--rule); vertical-align: top; }
-th { font: 500 10.5px/1.3 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+/* Reliability */
+.tables { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.tblpanel .intro { font-size: 14.5px; color: var(--muted); padding: 14px 22px 12px; }
+.tblscroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; padding: 10px 22px; border-top: 1px solid var(--rule); vertical-align: top; }
+th { font: 600 11px/1.3 var(--sans); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); background: var(--sunk); }
 td.num { font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
-tr.better td.after { color: var(--good); font-weight: 500; }
-tr.worse td.after { color: var(--bad); font-weight: 500; }
+tr.better td.after { color: var(--good); font-weight: 600; }
+tr.worse td.after { color: var(--bad); font-weight: 600; }
 .full { grid-column: 1 / -1; }
-footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--rule); color: var(--muted); font-size: 13px; display: flex; gap: 16px; flex-wrap: wrap; justify-content: space-between; }
-footer a { color: var(--accent); }
 
-@media (max-width: 880px) {
-  .masthead .wrap { grid-template-columns: 1fr; }
+footer { margin: 72px 0 0; background: var(--tab); color: var(--tab-ink); }
+footer .wrap { padding-top: 28px; padding-bottom: 32px; display: flex; gap: 20px; flex-wrap: wrap; justify-content: space-between; font-size: 14.5px; }
+footer a { color: var(--tab-ink); }
+
+@media (max-width: 900px) {
+  .links a:not(.btn) { display: none; }
   .proof { grid-template-columns: 1fr 1fr; }
   .proof > div:nth-child(3) { border-left: 0; }
   .proof > div:nth-child(n+3) { border-top: 1px solid var(--rule); }
-  .lane { grid-template-columns: 1fr; }
   .inspector { grid-template-columns: 1fr; }
   .listpane { border-right: 0; border-bottom: 1px solid var(--rule); }
-  .rows { max-height: 280px; }
+  .rows { max-height: 300px; }
   .cols, .tables, .pattern { grid-template-columns: 1fr; }
 }
-@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 </style>
 
-<header class="masthead">
+<div class="announce">
   <div class="wrap">
-    <div>
-      <div class="eyebrow">Patient safety · incident review workflow</div>
-      <h1>Latent Failure Review</h1>
-      <p class="lede">A reviewer's view of one agent workflow: Claude classifies each incident report, uncertain cases go to a human in Notion, and patterns that no single report names are raised in Slack.</p>
-      <span class="synthetic">All reports are synthetic · no PHI</span>
+    <span>All incident reports on this page are synthetic. No PHI.</span>
+    <a href="https://github.com/EChanquin/patient-safety-latent-failure">Code, data and full eval on GitHub ↗</a>
+  </div>
+</div>
+
+<nav class="nav" aria-label="Page">
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="mark" aria-hidden="true"></span>Latent Failure Review</a>
+    <div class="links">
+      <a href="#workflow">Workflow</a><a href="#inspect">Reports</a><a href="#patterns">Patterns</a><a href="#reliability">Reliability</a>
     </div>
-    <dl class="formmeta" id="meta"></dl>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <span class="eyebrow">Patient safety · agent workflow</span>
+    <h1>Find the failures hiding <em>across</em> incident reports</h1>
+    <p class="sub">Claude classifies every report and flags its own doubt. Uncertain cases go to a reviewer in Notion, and patterns no single report names are raised in Slack.</p>
+    <div class="cta">
+      <a class="btn btn-solid" href="#inspect">Inspect a report <span class="arr">→</span></a>
+      <a class="btn btn-ghost" href="#reliability">See the evidence</a>
+    </div>
+    <div class="apps">
+      <span class="label">Connected apps</span>
+      <div class="applist">
+        <span class="app"><i class="sq sq-agent"></i>Claude API <small>classify · cluster</small></span>
+        <span class="app"><i class="sq sq-app"></i>Notion <small>review queue</small></span>
+        <span class="app"><i class="sq sq-app"></i>Slack <small>pattern alerts</small></span>
+      </div>
+    </div>
   </div>
 </header>
 
 <main class="wrap">
   <section aria-labelledby="h-proof">
-    <div class="sechead">
-      <h2 id="h-proof">What the reviewer can trust</h2>
-      <p>Scored against the corpus's ground truth under rules fixed before the run.</p>
+    <div class="panel">
+      <div class="tabhead"><span>What the reviewer can trust</span><span id="metaLine"></span></div>
+      <div class="proof" id="proof"></div>
+      <p class="caveat" id="caveat"></p>
     </div>
-    <div class="proof" id="proof"></div>
-    <p class="caveat" id="caveat"></p>
+    <figure class="quote" id="quote"></figure>
   </section>
 
-  <section aria-labelledby="h-flow">
+  <section id="workflow" aria-labelledby="h-flow">
     <div class="sechead">
-      <h2 id="h-flow">How a report moves</h2>
-      <p>Two agents, one gate, three apps. A person sits at the end of both paths.</p>
+      <span class="eyebrow">Workflow</span>
+      <h2 id="h-flow">Two agents, one gate, a person at the end of every path</h2>
+      <p>Each stage has one job, a defined input and output, and a check before the next stage trusts it.</p>
     </div>
     <div class="lanes">
-      <div class="lane">
-        <div class="eyebrow">Each report</div>
+      <div class="panel">
+        <div class="tabhead"><span>Each report</span><span>runs once per incoming report</span></div>
         <div class="steps">
-          <div class="step k-app"><span class="kind">Intake</span><h3>Incident report</h3><p>Free text only. Ground truth never leaves the eval.</p></div>
-          <div class="step k-agent"><span class="kind">Agent · Claude</span><h3>Classifier</h3><p>One SEIPS label, amplifiers, and three uncertainty signals.</p></div>
-          <div class="step k-gate"><span class="kind">Gate</span><h3>Any doubt?</h3><p>Taxonomy misfit, alternative label, or processing note sends it to review.</p></div>
-          <div class="step k-app"><span class="kind">App · Notion</span><h3>Review queue</h3><p>Needs Review or Auto-classified, with the routing reason.</p></div>
-          <div class="step k-human"><span class="kind">Human</span><h3>Reviewer decides</h3><p>Only a person sets Confirmed or Rejected.</p></div>
+          <div class="step"><span class="kind"><i class="sq sq-app"></i>Intake</span><h3>Incident report</h3><p>Free text only. Ground truth never reaches the model.</p></div>
+          <div class="step"><span class="kind"><i class="sq sq-agent"></i>Agent · Claude</span><h3>Classifier</h3><p>One SEIPS label, amplifiers, and three uncertainty signals.</p></div>
+          <div class="step k-gate"><span class="kind"><i class="sq sq-gate"></i>Gate</span><h3>Any doubt?</h3><p>Taxonomy misfit, a competing label, or a policy note sends it to review.</p></div>
+          <div class="step"><span class="kind"><i class="sq sq-app"></i>Notion</span><h3>Review queue</h3><p>Needs Review or Auto-classified, with the reason shown.</p></div>
+          <div class="step k-human"><span class="kind"><i class="sq sq-human"></i>Human</span><h3>Reviewer decides</h3><p>Only a person sets Confirmed or Rejected.</p></div>
         </div>
       </div>
-      <div class="lane">
-        <div class="eyebrow">Across reports</div>
+      <div class="panel">
+        <div class="tabhead"><span>Across reports</span><span>runs over the whole batch</span></div>
         <div class="steps">
-          <div class="step k-app"><span class="kind">Input</span><h3>All classifications</h3><p>Report text plus label, amplifiers, and reasoning.</p></div>
-          <div class="step k-agent"><span class="kind">Agent · Claude</span><h3>Pattern finder</h3><p>Proposes latent failure modes as hypotheses with confidence. Not told how many exist.</p></div>
-          <div class="step k-app"><span class="kind">App · Notion</span><h3>Cluster column</h3><p>Each row shows the hypotheses it belongs to.</p></div>
-          <div class="step k-app"><span class="kind">App · Slack</span><h3>Pattern alert</h3><p>High-confidence hypotheses, linked to the Notion rows.</p></div>
-          <div class="step k-human"><span class="kind">Human</span><h3>Reviewer tests it</h3><p>A hypothesis to investigate, never a finding.</p></div>
+          <div class="step"><span class="kind"><i class="sq sq-app"></i>Input</span><h3>All classifications</h3><p>Report text with label, amplifiers, and reasoning.</p></div>
+          <div class="step"><span class="kind"><i class="sq sq-agent"></i>Agent · Claude</span><h3>Pattern finder</h3><p>Proposes latent failure modes with confidence. Never told how many exist.</p></div>
+          <div class="step"><span class="kind"><i class="sq sq-app"></i>Notion</span><h3>Cluster column</h3><p>Each row lists the hypotheses it belongs to.</p></div>
+          <div class="step"><span class="kind"><i class="sq sq-app"></i>Slack</span><h3>Pattern alert</h3><p>High-confidence hypotheses, linked to their Notion rows.</p></div>
+          <div class="step k-human"><span class="kind"><i class="sq sq-human"></i>Human</span><h3>Reviewer tests it</h3><p>A hypothesis to investigate, never a finding.</p></div>
         </div>
       </div>
     </div>
   </section>
 
-  <section aria-labelledby="h-inspect">
+  <section id="inspect" aria-labelledby="h-inspect">
     <div class="sechead">
-      <h2 id="h-inspect">Inspect a report</h2>
+      <span class="eyebrow">Reports</span>
+      <h2 id="h-inspect">Follow any report through the workflow</h2>
       <p>What the classifier said, where the gate sent it, and how that compares with ground truth.</p>
     </div>
-    <div class="inspector">
+    <div class="panel inspector">
       <div class="listpane">
         <div class="filters" id="filters" role="group" aria-label="Filter reports"></div>
         <ul class="rows" id="rows"></ul>
@@ -237,27 +304,35 @@ footer a { color: var(--accent); }
     </div>
   </section>
 
-  <section aria-labelledby="h-patterns">
+  <section id="patterns" aria-labelledby="h-patterns">
     <div class="sechead">
-      <h2 id="h-patterns">Patterns across reports</h2>
-      <div class="legend" id="legend"></div>
+      <span class="eyebrow">Patterns</span>
+      <h2 id="h-patterns">Failure modes no single report names</h2>
+      <p>Member reports are colored by ground truth, so you can see which proposals recovered a planted pattern. Click a report to open it.</p>
     </div>
-    <div class="patterns" id="patterns"></div>
+    <div class="panel">
+      <div class="tabhead"><span>Proposed by the pattern agent</span><span id="patternCount"></span></div>
+      <div class="legend" id="legend"></div>
+      <div id="patternList"></div>
+    </div>
   </section>
 
-  <section aria-labelledby="h-rel">
+  <section id="reliability" aria-labelledby="h-rel">
     <div class="sechead">
-      <h2 id="h-rel">Is it reliable?</h2>
-      <p>Each stage tested on its own, and a prompt fix measured before and after.</p>
+      <span class="eyebrow">Reliability</span>
+      <h2 id="h-rel">Tested stage by stage, with rules fixed before the results</h2>
+      <p>Each stage is checked on its own before the next one is trusted, and a prompt fix is measured before and after.</p>
     </div>
     <div class="tables" id="tables"></div>
   </section>
-
-  <footer>
-    <span>Match rule, fixed before results: a proposed cluster matches a planted one when ≥50% of its members belong to it and it holds ≥50% of the planted members.</span>
-    <a href="https://github.com/EChanquin/patient-safety-latent-failure">Code, data, and full eval on GitHub</a>
-  </footer>
 </main>
+
+<footer>
+  <div class="wrap">
+    <span>Match rule, fixed before results: a proposed pattern matches a planted one when at least half its members belong to it and it holds at least half of the planted members.</span>
+    <a href="https://github.com/EChanquin/patient-safety-latent-failure">github.com/EChanquin/patient-safety-latent-failure</a>
+  </div>
+</footer>
 
 <script id="data" type="application/json">__DATA__</script>
 <script>
@@ -269,14 +344,19 @@ const nul = `<span class="null">null</span>`;
 const status = (s) => `<span class="pill ${s === "Needs Review" ? "st-review" : "st-auto"}">${esc(s)}</span>`;
 const amps = (a) => a && a.length ? a.map((x) => `<span class="amp">${esc(x)}</span>`).join("") : `<span class="null">none</span>`;
 const clusterName = { handoff_information_loss: "Planted: handoff information loss", verification_step_erosion: "Planted: verification step erosion", noise: "Noise report" };
+const smoothScroll = () => matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
 
-// Masthead meta
-$("meta").innerHTML = [["Reports", D.meta.reports], ["Model", D.meta.model], ["Apps", "Claude API · Notion · Slack"], ["API cost", D.meta.cost]]
-  .map(([k, v]) => `<dt>${k}</dt><dd>${esc(v)}</dd>`).join("");
-
-// Proof strip
+// Proof panel
+$("metaLine").textContent = `${D.meta.reports} reports · ${D.meta.model} · ${D.meta.cost}`;
 $("proof").innerHTML = D.proof.map((p) => `<div><span class="fig">${esc(p.fig)}</span><span class="cap">${esc(p.cap)}</span></div>`).join("");
 $("caveat").innerHTML = `<span class="pill st-review">Known weakness</span><span>${esc(D.caveat)}</span>`;
+
+// Quote: the highest-confidence pattern that recovered a planted failure mode
+const featured = D.clusters.find((c) => c.matched && c.confidence === "HIGH" && c.matched === "verification_step_erosion") || D.clusters[0];
+if (featured) {
+  $("quote").innerHTML = `<blockquote>“${esc(featured.hypothesis)}”</blockquote>
+    <figcaption class="by">Pattern agent · <strong>${esc(featured.confidence)}</strong> confidence · ${featured.members.length} reports filed under different labels</figcaption>`;
+}
 
 // Inspector
 const FILTERS = [
@@ -299,8 +379,7 @@ function renderRows() {
   $("rows").innerHTML = D.reports.filter(fn).map((r) => {
     const right = r.pred.label === r.truth.label;
     return `<li><button type="button" data-id="${r.id}" aria-current="${r.id === current}">
-      <span class="rid">${r.id}</span>${lab(r.pred.label)}
-      <span>${status(r.status)}</span>
+      <span class="rid">${r.id}</span>${lab(r.pred.label)}<span>${status(r.status)}</span>
       <span class="mark ${right ? "ok" : "no"}" title="${right ? "Label matches ground truth" : "Label differs from ground truth"}">${right ? "✓" : "✗"}</span>
     </button></li>`;
   }).join("");
@@ -313,13 +392,13 @@ function renderDetail() {
     caught ? `<span class="pill st-review">Wrong label, caught by review</span>` : `<span class="pill st-bad">Wrong label, not caught</span>`;
   const cl = r.clusters.length ? r.clusters.map((c) => `<span class="clchip">${esc(c)}</span>`).join("") : `<span class="null">not in any proposed pattern</span>`;
   const v5 = r.v5 && (r.v5.label !== r.pred.label || r.v5.status !== r.status || (r.v5.note || null) !== (r.pred.note || null))
-    ? `<div class="v5note"><strong>After the v5 prompt fix:</strong> ${lab(r.v5.label)} ${status(r.v5.status)} ${r.v5.note ? `note: ${esc(r.v5.note)}` : "no processing note"}</div>` : "";
+    ? `<div class="v5note"><strong>After the v5 prompt fix:</strong> ${lab(r.v5.label)} ${status(r.v5.status)} <span>${r.v5.note ? `note: ${esc(r.v5.note)}` : "no processing note"}</span></div>` : "";
   $("detail").innerHTML = `
     <div class="dhead"><span class="rid">${r.id}</span><span class="role">Reported by ${esc(r.role)}</span>${status(r.status)}
       <span class="reason">Routing reason: ${esc(r.reason)}</span></div>
-    <blockquote>${esc(r.text)}</blockquote>
+    <p class="report">${esc(r.text)}</p>
     <div class="cols">
-      <div class="panel"><h3>Classifier output</h3>
+      <div class="block"><h3>Classifier output</h3>
         <dl class="kv">
           <dt>Label</dt><dd>${lab(r.pred.label)}</dd>
           <dt>Alternative</dt><dd>${r.pred.alt ? lab(r.pred.alt) : nul}</dd>
@@ -329,7 +408,7 @@ function renderDetail() {
           <dt>Reasoning</dt><dd>${esc(r.pred.reasoning)}</dd>
         </dl>
       </div>
-      <div class="panel"><h3>Ground truth · eval only</h3>
+      <div class="block"><h3>Ground truth · eval only</h3>
         <dl class="kv">
           <dt>True label</dt><dd>${lab(r.truth.label)} ${verdict}</dd>
           <dt>Amplifiers</dt><dd>${amps(r.truth.amps)}</dd>
@@ -339,14 +418,14 @@ function renderDetail() {
         ${r.truth.ambiguous ? `<p class="settle">${esc(r.truth.notes)}</p>` : ""}
       </div>
     </div>
-    <div class="panel"><h3>Proposed patterns this report belongs to</h3><div class="clchips">${cl}</div></div>
+    <div class="block"><h3>Proposed patterns this report belongs to</h3><div class="clchips">${cl}</div></div>
     ${v5}`;
 }
 function selectReport(id, scroll) {
   current = id;
   if (!FILTERS[activeFilter][1](D.reports.find((x) => x.id === id))) { activeFilter = 0; renderFilters(); }
   renderRows(); renderDetail();
-  if (scroll) document.getElementById("h-inspect").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+  if (scroll) $("inspect").scrollIntoView({ behavior: smoothScroll() });
 }
 $("filters").addEventListener("click", (e) => {
   const b = e.target.closest("button"); if (!b) return;
@@ -355,25 +434,42 @@ $("filters").addEventListener("click", (e) => {
 $("rows").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) selectReport(b.dataset.id, false); });
 
 // Patterns
+$("patternCount").textContent = `${D.clusters.length} hypotheses · ${D.clusters.filter((c) => c.matched).length} match a planted pattern`;
 $("legend").innerHTML = ["handoff_information_loss", "verification_step_erosion", "noise"]
-  .map((k) => `<span><i class="sw m-${k}"></i>${clusterName[k]}</span>`).join("");
-$("patterns").innerHTML = D.clusters.map((c) => `
+  .map((k) => `<span><i class="sq m-${k}"></i>${clusterName[k]}</span>`).join("");
+$("patternList").innerHTML = D.clusters.map((c) => `
   <div class="pattern ${c.matched ? "matched" : ""}">
     <div>
       <div class="pname">${esc(c.name)}</div>
       <div class="pmeta"><span class="conf conf-${esc(c.confidence)}">${esc(c.confidence)}</span>
-        <span class="eyebrow">${c.members.length} reports</span>
+        <span class="null">${c.members.length} reports</span>
         ${c.matched ? `<span class="match">Matches ${esc(clusterName[c.matched].replace("Planted: ", ""))} · purity ${c.purity} · coverage ${c.coverage}</span>` : ""}</div>
       <p class="phyp">${esc(c.hypothesis)}</p>
     </div>
     <div class="members">${c.members.map((m) => `<button type="button" class="member m-${m.truth}" data-id="${m.id}" title="${esc(clusterName[m.truth])}">${m.id}</button>`).join("")}</div>
   </div>`).join("");
-$("patterns").addEventListener("click", (e) => { const b = e.target.closest(".member"); if (b) selectReport(b.dataset.id, true); });
+$("patternList").addEventListener("click", (e) => { const b = e.target.closest(".member"); if (b) selectReport(b.dataset.id, true); });
 
-// Reliability tables
-const tbl = (title, sub, head, rows, cls = "") => `<div class="tblwrap ${cls}"><h3>${title}</h3><p class="sub">${sub}</p>
-  <table><thead><tr>${head.map((h) => `<th>${h}</th>`).join("")}</tr></thead><tbody>${rows}</tbody></table></div>`;
-let html = tbl("Clustering tested in isolation", "Same prompt and match rule, different inputs. Scores hold even with no classifier at all, so label errors do not leak into patterns.",
+// Reliability panels
+const passPill = (v) => `<span class="pill ${v === "PASS" ? "st-auto" : "st-bad"}">${esc(v)}</span>`;
+const tbl = (title, intro, head, rows, cls = "") => `<div class="panel tblpanel ${cls}"><div class="tabhead"><span>${title}</span></div>
+  <p class="intro">${intro}</p><div class="tblscroll"><table><thead><tr>${head.map((h) => `<th>${h}</th>`).join("")}</tr></thead><tbody>${rows}</tbody></table></div></div>`;
+let html = "";
+if (D.gates) {
+  html += tbl("Stage gates, checked in order", "Each stage must pass fixed thresholds before the next stage's output is trusted. The run stops at the first failure.",
+    ["Gate", "Stage", "Result", "Detail"],
+    D.gates.map((r) => `<tr><td class="num">${esc(r[0])}</td><td>${esc(r[1])}</td><td>${passPill(r[2])}</td><td>${esc(r[3])}</td></tr>`).join(""), "full");
+}
+if (D.gateCases) {
+  html += tbl("Classifier under adversarial input", "Tested alone: inputs that are not reports, too sparse to label, full of identifiers, or carrying embedded instructions.",
+    ["Case", "What it checks", "Result"],
+    D.gateCases.map((r) => `<tr><td class="num">${esc(r[0])}</td><td>${esc(r[1])}</td><td>${passPill(r[2])}</td></tr>`).join(""));
+}
+if (D.repeat) {
+  html += tbl("Same prompt, run twice", esc(D.repeatNote), ["Unchanged between runs", "Agreement"],
+    D.repeat.map((r) => `<tr><td>${esc(r[0])}</td><td class="num">${esc(r[1])}</td></tr>`).join(""));
+}
+html += tbl("Pattern agent tested in isolation", "Same prompt and match rule, different inputs. Scores hold even with no classifier at all, so label errors do not leak into patterns.",
   ["Input", "Found", "Handoff pur. / cov.", "Verification pur. / cov.", "False"],
   D.isolation.map((r) => `<tr><td>${esc(r[0])}</td>${r.slice(1).map((c) => `<td class="num">${esc(c)}</td>`).join("")}</tr>`).join(""));
 html += tbl("Classifier by label", "Ground-truth counts, recall, and precision for the production run.",

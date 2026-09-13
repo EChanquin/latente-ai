@@ -127,8 +127,11 @@ def main():
             status = 1
             break
     lines += ["", "Thresholds: " + ", ".join(f"`{k}` = {v}" for k, v in THRESHOLDS.items())]
-    (ROOT / "runs").mkdir(exist_ok=True)
-    (ROOT / "runs" / "stage_gates.md").write_text("\n".join(lines) + "\n")
+    if args.through >= len(GATES):  # a partial check must not overwrite the full gate report
+        (ROOT / "runs").mkdir(exist_ok=True)
+        (ROOT / "runs" / "stage_gates.md").write_text("\n".join(lines) + "\n")
+    else:
+        print(f"Partial check (--through {args.through}): runs/stage_gates.md left unchanged.")
     sys.exit(status)
 
 
